@@ -133,3 +133,32 @@ TOP画面
 
 ▶︎Admin画面
 　- ユーザー管理画面
+
+
+### ER図
+https://gyazo.com/d7b11d0d754c863d19b416a7825f02ff
+https://drive.google.com/file/d/11cEdUsBhc6pWWuzGJGsinwHReApQAppc/view?usp=sharing
+
+- usersテーブル
+id(PK)
+line_user_id：LINEログインによるuser_id
+display_name：LINEから引っ張るディスプレイ名
+avatar_url：LINEのアイコンURL
+plant_id：植物のid(FK)
+nickname：植物の愛称
+created_at
+updated_at
+
+- checkinout_recordsテーブル
+id(PK)
+user_id(FK)
+checkin_time：出勤打刻時間
+checkout_time：退勤打刻時間
+created_at
+updated_at
+
+- plantsテーブル
+spacies_name：植物の種類名（複数の植物から選べる仕様）※画面遷移図変更済み
+image_path：植物の画像
+created_at
+updated_at
