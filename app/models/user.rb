@@ -12,7 +12,7 @@ class User < ApplicationRecord
   scope :with_plant, -> { where.not(plant_id: nil) }
   scope :without_plant, -> { where(plant_id: nil) }
 
-  # メソッド例
+  # メソッド
   def full_name
     nickname.present? ? nickname : display_name
   end
