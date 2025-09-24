@@ -13,4 +13,10 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "static_pages#top"
+  resources :checkinout_records, only: [:index, :show] do
+    collection do
+      post :checkin
+      post :checkout
+    end
+  end
 end
