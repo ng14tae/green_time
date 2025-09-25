@@ -20,10 +20,20 @@
             </p>
         </div>
 
+        <!-- ボタンエリア -->
+        <div class="space-y-4">
+        <!-- チェックアウトボタン -->
         <%= form_with url: checkout_checkinout_records_path, method: :post do |f| %>
             <%= f.submit "チェックアウト",
-                class: "btn btn-secondary btn-lg px-16 py-4 text-2xl shadow-lg" %>
-        <% end %>
+                class: "btn btn-secondary btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
+            <% end %>
+
+            <!-- マイページボタン（アウトラインスタイル） -->
+            <%= link_to mypage_checkinout_records_path,
+                class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white hover:text-green-600" do %>
+            マイページを見る
+            <% end %>
+        </div>
         </div>
     </div>
 </div>

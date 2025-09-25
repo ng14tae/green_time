@@ -1,0 +1,185 @@
+<div class="min-h-screen bg-gradient-to-br from-purple-400 to-blue-600 py-8">
+    <div class="container mx-auto px-4">
+
+        <!-- ヘッダー -->
+        <div class="text-center text-white mb-8">
+        <h1 class="text-4xl font-bold mb-4">📊 マイページ</h1>
+        <p class="text-xl">あなたの勤怠記録</p>
+        </div>
+
+        <!-- ナビゲーション -->
+        <div class="text-center mb-8">
+        <%= link_to "🏠 ホームに戻る", root_path,
+            class: "bg-white text-purple-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors mr-4" %>
+
+        <% if @today_record %>
+            <%= link_to "🔴 チェックアウト", checkout_page_checkinout_records_path,
+                class: "bg-red-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-600 transition-colors" %>
+        <% else %>
+            <%= link_to "🟢 チェックイン", checkin_page_checkinout_records_path,
+                class: "bg-green-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-600 transition-colors" %>
+        <% end %>
+        </div>
+
+        <!-- 統計カード -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+        <!-- 今日の状況 -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="text-center">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">📅 今日</h2>
+            <% if @today_record %>
+                <p class="text-green-600 font-bold text-xl mb-2">勤務中</p>
+                <p class="text-gray-600">
+                開始: <%= @today_record.checkin_time.strftime("%H:%M") %>
+                </p>
+                <p class="text-sm text-gray-500 mt-2">
+                経過時間: <span id="elapsed-time"></span>
+                </p>
+            <% else %>
+                <% todays_completed = CheckinoutRecord.where(
+                    user_id: @current_user_id,
+                    checkin_time: Time.current.beginning_of_day..Time.current.end_of_day
+                ).where.not(checkout_time: nil).first %>
+
+                <% if todays_completed %>
+                <p class="text-blue-600 font-bold text-xl mb-2">勤務完了</p>
+                <p class="text-gray-600">
+                    <%= sprintf("%.1f時間", (todays_completed.checkout_time - todays_completed.checkin_time) / 3600.0) %>
+                </p>
+                <p class="text-sm text-gray-500">
+                    <%= todays_completed.checkin_time.strftime("%H:%M") %> -
+                    <%= todays_completed.checkout_time.strftime("%H:%M") %>
+                </p>
+                <% else %>
+                <p class="text-gray-600 text-xl">未勤務</p>
+                <p class="text-sm text-gray-500">まだチェックインしていません</p>
+                <% end %>
+            <% end %>
+            </div>
+        </div>
+
+        <!-- 今週の統計 -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="text-center">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">📈 今週</h2>
+            <p class="text-3xl font-bold text-blue-600 mb-2">
+                <%= @weekly_stats[:total_days] %>日
+            </p>
+            <p class="text-gray-600 mb-2">
+                <%= sprintf("%.1f時間", @weekly_stats[:total_hours]) %>
+            </p>
+            <p class="text-sm text-gray-500">
+                <%= Date.current.beginning_of_week.strftime("%m/%d") %> -
+                <%= Date.current.end_of_week.strftime("%m/%d") %>
+            </p>
+            </div>
+        </div>
+
+        <!-- 今月の統計 -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="text-center">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">📊 今月</h2>
+            <p class="text-3xl font-bold text-purple-600 mb-2">
+                <%= @monthly_stats[:total_days] %>日
+            </p>
+            <p class="text-gray-600 mb-2">
+                <%= sprintf("%.1f時間", @monthly_stats[:total_hours]) %>
+            </p>
+            <p class="text-sm text-gray-500">
+                平均: <%= sprintf("%.1f", @monthly_stats[:average_hours]) %>時間/日
+            </p>
+            </div>
+        </div>
+        </div>
+
+        <!-- 勤怠記録一覧 -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">📋 最近の勤怠記録</h2>
+
+        <% if @recent_records.any? %>
+            <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                <tr class="border-b-2 border-gray-200">
+                    <th class="text-left py-3 px-4 font-bold text-gray-700">日付</th>
+                    <th class="text-left py-3 px-4 font-bold text-gray-700">チェックイン</th>
+                    <th class="text-left py-3 px-4 font-bold text-gray-700">チェックアウト</th>
+                    <th class="text-left py-3 px-4 font-bold text-gray-700">労働時間</th>
+                    <th class="text-left py-3 px-4 font-bold text-gray-700">状態</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @recent_records.each do |record| %>
+                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-3 px-4">
+                        <%= record.checkin_time.strftime("%Y/%m/%d (%a)") %>
+                    </td>
+                    <td class="py-3 px-4">
+                        <%= record.checkin_time.strftime("%H:%M") %>
+                    </td>
+                    <td class="py-3 px-4">
+                        <% if record.checkout_time %>
+                        <%= record.checkout_time.strftime("%H:%M") %>
+                        <% else %>
+                        <span class="text-red-500 font-bold">勤務中</span>
+                        <% end %>
+                    </td>
+                    <td class="py-3 px-4">
+                        <% if record.checkout_time %>
+                        <span class="text-green-600 font-bold">
+                            <%= sprintf("%.1f時間", (record.checkout_time - record.checkin_time) / 3600.0) %>
+                        </span>
+                        <% else %>
+                        <span class="text-orange-500">-</span>
+                        <% end %>
+                    </td>
+                    <td class="py-3 px-4">
+                        <% if record.checkout_time %>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">完了</span>
+                        <% else %>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">勤務中</span>
+                        <% end %>
+                    </td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
+            </div>
+        <% else %>
+            <div class="text-center py-8">
+            <p class="text-gray-500 text-lg">まだ勤怠記録がありません</p>
+            <p class="text-gray-400 text-sm mt-2">チェックインして記録を開始しましょう！</p>
+            </div>
+        <% end %>
+        </div>
+
+        <!-- フッター -->
+        <div class="text-center mt-8">
+        <p class="text-white text-sm">💪 お疲れさまでした！今日も頑張りましょう！</p>
+        </div>
+    </div>
+    </div>
+
+    <!-- 勤務中の場合の経過時間表示用JavaScript -->
+    <% if @today_record %>
+    <script>
+    function updateElapsedTime() {
+        const checkinTime = new Date('<%= @today_record.checkin_time.iso8601 %>');
+        const now = new Date();
+        const elapsed = Math.floor((now - checkinTime) / 1000); // 秒単位
+
+        const hours = Math.floor(elapsed / 3600);
+        const minutes = Math.floor((elapsed % 3600) / 60);
+
+        document.getElementById('elapsed-time').textContent =
+        hours + '時間' + minutes + '分';
+    }
+
+    // 初回実行
+    updateElapsedTime();
+
+    // 1分ごとに更新
+    setInterval(updateElapsedTime, 60000);
+</script>
+<% end %>
