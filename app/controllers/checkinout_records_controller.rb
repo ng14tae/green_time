@@ -26,13 +26,13 @@ class CheckinoutRecordsController < ApplicationController
       user_id: guest_user_id,
       checkin_time: Time.current
     )
-    redirect_to checkout_page_checkinout_records_path, notice: 'チェックインしました'
+    redirect_to checkout_page_checkinout_records_path, notice: "チェックインしました"
   end
 
   def checkout
     record = find_today_record
     record.update!(checkout_time: Time.current)
-    redirect_to checkin_page_checkinout_records_path, notice: 'チェックアウトしました'
+    redirect_to checkin_page_checkinout_records_path, notice: "チェックアウトしました"
   end
 
   private

@@ -56,6 +56,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'sassc-rails'
-gem 'cssbundling-rails'  # CSS bundling用（TailwindCSS使用時）
-gem 'jsbundling-rails'   # JS bundling用
+gem "sassc-rails"
+gem "cssbundling-rails"  # CSS bundling用（TailwindCSS使用時）
+gem "jsbundling-rails"   # JS bundling用
