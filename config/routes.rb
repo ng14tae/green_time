@@ -13,10 +13,12 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "static_pages#top"
-  resources :checkinout_records, only: [:index, :show] do
+  resources :checkinout_records, only: [ :index, :show ] do
     collection do
-      post :checkin
-      post :checkout
+      get :checkin_page    # チェックインページ表示
+      post :checkin        # チェックイン処理
+      get :checkout_page   # チェックアウトページ表示
+      post :checkout       # チェックアウト処理
     end
   end
 end
