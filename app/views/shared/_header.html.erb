@@ -1,27 +1,25 @@
-<header class="bg-base-100 shadow-sm">
-    <!-- Top navigation -->
-    <div class="bg-base-200 px-4 py-2">
-        <nav class="flex justify-end">
-        <ul class="flex gap-5 text-sm">
-            <li><%= link_to "マイページ（準備中）", "#", class: "link link-hover" %></li>
-            <li><%= link_to "🌱 ページ（準備中）", "#", class: "link link-hover" %></li>
-            <li><%= link_to "使い方（準備中）", "#", class: "link link-hover" %></li>
-            <li><%= link_to "利用規約（準備中）", "#", class: "link link-hover" %></li>
-        </ul>
-        </nav>
+<header class="bg-base-100 shadow-sm sticky top-0 z-50">
+  <div class="navbar max-w-7xl mx-auto">
+    <div class="navbar-start">
+      <%= link_to root_path, class: "btn btn-ghost text-xl font-bold normal-case text-primary" do %>
+        🌱 green_time
+      <% end %>
     </div>
 
-    <!-- App header -->
-    <div class="navbar bg-gray-300">
-        <div class="navbar-start">
-        <h1 class="text-lg font-bold text-gray-800">アプリタイトル</h1>
-        </div>
-        <div class="navbar-end">
-        <button class="btn btn-ghost btn-sm">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="navbar-end">
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-square hover:bg-primary hover:text-primary-content">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
+          </svg>
         </div>
+        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg border border-base-200">
+          <li><%= link_to "👤 マイページ", mypage_checkinout_records_path %></li>
+          <li><a class="opacity-50 cursor-not-allowed">🌱 成長ページ（準備中）</a></li>
+          <li><a class="opacity-50 cursor-not-allowed">❓ 使い方（準備中）</a></li>
+          <li><a class="opacity-50 cursor-not-allowed">📄 利用規約（準備中）</a></li>
+        </ul>
+      </div>
     </div>
+  </div>
 </header>
