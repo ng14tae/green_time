@@ -1,8 +1,8 @@
 class CheckinoutRecordsController < ApplicationController
-  before_action :set_guest_user
   before_action :find_today_record, only: [ :index, :checkin_page, :checkout_page, :mypage ]
 
   def index
+    @checkinout_records = current_user.checkinout_records.order(created_at: :desc)
     # メインページ - 状態に応じてリダイレクト
     @today_record = find_today_record
 
@@ -24,10 +24,10 @@ class CheckinoutRecordsController < ApplicationController
     redirect_to checkin_page_checkinout_records_path if @today_record.blank?
   end
 
-  # ← 新しく追加するマイページアクション
+  # 新しく追加するマイページアクション
   def mypage
     # 最新の記録から順に取得
-    @recent_records = CheckinoutRecord.where(user_id: @current_user_id)
+    @recent_records = CheckinoutRecord.where(user_id: current_user.id)
                                     .order(checkin_time: :desc)
                                     .limit(30) # 最新30件を表示
 
@@ -43,7 +43,7 @@ class CheckinoutRecordsController < ApplicationController
 
   def checkin
     CheckinoutRecord.create!(
-      user_id: @current_user_id,
+      user_id: current_user.id,
       checkin_time: Time.current
     )
     redirect_to checkout_page_checkinout_records_path, notice: "チェックインしました"
@@ -57,13 +57,9 @@ class CheckinoutRecordsController < ApplicationController
 
   private
 
-  def set_guest_user
-    @current_user_id = 1 # ゲストユーザーのID
-  end
-
   def find_today_record
     @today_record = CheckinoutRecord.find_by(
-      user_id: @current_user_id,
+      user_id: current_user.id,
       checkin_time: Time.current.beginning_of_day..Time.current.end_of_day,
       checkout_time: nil
     )
@@ -75,7 +71,7 @@ class CheckinoutRecordsController < ApplicationController
     end_of_month = Time.current.end_of_month
 
     records = CheckinoutRecord.where(
-      user_id: @current_user_id,
+      user_id: current_user.id,
       checkin_time: start_of_month..end_of_month
     ).where.not(checkout_time: nil)
 
@@ -92,7 +88,7 @@ class CheckinoutRecordsController < ApplicationController
     end_of_week = Time.current.end_of_week
 
     records = CheckinoutRecord.where(
-      user_id: @current_user_id,
+      user_id: current_user.id,
       checkin_time: start_of_week..end_of_week
     ).where.not(checkout_time: nil)
 

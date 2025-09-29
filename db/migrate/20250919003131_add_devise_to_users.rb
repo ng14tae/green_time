@@ -34,11 +34,11 @@ class AddDeviseToUsers < ActiveRecord::Migration[7.2]
 
 
       ##LIFF提携時に使用するLINE認証カラム
-      t.string :line_user_id, null: false
-      t.string :display_name
-      t.string :avatar_url
-      t.bigint :plant_id
-      t.string :nickname
+      # t.string :line_user_id, null: false
+      # t.string :display_name
+      # t.string :avatar_url
+      # t.bigint :plant_id
+      # t.string :nickname
 
     end
 
@@ -48,8 +48,8 @@ class AddDeviseToUsers < ActiveRecord::Migration[7.2]
     # add_index :users, :unlock_token,         unique: true
 
     ##LINE認証カラムにインデックス追加、追加実装でplant_idと繋げるとき用
-    add_index :users, :line_user_id, unique: true
-    add_index :users, :plant_id
+    # add_index :users, :line_user_id, unique: true
+    # add_index :users, :plant_id
   end
 
   def self.down

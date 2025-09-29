@@ -4,7 +4,7 @@
         <!-- ヘッダー -->
         <div class="text-center text-white mb-8">
         <h1 class="text-4xl font-bold mb-4">📊 マイページ</h1>
-        <p class="text-xl">あなたの勤怠記録</p>
+        <p class="text-xl"><%= current_user.email %>さんの勤怠記録</p>
         </div>
 
         <!-- ナビゲーション -->
@@ -38,7 +38,7 @@
                 </p>
             <% else %>
                 <% todays_completed = CheckinoutRecord.where(
-                    user_id: @current_user_id,
+                    user_id: current_user.id,
                     checkin_time: Time.current.beginning_of_day..Time.current.end_of_day
                 ).where.not(checkout_time: nil).first %>
 
