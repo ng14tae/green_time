@@ -22,9 +22,15 @@ Rails.application.configure do
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
   # config.public_file_server.enabled = false
+  # Allow enabling static file serving via environment variable (useful in containerized deployments)
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
+  # Disable Sprockets' CSS compressor to avoid SassC parsing errors with
+  # modern CSS color syntax produced by Tailwind (e.g. `rgb(243 244 246/...)`).
+  # Compression can be handled by Tailwind/postcss during build instead.
+  config.assets.css_compressor = nil
 
   # Do not fall back to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
