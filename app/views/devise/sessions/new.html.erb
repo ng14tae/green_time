@@ -1,26 +1,75 @@
-<h2>Log in</h2>
+<div class="hero min-h-screen bg-gradient-to-br from-blue-400 to-blue-600">
+  <div class="hero-content text-center text-white">
+    <div class="max-w-md w-full">
+      <!-- タイトル -->
+      <h1 class="text-5xl font-bold mb-4">Welcome Back!</h1>
+      <p class="text-xl mb-8">ログインして植物の様子を見に行こう</p>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <!-- ログインフォーム -->
+      <div class="bg-white/20 rounded-xl p-8 backdrop-blur-sm shadow-xl">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+          <!-- メールアドレス -->
+          <div class="form-control w-full">
+            <%= f.label :email, class: "label" do %>
+              <span class="label-text text-white text-lg font-semibold">メールアドレス</span>
+            <% end %>
+            <%= f.email_field :email,
+                autofocus: true,
+                autocomplete: "email",
+                placeholder: "your@email.com",
+                class: "input input-bordered input-lg w-full bg-white text-gray-800" %>
+          </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+          <!-- パスワード -->
+          <div class="form-control w-full">
+            <%= f.label :password, class: "label" do %>
+              <span class="label-text text-white text-lg font-semibold">パスワード</span>
+            <% end %>
+            <%= f.password_field :password,
+                autocomplete: "current-password",
+                placeholder: "••••••••",
+                class: "input input-bordered input-lg w-full bg-white text-gray-800" %>
+          </div>
+
+          <!-- ログイン状態を保持 -->
+          <% if devise_mapping.rememberable? %>
+            <div class="form-control">
+              <label class="label cursor-pointer justify-start gap-3">
+                <%= f.check_box :remember_me, class: "checkbox checkbox-primary bg-white" %>
+                <span class="label-text text-white text-base">ログイン状態を保持する</span>
+              </label>
+            </div>
+          <% end %>
+
+          <!-- ログインボタン -->
+          <div class="form-control mt-6">
+            <%= f.submit "ログイン",
+                class: "btn btn-primary btn-lg w-full text-xl shadow-lg" %>
+          </div>
+        <% end %>
+
+        <!-- リンク -->
+        <div class="divider text-white my-6">または</div>
+
+        <div class="space-y-3 text-white">
+          <%= link_to "新規登録はこちら", new_registration_path(resource_name),
+              class: "btn btn-outline btn-lg w-full border-white text-white hover:bg-white hover:text-blue-600" %>
+
+<%
+=begin
+%>
+          ↓パスワードリセット機能は追加実装で行う
+          <% if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+            <%= link_to "パスワードをお忘れですか？", new_password_path(resource_name),
+                class: "link link-hover text-sm block mt-4" %>
+          <% end %>
+
+<%
+=end
+%>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

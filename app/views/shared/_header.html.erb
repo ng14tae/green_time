@@ -1,4 +1,4 @@
-<header class="bg-base-100 shadow-sm sticky top-0 z-50">
+<header class="bg-base-100 shadow-sm sticky top-0 z-50 bg-amber-100">
   <div class="navbar max-w-7xl mx-auto">
     <div class="navbar-start">
       <%= link_to root_path, class: "btn btn-ghost text-xl font-bold normal-case text-primary" do %>
@@ -8,19 +8,18 @@
     <div class="navbar-end">
       <div class="dropdown dropdown-end">
         <!-- ハンバーガーボタン -->
-        <div tabindex="0" role="button" class="btn btn-ghost btn-square">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-square text-amber-700">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </div>
-        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg border border-base-200">
+        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg border border-base-200 text-amber-700">
           <li><%= link_to "マイページ", mypage_checkinout_records_path %></li>
           <li><a class="opacity-50 cursor-not-allowed">🌱ページ（準備中）</a></li>
           <li><a class="opacity-50 cursor-not-allowed">使い方（準備中）</a></li>
           <li><a class="opacity-50 cursor-not-allowed">利用規約（準備中）</a></li>
           <% if user_signed_in? %>
-            <li><span class="text-sm text-gray-600 px-4 py-2"><%= current_user.email %></span></li>
-            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
           <% else %>
             <li><%= link_to "ログイン", new_user_session_path %></li>
             <li><%= link_to "新規登録", new_user_registration_path %></li>

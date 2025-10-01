@@ -1,23 +1,23 @@
-<div class="min-h-screen bg-gradient-to-br from-purple-400 to-blue-600 py-8">
+<div class="hero min-h-screen bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600">
     <div class="container mx-auto px-4">
 
         <!-- ヘッダー -->
-        <div class="text-center text-white mb-8">
-        <h1 class="text-4xl font-bold mb-4">📊 マイページ</h1>
+        <div class="text-center text-white mb-8 pt-12">
+        <h1 class="text-4xl font-bold mb-4">マイページ</h1>
         <p class="text-xl"><%= current_user.email %>さんの勤怠記録</p>
         </div>
 
         <!-- ナビゲーション -->
         <div class="text-center mb-8">
-        <%= link_to "🏠 ホームに戻る", root_path,
-            class: "bg-white text-purple-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors mr-4" %>
+        <%= link_to "ホームに戻る", root_path,
+            class: "bg-white text-amber-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors mr-4" %>
 
         <% if @today_record %>
-            <%= link_to "🔴 チェックアウト", checkout_page_checkinout_records_path,
-                class: "bg-red-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-600 transition-colors" %>
+            <%= link_to "チェックアウト", checkout_page_checkinout_records_path,
+                class: "bg-orange-800 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-600 transition-colors" %>
         <% else %>
-            <%= link_to "🟢 チェックイン", checkin_page_checkinout_records_path,
-                class: "bg-green-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-green-600 transition-colors" %>
+            <%= link_to "チェックイン", checkin_page_checkinout_records_path,
+                class: "bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-indigo-600 transition-colors" %>
         <% end %>
         </div>
 
@@ -27,7 +27,7 @@
         <!-- 今日の状況 -->
         <div class="bg-white rounded-xl shadow-lg p-6">
             <div class="text-center">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">📅 今日</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">今日</h2>
             <% if @today_record %>
                 <p class="text-green-600 font-bold text-xl mb-2">勤務中</p>
                 <p class="text-gray-600">
@@ -62,7 +62,7 @@
         <!-- 今週の統計 -->
         <div class="bg-white rounded-xl shadow-lg p-6">
             <div class="text-center">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">📈 今週</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">今週</h2>
             <p class="text-3xl font-bold text-blue-600 mb-2">
                 <%= @weekly_stats[:total_days] %>日
             </p>
@@ -79,7 +79,7 @@
         <!-- 今月の統計 -->
         <div class="bg-white rounded-xl shadow-lg p-6">
             <div class="text-center">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">📊 今月</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">今月</h2>
             <p class="text-3xl font-bold text-purple-600 mb-2">
                 <%= @monthly_stats[:total_days] %>日
             </p>
@@ -95,7 +95,7 @@
 
         <!-- 勤怠記録一覧 -->
         <div class="bg-white rounded-xl shadow-lg p-6">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800">📋 最近の勤怠記録</h2>
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">最近の勤怠記録</h2>
 
         <% if @recent_records.any? %>
             <div class="overflow-x-auto">
@@ -155,8 +155,8 @@
         </div>
 
         <!-- フッター -->
-        <div class="text-center mt-8">
-        <p class="text-white text-sm">💪 お疲れさまでした！今日も頑張りましょう！</p>
+        <div class="text-center mt-8 py-8">
+        <p class="text-white text-sm">💪 お疲れさまでした！えらい！</p>
         </div>
     </div>
     </div>
