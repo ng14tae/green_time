@@ -1,33 +1,37 @@
-<div class="min-h-screen bg-base-200 flex items-center justify-center">
-    <div class="hero">
-        <div class="hero-content text-center max-w-md flex-col">
-        <!-- メイン画像 -->
-        <div class="mb-8">
-            <%= image_tag "kani.jpg", alt: "チェックインアプリ", class: "w-72 h-48 object-cover rounded-xl shadow-lg mx-auto" %>
-        </div>
+<div class="hero min-h-screen bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600">
+    <div class="hero-content text-center text-white">
+        <div class="max-w-md">
+            <!-- タイトル -->
+            <h1 class="text-5xl font-bold mb-8">Welcome to<br /> Green Time</h1>
+            <p class="text-xl mb-8">植物を愛でながら時刻を記録しましょう。</p>
 
-        <!-- アプリ説明文 -->
-        <div class="mb-8">
-            <h1 class="text-4xl font-bold text-base-content mb-4">チェックインアプリ</h1>
-            <p class="text-lg text-base-content/80 leading-relaxed">
-            シンプルで使いやすい勤怠管理アプリです。<br>
-            チェックインとチェックアウトで、あなたの時間を記録しましょう。
-            </p>
-        </div>
-            <div class="border border-red-500 p-4">
-                赤枠テスト
+            <!-- メイン画像エリア ※追加実装 -->
+            <div class="mb-8 bg-white/20 rounded-xl p-6 backdrop-blur-sm">
+                <%# <%= image_tag "kani.jpg", alt: "Green Time", class: "w-full h-48 object-cover rounded-lg shadow-lg mx-auto mb-4" %>
+                <p class="text-lg leading-relaxed">
+                シンプルで使いやすい時間管理アプリ。<br />
+                チェックインとチェックアウトで、<br />あなたの大切な時間を記録します。
+                </p>
             </div>
 
-        <!-- はじめるボタン -->
-        <div>
-        <% if user_signed_in? %>
-            <%= link_to "はじめる", checkin_page_checkinout_records_path, class: "btn btn-primary btn-lg px-8" %>
-        <% else %>
-            <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary btn-lg px-8 mr-2" %>
-            <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary btn-lg px-8 mr-2" %>
-            <%= link_to "はじめる", checkin_page_checkinout_records_path, class: "btn btn-primary btn-lg px-8" %>
-        <% end %>
-        </div>
+            <!-- ボタンエリア -->
+            <div class="space-y-4 mt-16">
+                <% if user_signed_in? %>
+                <!-- ログイン済みユーザー -->
+                <%= link_to "はじめる", checkin_page_checkinout_records_path,
+                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-100 hover:bg-amber-200 text-amber-900 border-0" %>
+
+                <%= link_to "マイページを見る", mypage_checkinout_records_path,
+                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
+                <% else %>
+                <!-- 未ログインユーザー -->
+                <%= link_to "新規登録", new_user_registration_path,
+                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-100 hover:bg-amber-200 text-amber-900 border-0" %>
+
+                <%= link_to "ログイン", new_user_session_path,
+                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>

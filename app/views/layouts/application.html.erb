@@ -19,13 +19,14 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
+  <body class="flex flex-col min-h-screen">
+  <main class="flex-grow">
     <%= yield %>
-  </body>
+  </main>
 
-  <footer class="mt-auto">
-      <div class="text-center mb-4">
-        <%= render 'shared/footer' %>
-      </div>
-    </footer>
+  <footer class="w-full text-center">
+    <%= render 'shared/footer' %>
+  </footer>
+</body>
+
 </html>

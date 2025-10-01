@@ -25,12 +25,12 @@
         <!-- チェックアウトボタン -->
         <%= form_with url: checkout_checkinout_records_path, method: :post do |f| %>
             <%= f.submit "チェックアウト",
-                class: "btn btn-secondary btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
+                class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-orange-800 hover:bg-orange-900 text-white border-0" %>
             <% end %>
 
             <!-- マイページボタン（アウトラインスタイル） -->
             <%= link_to mypage_checkinout_records_path,
-                class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white hover:text-green-600" do %>
+                class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white/70 hover:border-white hover:text-orange-600 " do %>
             マイページを見る
             <% end %>
         </div>

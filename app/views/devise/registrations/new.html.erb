@@ -1,29 +1,76 @@
-<h2>Sign up</h2>
+<div class="hero min-h-screen bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600">
+  <div class="hero-content text-center text-white">
+    <div class="max-w-md w-full">
+      <!-- タイトル -->
+      <h1 class="text-5xl font-bold mb-4">Join Us!</h1>
+      <p class="text-xl mb-8">新しいアカウントを作成しましょう</p>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <!-- 新規登録フォーム -->
+      <div class="bg-white/20 rounded-xl p-8 backdrop-blur-sm shadow-xl">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <!-- メールアドレス -->
+          <div class="form-control w-full">
+            <%= f.label :email, class: "label" do %>
+              <span class="label-text text-white text-lg font-semibold">メールアドレス</span>
+            <% end %>
+            <%= f.email_field :email,
+                autofocus: true,
+                autocomplete: "email",
+                placeholder: "your@email.com",
+                class: "input input-bordered input-lg w-full bg-white text-gray-800" %>
+          </div>
+
+          <!-- パスワード -->
+          <div class="form-control w-full">
+            <%= f.label :password, class: "label" do %>
+              <span class="label-text text-white text-lg font-semibold">
+                パスワード
+                <% if @minimum_password_length %>
+                  <span class="text-sm font-normal opacity-80">
+                    （<%= @minimum_password_length %>文字以上）
+                  </span>
+                <% end %>
+              </span>
+            <% end %>
+            <%= f.password_field :password,
+                autocomplete: "new-password",
+                placeholder: "••••••••",
+                class: "input input-bordered input-lg w-full bg-white text-gray-800" %>
+          </div>
+
+          <!-- パスワード確認 -->
+          <div class="form-control w-full">
+            <%= f.label :password_confirmation, class: "label" do %>
+              <span class="label-text text-white text-lg font-semibold">パスワード（確認）</span>
+            <% end %>
+            <%= f.password_field :password_confirmation,
+                autocomplete: "new-password",
+                placeholder: "••••••••",
+                class: "input input-bordered input-lg w-full bg-white text-gray-800" %>
+          </div>
+
+          <!-- 登録ボタン -->
+          <div class="form-control mt-6">
+            <%= f.submit "新規登録",
+                class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
+          </div>
+        <% end %>
+
+        <!-- リンク -->
+        <div class="divider text-white my-6">または</div>
+
+        <div class="space-y-3 text-white">
+          <%= link_to "ログインはこちら", new_session_path(resource_name),
+              class: "btn btn-outline btn-lg w-full bg-amber-100 hover:bg-amber-200 text-amber-900 border-0" %>
+
+          <% if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+            <%= link_to "確認メールを再送信", new_confirmation_path(resource_name),
+                class: "link link-hover text-sm block mt-4" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

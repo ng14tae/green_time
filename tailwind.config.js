@@ -7,8 +7,19 @@ module.exports = {
   ],
   plugins: [require("daisyui")],
   daisyui: {
-    themes: false,
-    darkTheme: false,
+    themes: ["light", "dark", "cupcake", "dracula",
+      { mytheme: {
+          "primary": "#1E90FF",   // デフォルトのボタン色
+          "secondary": "#FF69B4", // サブ色
+          "accent": "#FFD700",    // アクセント
+          "neutral": "#3D4451",
+          "base-100": "#FFFFFF",
+          "info": "#2094f3",
+          "success": "#009485",
+          "warning": "#ff9900",
+          "error": "#ff5724",
+        } }
+    ],
     base: true,
     styled: true,
     utils: true,
