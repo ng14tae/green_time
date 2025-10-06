@@ -1,0 +1,11 @@
+<%= turbo_stream.replace "checkin-section" do %>
+    <div id="checkin-section">
+        <button class="btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-gray-400 text-gray-600" disabled>
+        チェックイン済み
+        </button>
+    </div>
+    <% end %>
+
+    <%= turbo_stream.update "mood-checker" do %>
+    <%= render 'mood_checker', record: @record %>
+    <% end %>

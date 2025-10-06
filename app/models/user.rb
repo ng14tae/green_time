@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -12,6 +10,7 @@ class User < ApplicationRecord
   # アソシエーション
   has_many :checkinout_records, dependent: :destroy
   belongs_to :plant, optional: true  # plant_idはnull許可のため
+  has_many :moods, dependent: :destroy
 
   # plant登録時のスコープ
   # scope :with_plant, -> { where.not(plant_id: nil) }
