@@ -4,29 +4,27 @@
         <h1 class="text-5xl font-bold mb-8">Good Morning!</h1>
         <p class="text-xl mb-8">今日も素晴らしい一日にしましょう</p>
 
-        <div class="work-summary mb-8 bg-white/20 rounded-lg p-6">
-            <p class="text-lg">
-            <%= Date.current.strftime("%Y年%m月%d日 (%a)") %></p><br>
-            <p class="text-lg">現在時刻</p>
-            <p class="text-3xl font-mono" id="current-time">
-                <%= Time.current.strftime("%H:%M:%S") %>
-            </p>
-        </div>
-
-            <!-- ボタンエリア -->
-            <div class="space-y-4">
-                <!-- チェックインボタン -->
-                <%= form_with url: checkin_checkinout_records_path, method: :post do |f| %>
-                    <%= f.submit "チェックイン",
-                        class: "btn btn-primary btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
-                <% end %>
-
-                <!-- マイページボタン -->
-                <%= link_to mypage_checkinout_records_path,
-                    class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white/30 hover:border-0" do %>
-                    マイページを見る
-                <% end %>
+            <div class="work-summary mb-8 bg-white/20 rounded-lg p-6">
+                <p class="text-lg">
+                <%= Date.current.strftime("%Y年%m月%d日 (%a)") %></p><br>
+                <p class="text-lg">現在時刻</p>
+                <p class="text-3xl font-mono" id="current-time">
+                    <%= Time.current.strftime("%H:%M:%S") %>
+                </p>
             </div>
+
+            <div id="checkin-section">
+            <%= form_with url: checkin_checkinout_records_path,
+                            method: :post,
+                            data: { turbo_stream: true, turbo: true } do |f| %>
+                <%= f.submit "チェックイン",
+                            class: "btn btn-primary btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
+            <% end %>
+            </div>
+
+            <!-- 気分チェッカーは最初は非表示 -->
+            <div id="mood-checker"></div>
+
         </div>
     </div>
 </div>

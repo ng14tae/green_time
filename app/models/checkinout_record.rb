@@ -1,6 +1,7 @@
 class CheckinoutRecord < ApplicationRecord
   # アソシエーション
   belongs_to :user
+  has_one :mood, dependent: :destroy
 
   # バリデーション
   validates :checkin_time, presence: true
@@ -30,6 +31,14 @@ class CheckinoutRecord < ApplicationRecord
   def formatted_checkout_time
     return "未チェックアウト" unless checked_out?
     checkout_time.strftime("%H:%M")
+  end
+
+  def mood_emoji
+    mood&.feeling || ''
+  end
+
+  def has_mood?
+    mood.present?
   end
 
   private

@@ -39,14 +39,24 @@ class CheckinoutRecordsController < ApplicationController
 
     # 今日の記録
     @today_record = find_today_record
+
+    # 最近の気分記録
+    @recent_moods = if current_user.respond_to?(:moods)
+                    current_user.moods.includes(:checkinout_record).recent.limit(10)
+                  else
+                    []
+                  end
   end
 
   def checkin
-    CheckinoutRecord.create!(
+    @record = CheckinoutRecord.create!(
       user_id: current_user.id,
       checkin_time: Time.current
     )
-    redirect_to checkout_page_checkinout_records_path, notice: "チェックインしました"
+    # redirect_to checkout_page_checkinout_records_path, notice: "チェックインしました"
+    respond_to do |format|
+      format.turbo_stream # ← turbo_streamでJSレスポンス返す
+    end
   end
 
   def checkout
