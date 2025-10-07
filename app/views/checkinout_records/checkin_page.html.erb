@@ -1,29 +1,77 @@
 <div class="hero min-h-screen bg-gradient-to-br from-blue-400 to-blue-600">
     <div class="hero-content text-center text-white">
         <div class="max-w-md">
-        <h1 class="text-5xl font-bold mb-8">Good Morning!</h1>
-        <p class="text-xl mb-8">今日も素晴らしい一日にしましょう</p>
+        <h1 class="text-5xl font-bold mb-8">
+            <% if @today_record.present? %>
+                Welcome Back!
+            <% else %>
+                Good Morning!
+            <% end %>
+            </h1>
+
+            <p class="text-xl mb-8">
+            <% if @today_record.present? %>
+                お疲れ様です！今日もがんばりましょう
+            <% else %>
+                今日も素晴らしい一日にしましょう
+            <% end %>
+            </p>
 
             <div class="work-summary mb-8 bg-white/20 rounded-lg p-6">
                 <p class="text-lg">
                 <%= Date.current.strftime("%Y年%m月%d日 (%a)") %></p><br>
+
+                <% if @today_record.present? %>
+                <p class="text-lg">チェックイン時刻</p>
+                <p class="text-3xl font-mono">
+                    <%= @today_record.checkin_time.strftime("%H:%M:%S") %>
+                </p>
+                <% else %>
                 <p class="text-lg">現在時刻</p>
                 <p class="text-3xl font-mono" id="current-time">
                     <%= Time.current.strftime("%H:%M:%S") %>
                 </p>
+                <% end %>
             </div>
 
             <div id="checkin-section">
-            <%= form_with url: checkin_checkinout_records_path,
+            <% if @today_record.present? %>
+                <!-- チェックイン済みの場合 -->
+                <p class="text-lg mb-4">✅ チェックイン済み</p>
+                <%= link_to "チェックアウト", checkout_page_checkinout_records_path,
+                            class: "btn btn-secondary btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
+            <% else %>
+                <!-- 未チェックインの場合 -->
+                <%= form_with url: checkin_checkinout_records_path,
                             method: :post,
                             data: { turbo_stream: true, turbo: true } do |f| %>
                 <%= f.submit "チェックイン",
                             class: "btn btn-primary btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
+                <% end %>
             <% end %>
-            </div>
+        </div>
 
-            <!-- 気分チェッカーは最初は非表示 -->
-            <div id="mood-checker"></div>
+
+            <!-- 気分チェッカー -->
+            <div id="mood-checker">
+                <% if @today_record&.mood.present? %>
+                    <!-- 完了状態の表示 -->
+                    <div class="mt-6 text-center">
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                        <p class="font-bold">✅ 気分を記録しました！</p>
+                        <% if @today_record.mood.mood_emoji %>
+                        <p class="text-2xl mt-2"><%= @today_record.mood.mood_emoji %></p>
+                        <% end %>
+                        <% if @today_record.mood.comment.present? %>
+                        <p class="mt-2 text-sm">「<%= @today_record.mood.comment %>」</p>
+                        <% end %>
+                    </div>
+                    </div>
+                <% elsif @today_record.present? %>
+                    <!-- 入力フォームの表示 -->
+                    <%= render 'mood_checker', record: @today_record %>
+                <% end %>
+            </div>
 
         </div>
     </div>

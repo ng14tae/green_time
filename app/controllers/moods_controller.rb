@@ -7,23 +7,55 @@ class MoodsController < ApplicationController
   end
 
   def create
-    if @checkinout_record.mood.present?
-      render json: { status: 'already_recorded' }
-      return
+    @mood = @checkinout_record.mood || @checkinout_record.build_mood(user_id: current_user.id)
+
+    if mood_params[:feeling].present?
+      @mood.feeling = mood_params[:feeling]
     end
 
-    @mood = @checkinout_record.build_mood(mood_params.merge(user_id: current_user.id))
+    if mood_params[:comment].present?
+      @mood.comment = mood_params[:comment]
+    end
 
     if @mood.save
-      render json: {
-        status: 'success',
-        mood_emoji: @mood.mood_emoji,
-        comment: @mood.comment
-      }
+      respond_to do |format|
+        format.turbo_stream do
+          # 部分更新で状態に応じた表示
+          render turbo_stream: turbo_stream.update("mood-checker") do
+            if @mood.feeling.present? && @mood.comment.present?
+              # 両方完了した場合
+              render partial: 'mood_complete', locals: { mood: @mood }
+            else
+              # 一部完了した場合（状態表示付きでフォーム継続）
+              render partial: 'mood_checker', locals: {
+                record: @checkinout_record,
+                show_mood_success: @mood.feeling.present?,
+                show_comment_success: @mood.comment.present?
+              }
+            end
+          end
+        end
+        format.json do
+          render json: {
+            status: 'success',
+            mood_emoji: @mood.mood_emoji,
+            comment: @mood.comment
+          }
+        end
+      end
     else
-      render json: { status: 'error', errors: @mood.errors.full_messages }
+      # エラー処理
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update("mood-checker") do
+            content_tag(:div, @mood.errors.full_messages.join(", "),
+                        class: "alert alert-error")
+          end
+        end
+        format.json { render json: { status: 'error', errors: @mood.errors.full_messages } }
+      end
     end
-end
+  end
 
   private
 

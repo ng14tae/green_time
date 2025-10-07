@@ -5,22 +5,29 @@
 
         <div class="flex justify-center gap-4">
             <button data-action="click->mood-checker#select" data-mood="happy"
-                    class="mood-btn bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded transition-all">
+                    class="mood-btn bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded transition-all"
+                    <%= 'disabled style="opacity: 0.5;"'.html_safe if defined?(show_mood_success) && show_mood_success %>>
             😊 良い
             </button>
             <button data-action="click->mood-checker#select" data-mood="neutral"
-                    class="mood-btn bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded transition-all">
+                    class="mood-btn bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded transition-all"
+                    <%= 'disabled style="opacity: 0.5;"'.html_safe if defined?(show_mood_success) && show_mood_success %>>
             😐 普通
             </button>
             <button data-action="click->mood-checker#select" data-mood="sad"
-                    class="mood-btn bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded transition-all">
+                    class="mood-btn bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded transition-all"
+                    <%= 'disabled style="opacity: 0.5;"'.html_safe if defined?(show_mood_success) && show_mood_success %>>
             😢 悪い
             </button>
         </div>
 
         <!-- 気分選択の状態表示 -->
-        <div data-mood-checker-target="moodStatus" class="text-center mt-2 hidden">
-            <span class="text-sm text-green-600">✅ 気分を記録しました</span>
+        <div data-mood-checker-target="moodStatus"
+            class="text-center mt-2 <%= defined?(show_mood_success) && show_mood_success ? '' : 'hidden' %>">
+            <span class="text-sm text-green-600 font-medium">✅ 気分を記録しました</span>
+            <% if record.mood&.feeling.present? %>
+            <span class="text-lg ml-2"><%= record.mood.mood_emoji %></span>
+            <% end %>
         </div>
     </div>
 
@@ -28,34 +35,40 @@
     <div class="border-t border-gray-200 my-4"></div>
 
     <!-- 気分メモセクション -->
-    <div>
-        <p class="text-lg mb-3">💭 気分メモ（任意）</p>
+        <div>
+            <p class="text-lg mb-3">💭 気分メモ（任意）</p>
 
-        <textarea
-            data-mood-checker-target="comment"
-            placeholder="今の気分について詳しく書いてみませんか？"
-            class="textarea textarea-bordered w-full bg-white resize-none"
-            style="color: black !important;"
-            rows="3"
-            maxlength="140">
-        </textarea>
+            <textarea
+                data-mood-checker-target="comment"
+                placeholder="今の気分について詳しく書いてみませんか？"
+                class="textarea textarea-bordered w-full bg-white resize-none"
+                style="color: black !important;"
+                rows="3"
+                maxlength="140"
+                <%= 'disabled style="opacity: 0.5;"'.html_safe if defined?(show_comment_success) && show_comment_success %>><%= record.mood&.comment %></textarea>
 
-        <!-- 文字数カウンター -->
-        <div class="flex justify-between items-center mt-2">
-            <div data-mood-checker-target="commentStatus" class="text-sm text-green-600 hidden">
-                ✅ メモを保存しました
+            <!-- 文字数カウンター -->
+            <div class="flex justify-between items-center mt-2">
+                <div data-mood-checker-target="commentStatus"
+                    class="text-sm text-green-600 <%= defined?(show_comment_success) && show_comment_success ? '' : 'hidden' %>">
+                    ✅ メモを保存しました
+                </div>
+                <div class="text-sm text-gray-500">
+                    <span data-mood-checker-target="counter"><%= record.mood&.comment&.length || 0 %></span>/140
+                </div>
             </div>
-            <div class="text-sm text-gray-500">
-                <span data-mood-checker-target="counter">0</span>/140
-            </div>
+
+            <!-- メモ保存ボタン -->
+            <button
+                data-action="click->mood-checker#saveComment"
+                data-mood-checker-target="saveButton"
+                class="btn btn-primary mt-3 w-full"
+                <%= 'disabled style="opacity: 0.5;"'.html_safe if defined?(show_comment_success) && show_comment_success %>>
+                <% if defined?(show_comment_success) && show_comment_success %>
+                    ✅ 保存済み
+                <% else %>
+                    💭 気分メモを保存
+                <% end %>
+            </button>
         </div>
-
-        <!-- メモ保存ボタン -->
-        <button
-            data-action="click->mood-checker#saveComment"
-            data-mood-checker-target="saveButton"
-            class="btn btn-primary mt-3 w-full">
-        💭 気分メモを保存
-        </button>
     </div>
-</div>
