@@ -1,0 +1,27 @@
+<div class="mt-6 text-center">
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+        <p class="font-bold text-xl mb-3">🎉 気分記録完了！</p>
+
+        <% if mood.feeling.present? %>
+        <div class="mb-3">
+            <p class="text-sm text-gray-600">今の気分</p>
+            <p class="text-3xl"><%= mood.mood_emoji %></p>
+        </div>
+        <% end %>
+
+        <% if mood.comment.present? %>
+        <div class="mb-3">
+            <p class="text-sm text-gray-600">気分メモ</p>
+            <p class="text-base font-medium">「<%= mood.comment %>」</p>
+        </div>
+        <% end %>
+
+        <p class="text-sm mt-4">今日も一日お疲れさまでした！ ✨</p>
+    </div>
+
+    <!-- 編集ボタン（必要に応じて） -->
+    <button onclick="location.reload()"
+            class="btn btn-outline btn-sm mt-2">
+        📝 編集する
+    </button>
+</div>
