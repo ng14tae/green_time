@@ -28,7 +28,8 @@ class CheckinoutRecordsController < ApplicationController
     # 最新の記録から順に取得
     @recent_records = CheckinoutRecord.where(user_id: current_user.id)
                                     .order(checkin_time: :desc)
-                                    .limit(30) # 最新30件を表示
+                                    .page(params[:page])
+                                    .per(15)
 
     # 今月の統計
     @monthly_stats = calculate_monthly_stats
