@@ -4,10 +4,10 @@ class Mood < ApplicationRecord
 
   def mood_emoji
     case feeling
-    when 'happy' then '😊'
-    when 'neutral' then '😐'
-    when 'sad' then '😢'
-    else '😊'
+    when "happy" then "😊"
+    when "neutral" then "😐"
+    when "sad" then "😢"
+    else "😊"
     end
   end
 

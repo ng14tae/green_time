@@ -1,5 +1,5 @@
 class CheckinoutRecordsController < ApplicationController
-  before_action :find_today_record, only: [:index, :checkin_page, :checkout_page, :mypage]
+  before_action :find_today_record, only: [ :index, :checkin_page, :checkout_page, :mypage ]
 
   def index
     # メインページ - 状態に応じてリダイレクト
@@ -28,7 +28,8 @@ class CheckinoutRecordsController < ApplicationController
     # 最新の記録から順に取得
     @recent_records = CheckinoutRecord.where(user_id: current_user.id)
                                     .order(checkin_time: :desc)
-                                    .limit(30) # 最新30件を表示
+                                    .page(params[:page])
+                                    .per(15)
 
     # 今月の統計
     @monthly_stats = calculate_monthly_stats
@@ -42,9 +43,9 @@ class CheckinoutRecordsController < ApplicationController
     # 最近の気分記録
     @recent_moods = if current_user.respond_to?(:moods)
                     current_user.moods.includes(:checkinout_record).recent.limit(10)
-                  else
+    else
                     []
-                  end
+    end
   end
 
   def checkin
