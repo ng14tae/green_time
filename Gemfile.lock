@@ -117,6 +117,7 @@ GEM
     erubi (1.13.1)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-arm64-darwin)
+    ffi (1.17.2-x86_64-linux-gnu)
     foreman (0.90.0)
       thor (~> 1.4)
     globalid (1.2.1)
@@ -180,6 +181,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.18.10-x86_64-linux-gnu)
+      racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.27.0)
     parser (3.3.9.0)
@@ -188,6 +191,7 @@ GEM
     pg (1.6.2)
     pg (1.6.2-aarch64-linux)
     pg (1.6.2-arm64-darwin)
+    pg (1.6.2-x86_64-linux)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -196,7 +200,7 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
-    puma (7.0.3)
+    puma (7.0.4)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.16)
@@ -338,6 +342,7 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap
