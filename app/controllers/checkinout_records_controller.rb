@@ -29,7 +29,7 @@ class CheckinoutRecordsController < ApplicationController
     @recent_records = CheckinoutRecord.where(user_id: current_user.id)
                                     .order(checkin_time: :desc)
                                     .page(params[:page])
-                                    .per(15)
+                                    .per(10)
 
     # 今月の統計
     @monthly_stats = calculate_monthly_stats
