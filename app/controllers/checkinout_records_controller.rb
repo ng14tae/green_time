@@ -1,8 +1,7 @@
 class CheckinoutRecordsController < ApplicationController
-  before_action :find_today_record, only: [ :index, :checkin_page, :checkout_page, :mypage ]
+  before_action :find_today_record, only: [:index, :checkin_page, :checkout_page, :mypage]
 
   def index
-    @checkinout_records = current_user.checkinout_records.order(created_at: :desc)
     # メインページ - 状態に応じてリダイレクト
     @today_record = find_today_record
 
@@ -15,7 +14,8 @@ class CheckinoutRecordsController < ApplicationController
 
   def checkin_page
     # チェックイン専用ページ
-    redirect_to checkout_page_checkinout_records_path if find_today_record.present?
+    @today_record = find_today_record
+    @current_record = current_user.checkinout_records.find_by(checkout_time: nil)
   end
 
   def checkout_page
@@ -24,7 +24,6 @@ class CheckinoutRecordsController < ApplicationController
     redirect_to checkin_page_checkinout_records_path if @today_record.blank?
   end
 
-  # 新しく追加するマイページアクション
   def mypage
     # 最新の記録から順に取得
     @recent_records = CheckinoutRecord.where(user_id: current_user.id)
@@ -49,28 +48,46 @@ class CheckinoutRecordsController < ApplicationController
   end
 
   def checkin
-    @record = CheckinoutRecord.create!(
-      user_id: current_user.id,
-      checkin_time: Time.current
-    )
-    # redirect_to checkout_page_checkinout_records_path, notice: "チェックインしました"
-    respond_to do |format|
-      format.turbo_stream # ← turbo_streamでJSレスポンス返す
+    # 未チェックアウトの記録があるかチェック
+    current_record = current_user.checkinout_records.find_by(checkout_time: nil)
+
+    if current_record.present?
+      # 日跨ぎかどうかチェック
+      if current_record.checkin_time.to_date < Date.current
+        # 前日の記録を自動で昨日の23:59にチェックアウト
+        current_record.update!(checkout_time: current_record.checkin_time.end_of_day)
+
+        # 新しくチェックイン
+        current_user.checkinout_records.create!(checkin_time: Time.current)
+        redirect_to checkin_path, notice: "前日の記録をチェックアウトして、新しくチェックインしました！"
+      else
+        # 今日の記録なのでリダイレクト
+        redirect_to checkin_path, notice: "既にチェックイン中です"
+      end
+    else
+      # 通常の新規チェックイン
+      current_user.checkinout_records.create!(checkin_time: Time.current)
+      redirect_to checkin_path, notice: "チェックインしました！"
     end
   end
 
   def checkout
-    record = find_today_record
-    record.update!(checkout_time: Time.current)
-    redirect_to checkin_page_checkinout_records_path, notice: "チェックアウトしました"
+    # 最新の未チェックアウト記録をチェックアウト（日跨ぎでもOK）
+    current_record = current_user.checkinout_records.find_by(checkout_time: nil)
+
+    if current_record.present?
+      current_record.update!(checkout_time: Time.current)
+      redirect_to checkin_path, notice: "チェックアウトしました！お疲れさまでした！"
+    else
+      redirect_to checkin_path, alert: "チェックイン記録が見つかりません"
+    end
   end
 
   private
 
   def find_today_record
-    @today_record = CheckinoutRecord.find_by(
-      user_id: current_user.id,
-      checkin_time: Time.current.beginning_of_day..Time.current.end_of_day,
+    current_user.checkinout_records.find_by(
+      checkin_time: Date.current.beginning_of_day..Date.current.end_of_day,
       checkout_time: nil
     )
   end

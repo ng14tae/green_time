@@ -7,13 +7,13 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
 
-  resources :checkinout_records, only: [ :index, :show ] do
+  resources :checkinout_records, only: [:index, :show] do
     collection do
       get :checkin_page
       get :checkout_page
       get :mypage
       post :checkin
-      post :checkout
+      patch :checkout
     end
 
     # ネストしたリソースに変更
@@ -23,4 +23,6 @@ Rails.application.routes.draw do
       end
     end
   end
-end
+
+  get '/checkin', to: 'checkinout_records#checkin_page'
+  end

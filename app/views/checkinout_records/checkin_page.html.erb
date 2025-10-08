@@ -38,8 +38,6 @@
             <% if @today_record.present? %>
                 <!-- チェックイン済みの場合 -->
                 <p class="text-lg mb-4">✅ チェックイン済み</p>
-                <%= link_to "チェックアウト", checkout_page_checkinout_records_path,
-                            class: "btn btn-secondary btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
             <% else %>
                 <!-- 未チェックインの場合 -->
                 <%= form_with url: checkin_checkinout_records_path,
