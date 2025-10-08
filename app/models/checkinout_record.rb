@@ -34,7 +34,7 @@ class CheckinoutRecord < ApplicationRecord
   end
 
   def mood_emoji
-    mood&.feeling || ''
+    mood&.feeling || ""
   end
 
   def has_mood?

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
 
-  resources :checkinout_records, only: [:index, :show] do
+  resources :checkinout_records, only: [ :index, :show ] do
     collection do
       get :checkin_page
       get :checkout_page
@@ -17,12 +17,12 @@ Rails.application.routes.draw do
     end
 
     # ネストしたリソースに変更
-    resources :moods, only: [:create] do
+    resources :moods, only: [ :create ] do
       collection do
         get :mood_check
       end
     end
   end
 
-  get '/checkin', to: 'checkinout_records#checkin_page'
+  get "/checkin", to: "checkinout_records#checkin_page"
   end

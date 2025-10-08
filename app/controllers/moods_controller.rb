@@ -1,5 +1,4 @@
 class MoodsController < ApplicationController
-
   before_action :set_checkinout_record
 
   def mood_check
@@ -24,10 +23,10 @@ class MoodsController < ApplicationController
           render turbo_stream: turbo_stream.update("mood-checker") do
             if @mood.feeling.present? && @mood.comment.present?
               # 両方完了した場合
-              render partial: 'mood_complete', locals: { mood: @mood }
+              render partial: "mood_complete", locals: { mood: @mood }
             else
               # 一部完了した場合（状態表示付きでフォーム継続）
-              render partial: 'mood_checker', locals: {
+              render partial: "mood_checker", locals: {
                 record: @checkinout_record,
                 show_mood_success: @mood.feeling.present?,
                 show_comment_success: @mood.comment.present?
@@ -37,7 +36,7 @@ class MoodsController < ApplicationController
         end
         format.json do
           render json: {
-            status: 'success',
+            status: "success",
             mood_emoji: @mood.mood_emoji,
             comment: @mood.comment
           }
@@ -52,7 +51,7 @@ class MoodsController < ApplicationController
                         class: "alert alert-error")
           end
         end
-        format.json { render json: { status: 'error', errors: @mood.errors.full_messages } }
+        format.json { render json: { status: "error", errors: @mood.errors.full_messages } }
       end
     end
   end
