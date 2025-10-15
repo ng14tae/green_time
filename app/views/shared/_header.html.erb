@@ -17,7 +17,7 @@
           <li><%= link_to "マイページ", mypage_checkinout_records_path %></li>
             <% if user_signed_in? && current_user.checkinout_records.where(checkout_time: nil).exists? %>
               <!-- チェックイン中の場合のみ表示 -->
-              <li><%= link_to "チェックイン", checkin_page_checkinout_records_path,
+              <li><%= link_to "チェックイン", checkin_path,
                           class: "menu-item flex items-center px-4 py-2" %></li>
             <% end %>
           <li><%= link_to "チェックアウト", checkout_page_checkinout_records_path %></li>

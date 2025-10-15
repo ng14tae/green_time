@@ -7,9 +7,10 @@ Rails.application.routes.draw do
 
   root "static_pages#top"
 
-  resources :checkinout_records, only: [ :index, :show ] do
+  resources :checkinout_records, only: [ :index, :show, :edit ] do
     collection do
       get :checkin_page
+      get :edit_today
       get :checkout_page
       get :mypage
       post :checkin
@@ -24,5 +25,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get "/checkin", to: "checkinout_records#checkin_page"
-  end
+  get "/checkin", to: "checkinout_records#edit_today"
+end

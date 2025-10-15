@@ -1,7 +1,23 @@
 <div class="mt-6" data-controller="mood-checker" data-mood-checker-record-id-value="<%= record.id %>">
     <!-- 気分選択セクション -->
+
+    <%
+        is_disabled = defined?(disabled) && disabled
+        is_mood_success = defined?(show_mood_success) && show_mood_success
+        is_comment_success = defined?(show_comment_success) && show_comment_success
+        %>
+
+    <div class="mt-6 <%= 'opacity-50 pointer-events-none' if is_disabled %>"
+        data-controller="mood-checker"
+        data-mood-checker-record-id-value="<%= record&.id %>">
+
+    <!-- チェックイン前メッセージ -->
+    <% if is_disabled %>
+        <p class="text-center text-yellow-200 mb-4">⏰ チェックイン後に気分を記録できます</p>
+    <% end %>
+
     <div class="mb-6">
-        <p class="text-lg mb-3">今の気分を教えてください 🌤️</p>
+        <p class="text-lg mb-3">今の気分を教えてください 🌤️（任意）</p>
 
         <div class="flex justify-center gap-4">
             <button data-action="click->mood-checker#select" data-mood="happy"
@@ -24,19 +40,12 @@
         <!-- 気分選択の状態表示 -->
         <div data-mood-checker-target="moodStatus"
             class="text-center mt-2 <%= defined?(show_mood_success) && show_mood_success ? '' : 'hidden' %>">
-            <span class="text-sm text-green-600 font-medium">✅ 気分を記録しました</span>
-            <% if record.mood&.feeling.present? %>
-            <span class="text-lg ml-2"><%= record.mood.mood_emoji %></span>
-            <% end %>
         </div>
     </div>
 
-    <!-- 区切り線 -->
-    <div class="border-t border-gray-200 my-4"></div>
-
     <!-- 気分メモセクション -->
         <div>
-            <p class="text-lg mb-3">💭 気分メモ（任意）</p>
+            <p class="text-lg mb-3 py-4">💭 気分メモ（任意）</p>
 
             <textarea
                 data-mood-checker-target="comment"
@@ -51,9 +60,8 @@
             <div class="flex justify-between items-center mt-2">
                 <div data-mood-checker-target="commentStatus"
                     class="text-sm text-green-600 <%= defined?(show_comment_success) && show_comment_success ? '' : 'hidden' %>">
-                    ✅ メモを保存しました
                 </div>
-                <div class="text-sm text-gray-500">
+                <div class="text-sm text-gray-300">
                     <span data-mood-checker-target="counter"><%= record.mood&.comment&.length || 0 %></span>/140
                 </div>
             </div>
@@ -65,10 +73,11 @@
                 class="btn btn-primary mt-3 w-full"
                 <%= 'disabled style="opacity: 0.5;"'.html_safe if defined?(show_comment_success) && show_comment_success %>>
                 <% if defined?(show_comment_success) && show_comment_success %>
-                    ✅ 保存済み
+                    保存済み
                 <% else %>
-                    💭 気分メモを保存
+                    気分メモを保存
                 <% end %>
             </button>
         </div>
     </div>
+</div>

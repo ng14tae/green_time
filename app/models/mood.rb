@@ -7,7 +7,6 @@ class Mood < ApplicationRecord
     when "happy" then "😊"
     when "neutral" then "😐"
     when "sad" then "😢"
-    else "😊"
     end
   end
 
