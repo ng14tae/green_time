@@ -20,7 +20,7 @@ class CheckinoutRecordsController < ApplicationController
     # 今日の記録がない場合は初回チェックイン画面へ
     unless @today_record.present?
       redirect_to checkin_checkinout_records_path, notice: "まずはチェックインしてください"
-      return
+      nil
     end
   end
 
