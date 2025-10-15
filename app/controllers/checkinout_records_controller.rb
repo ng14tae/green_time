@@ -12,6 +12,18 @@ class CheckinoutRecordsController < ApplicationController
     end
   end
 
+  def edit_today
+    # ヘッダーからの再アクセス用
+    @today_record = find_today_record
+    @current_record = current_user.checkinout_records.find_by(checkout_time: nil)
+
+    # 今日の記録がない場合は初回チェックイン画面へ
+    unless @today_record.present?
+      redirect_to checkin_checkinout_records_path, notice: "まずはチェックインしてください"
+      return
+    end
+  end
+
   def checkin_page
     # チェックイン専用ページ
     @today_record = find_today_record

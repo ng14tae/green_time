@@ -19,18 +19,17 @@ class MoodsController < ApplicationController
     if @mood.save
       respond_to do |format|
         format.turbo_stream do
-          # 部分更新で状態に応じた表示
           render turbo_stream: turbo_stream.update("mood-checker") do
-            if @mood.feeling.present? && @mood.comment.present?
-              # 両方完了した場合
-              render partial: "mood_complete", locals: { mood: @mood }
-            else
+            if @mood.feeling.blank? || @mood.comment.blank?
               # 一部完了した場合（状態表示付きでフォーム継続）
               render partial: "mood_checker", locals: {
                 record: @checkinout_record,
                 show_mood_success: @mood.feeling.present?,
                 show_comment_success: @mood.comment.present?
               }
+            else
+              # 両方完了した場合
+              render partial: "mood_complete", locals: { mood: @mood }
             end
           end
         end
