@@ -1,6 +1,6 @@
 class MoodsController < ApplicationController
-  before_action :set_checkinout_record, except: [:analytics]
-  before_action :authenticate_user!, only: [:analytics]
+  before_action :set_checkinout_record, except: [ :analytics ]
+  before_action :authenticate_user!, only: [ :analytics ]
 
   def mood_check
     render json: { recorded: @checkinout_record.mood.present? }
