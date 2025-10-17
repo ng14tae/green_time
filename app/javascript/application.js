@@ -2,3 +2,5 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import "./current_time"
+import "chartkick"
+import "chart.js/auto"

@@ -25,5 +25,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :moods, only: [] do
+    collection do
+      get :analytics
+    end
+  end
+
   get "/checkin", to: "checkinout_records#edit_today"
 end

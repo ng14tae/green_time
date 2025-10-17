@@ -14,11 +14,14 @@
 
         <% if @today_record %>
             <%= link_to "チェックアウト", checkout_page_checkinout_records_path,
-                class: "bg-orange-800 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-600 transition-colors" %>
+                class: "bg-orange-800 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-600 transition-colors mr-4" %>
         <% else %>
             <%= link_to "チェックイン", checkin_page_checkinout_records_path,
-                class: "bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-indigo-600 transition-colors" %>
+                class: "bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-indigo-600 transition-colors mr-4" %>
         <% end %>
+
+        <%= link_to "気分グラフ", analytics_moods_path,
+            class: "bg-white text-amber-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors mr-4" %>
         </div>
 
         <!-- 統計カード -->

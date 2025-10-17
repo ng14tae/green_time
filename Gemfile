@@ -64,4 +64,5 @@ gem "cssbundling-rails"  # CSS bundling用（TailwindCSS使用時）
 gem "devise"
 gem "devise-i18n"
 gem "kaminari"
-gem "ferrum"
+gem "chartkick"
+gem "groupdate"
