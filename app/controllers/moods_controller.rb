@@ -1,5 +1,6 @@
 class MoodsController < ApplicationController
-  before_action :set_checkinout_record
+  before_action :set_checkinout_record, except: [:analytics]
+  before_action :authenticate_user!, only: [:analytics]
 
   def mood_check
     render json: { recorded: @checkinout_record.mood.present? }
@@ -53,6 +54,24 @@ class MoodsController < ApplicationController
         format.json { render json: { status: "error", errors: @mood.errors.full_messages } }
       end
     end
+  end
+
+  def analytics
+    # データが存在しない場合の処理
+    if current_user.moods.empty?
+      redirect_to root_path, notice: "まずは気分を記録してみましょう！"
+      return
+    end
+
+    # グラフ用データの準備
+    @mood_counts = current_user.moods.group(:feeling).count
+    @daily_moods = current_user.moods
+                              .group_by_day(:created_at, last: 7)
+                              .group(:feeling)
+                              .count
+    @weekly_trend = current_user.moods
+                              .group_by_week(:created_at, last: 4)
+                              .count
   end
 
   private

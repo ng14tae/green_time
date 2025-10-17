@@ -86,7 +86,7 @@ export default class extends Controller {
           if (this.hasSaveButtonTarget) {
             this.saveButtonTarget.disabled = true
             this.saveButtonTarget.style.opacity = '0.5'
-            this.saveButtonTarget.textContent = '保存中...'
+            this.saveButtonTarget.textContent = '投稿しました！'
           }
 
           if (this.hasCommentTarget) {
