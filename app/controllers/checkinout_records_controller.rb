@@ -12,6 +12,19 @@ class CheckinoutRecordsController < ApplicationController
     end
   end
 
+  def smart_checkin
+    # 現在チェックイン中（未チェックアウト）のレコードがあるかチェック
+    current_checkin = current_user.checkinout_records.find_by(checkout_time: nil)
+
+    if current_checkin
+      # ①チェックイン済の場合 → 編集ページへ
+      redirect_to edit_today_checkinout_records_path
+    else
+      # ②未チェックインの場合 → 新規チェックインページへ
+      redirect_to checkin_page_checkinout_records_path
+    end
+  end
+
   def edit_today
     # ヘッダーからの再アクセス用
     @today_record = find_today_record

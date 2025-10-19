@@ -15,10 +15,12 @@
         </div>
         <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg border border-base-200 text-amber-700">
           <li><%= link_to "マイページ", mypage_checkinout_records_path %></li>
-            <% if user_signed_in? && current_user.checkinout_records.where(checkout_time: nil).exists? %>
-              <!-- チェックイン中の場合のみ表示 -->
-              <li><%= link_to "チェックイン", checkin_path,
-                          class: "menu-item flex items-center px-4 py-2" %></li>
+            <% if user_signed_in? %>
+              <!-- ログイン済みの場合は常に表示 -->
+              <li>
+                <%= link_to "チェックイン", checkin_path,
+                            class: "menu-item flex items-center px-4 py-2" %>
+              </li>
             <% end %>
           <li><%= link_to "チェックアウト", checkout_page_checkinout_records_path %></li>
           <li><%= link_to "気分グラフ", analytics_moods_path %></li>

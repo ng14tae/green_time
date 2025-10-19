@@ -31,5 +31,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get "/checkin", to: "checkinout_records#edit_today"
+  get "/checkin", to: "checkinout_records#smart_checkin"
 end
