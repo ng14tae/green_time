@@ -108,4 +108,4 @@ Rails.application.configure do
 end
 
 # config/environments/production.rb
-Rails.application.routes.default_url_options[:host] = 'https://green-time.onrender.com'
+Rails.application.routes.default_url_options[:host] = "https://green-time.onrender.com"
