@@ -6,18 +6,22 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   root "static_pages#top"
+  get "how_to_use", to: "static_pages#how_to_use"
+  get "terms", to: "static_pages#terms"
+  get "contact", to: "static_pages#contact"
+  get "privacy", to: "static_pages#privacy"
 
   resources :checkinout_records, only: [ :index, :show, :edit ] do
     collection do
       get :checkin_page
       get :edit_today
       get :checkout_page
+      get :mood_record
       get :mypage
       post :checkin
       patch :checkout
     end
 
-    # ネストしたリソースに変更
     resources :moods, only: [ :create ] do
       collection do
         get :mood_check
@@ -32,4 +36,5 @@ Rails.application.routes.draw do
   end
 
   get "/checkin", to: "checkinout_records#smart_checkin"
+  get "/checkout", to: "checkinout_records#smart_checkout"
 end

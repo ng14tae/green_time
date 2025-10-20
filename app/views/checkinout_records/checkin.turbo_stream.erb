@@ -6,6 +6,14 @@
     </div>
     <% end %>
 
+    <%= turbo_stream.replace "checkout-section" do %>
+    <div id="checkout-section">
+        <button class="btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-gray-400 text-gray-600" disabled>
+        チェックアウト済み
+        </button>
+    </div>
+    <% end %>
+
     <%= turbo_stream.update "mood-checker" do %>
     <%= render 'mood_checker', record: @record %>
     <% end %>

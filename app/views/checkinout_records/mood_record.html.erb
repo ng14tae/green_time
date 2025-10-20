@@ -1,0 +1,45 @@
+<div class="hero min-h-screen bg-gradient-to-br from-orange-400 to-red-500">
+    <div class="hero-content text-center text-white">
+        <div class="max-w-md">
+        <h1 class="text-5xl font-bold mb-8">Good Job!</h1>
+        <p class="text-xl mb-8">今日もお疲れさまでした</p>
+
+        <div class="work-summary mb-8 bg-white/20 rounded-lg p-6">
+            <p class="text-lg">
+            <%= Date.current.strftime("%Y年%m月%d日 (%a)") %></p><br>
+            <p class="text-lg">現在時刻</p>
+            <p class="text-3xl font-mono" id="current-time">
+                <%= Time.current.strftime("%H:%M:%S") %></p><br>
+
+            <p class="text-lg mb-2">チェックイン時刻</p>
+            <p class="text-2xl font-mono mb-4"><%= @today_record.checkin_time.strftime("%H:%M") %></p>
+
+            <p class="text-lg mb-2">勤務時間</p>
+                <p class="text-3xl font-mono" id="working-time"
+                    data-checkin-time="<%= @today_record.checkin_time.in_time_zone('Asia/Tokyo').iso8601 %>">
+                    <%= time_diff(@today_record.checkin_time, Time.current) %>
+                </p>
+        </div>
+
+        <!-- チェックアウト済み表示 -->
+            <div class="max-w-md py-4">
+            <div id="checkout-section">
+                <button class="btn btn-lg w-full bg-gray-400 text-gray-600" disabled>
+                    チェックアウト済み
+                </button>
+            </div></div>
+
+        <!-- 気分チェッカー -->
+            <div class="max-w-md py-2">
+                <% if @today_record.present? %>
+                    <div id="mood-checker">
+                    <%= render 'mood_checker',
+                            record: @today_record,
+                            show_mood_success: @today_record.mood&.feeling.present?,
+                            show_comment_success: @today_record.mood&.comment.present? %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
