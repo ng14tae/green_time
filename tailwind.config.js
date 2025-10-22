@@ -7,12 +7,12 @@ module.exports = {
   ],
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark", "cupcake", "dracula",
+    themes: ["light", "dark",
       { mytheme: {
-          "primary": "#1E90FF",   // デフォルトのボタン色
-          "secondary": "#FF69B4", // サブ色
-          "accent": "#FFD700",    // アクセント
-          "neutral": "#3D4451",
+          "primary": "#1E90FF",   // 鮮やかなindigoブルー
+          "secondary": "#FFECB3", // クリーム色
+          "accent": "#FFD700",    //
+          "neutral": "#FFA000", // ブラウン
           "base-100": "#FFFFFF",
           "info": "#2094f3",
           "success": "#009485",

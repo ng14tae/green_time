@@ -1,9 +1,14 @@
 <header class="bg-amber-100 shadow-sm sticky top-0 z-50">
   <div class="navbar max-w-7xl mx-auto">
     <div class="navbar-start">
-      <%= link_to root_path, class: "btn btn-ghost text-xl font-bold normal-case text-primary" do %>
+      <%= link_to root_path, class: "btn btn-ghost text-xl font-bold normal-case text-indigo-700" do %>
         🌱 green_time
       <% end %>
+    </div>
+    <div class="navbar-center">
+      <% if user_signed_in? %>
+    <p class="text-base white-space:nowrap"><%= current_user.email %>さんの勤怠記録</p>
+    <% end %>
     </div>
     <div class="navbar-end">
       <div class="dropdown dropdown-end">
