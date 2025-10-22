@@ -2,7 +2,7 @@
     <div class="hero-content text-center text-white">
         <div class="max-w-md">
             <!-- タイトル -->
-            <h1 class="text-5xl font-bold mb-8">Welcome to<br /> Green Time</h1>
+            <h1 class="text-5xl font-bold mb-8">Welcome to<br /> green_time</h1>
             <p class="text-xl mb-8">植物を愛でながら時刻を記録しましょう。</p>
 
             <!-- メイン画像エリア ※追加実装 -->
@@ -16,13 +16,23 @@
 
             <!-- ボタンエリア -->
             <div class="space-y-4 mt-16">
+                <%= link_to "使い方", how_to_use_path,
+                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full btn-secondary hover:bg-amber-200 text-amber-900 border-0" %>
+
                 <% if user_signed_in? %>
                 <!-- ログイン済みユーザー -->
-                <%= link_to "はじめる", checkin_page_checkinout_records_path,
-                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-100 hover:bg-amber-200 text-amber-900 border-0" %>
+                <%= link_to "チェックイン", checkin_page_checkinout_records_path,
+                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full btn-secondary hover:bg-amber-200 text-amber-900 border-0" %>
 
-                <%= link_to "マイページを見る", mypage_checkinout_records_path,
+                <%= link_to "マイページ", mypage_checkinout_records_path,
                     class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
+
+                <%= link_to "気分グラフ", analytics_moods_path,
+                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
+
+                <%= link_to "🌱ページ（準備中）", "#",
+                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
+
                 <% else %>
                 <!-- 未ログインユーザー -->
                 <%= link_to "新規登録", new_user_registration_path,
