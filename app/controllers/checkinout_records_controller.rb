@@ -92,7 +92,7 @@ end
         redirect_to checkin_page_checkinout_records_path,
                     alert: "今日のチェックイン記録が見つかりません。先にチェックインしてください。"
         return
-      end
+    end
 
     if @latest_record.present?
       # 気分記録ページを表示（ビューで@latest_recordを使用）
