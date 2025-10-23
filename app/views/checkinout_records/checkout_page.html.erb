@@ -1,6 +1,6 @@
 <div class="hero min-h-screen bg-gradient-to-br from-orange-400 to-red-500">
     <div class="hero-content text-center text-white">
-        <div class="max-w-md">
+        <div class="max-w-md py-16">
         <h1 class="text-5xl font-bold mb-8">Good Job!</h1>
         <p class="text-xl mb-8">今日もお疲れさまでした</p>
 
@@ -21,8 +21,17 @@
                 </p>
         </div>
 
+            <!-- 気分チェッカー -->
+            <div class="max-w-md">
+            <div id="mood-checker">
+                <%= render 'mood_checker',
+                        record: @today_record,
+                        show_mood_success: @today_record.mood&.feeling.present?,
+                        show_comment_success: @today_record.mood&.comment.present? %>
+            </div></div>
+
         <!-- ボタンエリア -->
-        <div class="space-y-4">
+        <div class="space-y-4 py-8">
         <!-- チェックアウトボタン -->
         <%= form_with url: checkout_checkinout_records_path, method: :patch do |f| %>
             <%= f.submit "チェックアウト",
@@ -35,15 +44,6 @@
             マイページを見る
             <% end %>
         </div>
-
-                    <!-- 気分チェッカー -->
-            <div class="max-w-md py-2">
-            <div id="mood-checker">
-                <%= render 'mood_checker',
-                        record: @today_record,
-                        show_mood_success: @today_record.mood&.feeling.present?,
-                        show_comment_success: @today_record.mood&.comment.present? %>
-            </div></div>
         </div>
     </div>
 </div>

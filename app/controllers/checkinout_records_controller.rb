@@ -67,43 +67,49 @@ class CheckinoutRecordsController < ApplicationController
     end
   end
 
-def smart_checkout
-  current_record = current_user.checkinout_records.find_by(checkout_time: nil)
-  
-  if current_record.present?
-    redirect_to checkout_page_checkinout_records_path
-  else
-    redirect_to mood_record_checkinout_records_path
+  def smart_checkout
+    current_record = current_user.checkinout_records.find_by(checkout_time: nil)
+
+    if current_record.present?
+      redirect_to checkout_page_checkinout_records_path
+    else
+      redirect_to mood_record_checkinout_records_path
+    end
   end
-end
-  def checkout_page
-    # チェックアウト専用ページ
-    @today_record = find_today_record
-    redirect_to checkin_page_checkinout_records_path if @today_record.blank?
+    def checkout_page
+      # チェックアウト専用ページ
+      @today_record = find_today_record
+      redirect_to checkin_page_checkinout_records_path if @today_record.blank?
+    end
+
+  def checkout
+    current_record = current_user.checkinout_records.find_by(checkout_time: nil)
+
+    if current_record.present?
+      current_record.update!(checkout_time: Time.current)
+      # チェックアウト後は気分記録ページへ
+      redirect_to mood_record_checkinout_records_path,
+                  notice: "チェックアウトしました！今日の気分を記録してみませんか？"
+    else
+      redirect_to checkin_path, alert: "チェックイン記録が見つかりません"
+    end
   end
 
-def checkout
-  current_record = current_user.checkinout_records.find_by(checkout_time: nil)
+  def mood_record
+    @latest_record = current_user.checkinout_records.order(created_at: :desc).first
 
-  if current_record.present?
-    current_record.update!(checkout_time: Time.current)
-    # チェックアウト後は気分記録ページへ
-    redirect_to mood_record_checkinout_records_path, 
-                notice: "チェックアウトしました！今日の気分を記録してみませんか？"
-  else
-    redirect_to checkin_path, alert: "チェックイン記録が見つかりません"
+    unless @today_record
+        redirect_to checkin_page_checkinout_records_path,
+                    alert: "今日のチェックイン記録が見つかりません。先にチェックインしてください。"
+        return
+      end
+
+    if @latest_record.present?
+      # 気分記録ページを表示（ビューで@latest_recordを使用）
+    else
+      redirect_to checkin_page_checkinout_records_path, notice: "まずはチェックインしてください"
+    end
   end
-end
-
-def mood_record
-  @latest_record = current_user.checkinout_records.order(created_at: :desc).first
-
-  if @latest_record.present?
-    # 気分記録ページを表示（ビューで@latest_recordを使用）
-  else
-    redirect_to checkin_page_checkinout_records_path, notice: "まずはチェックインしてください"
-  end
-end
 
   def mypage
     # 最新の記録から順に取得
