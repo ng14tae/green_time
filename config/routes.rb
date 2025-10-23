@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   get "contact", to: "static_pages#contact"
   get "privacy", to: "static_pages#privacy"
 
-  resources :checkinout_records, only: [ :index, :show, :edit ] do
+
+  get "/checkin", to: "checkinout_records#smart_checkin"
+  get "/checkout", to: "checkinout_records#smart_checkout"
+
+  resources :checkinout_records, only: [ :index, :edit ] do
     collection do
       get :checkin_page
       get :edit_today
@@ -34,7 +38,4 @@ Rails.application.routes.draw do
       get :analytics
     end
   end
-
-  get "/checkin", to: "checkinout_records#smart_checkin"
-  get "/checkout", to: "checkinout_records#smart_checkout"
 end
