@@ -44,28 +44,18 @@ class CheckinoutRecordsController < ApplicationController
   end
 
     def checkin
-    # 未チェックアウトの記録があるかチェック
-    current_record = current_user.checkinout_records.find_by(checkout_time: nil)
+  # 未チェックアウトの記録があるかチェック
+  current_record = current_user.checkinout_records.find_by(checkout_time: nil)
 
-    if current_record.present?
-      # 日跨ぎかどうかチェック
-      if current_record.checkin_time.to_date < Date.current
-        # 前日の記録を自動で昨日の23:59にチェックアウト
-        current_record.update!(checkout_time: current_record.checkin_time.end_of_day)
-
-        # 新しくチェックイン
-        current_user.checkinout_records.create!(checkin_time: Time.current)
-        redirect_to checkin_path, notice: "前日の記録をチェックアウトして、新しくチェックインしました！"
-      else
-        # 今日の記録なのでリダイレクト
-        redirect_to checkin_path, notice: "既にチェックイン中です"
-      end
-    else
-      # 通常の新規チェックイン
-      current_user.checkinout_records.create!(checkin_time: Time.current)
-      redirect_to checkin_path, notice: "チェックインしました！"
-    end
+  if current_record.present?
+    # 既にチェックイン中の場合は、日跨ぎに関係なく継続
+    redirect_to checkin_path, notice: "既にチェックイン中です。まずチェックアウトしてください。"
+  else
+    # 通常の新規チェックイン
+    current_user.checkinout_records.create!(checkin_time: Time.current)
+    redirect_to checkin_path, notice: "チェックインしました！"
   end
+end
 
   def smart_checkout
     current_record = current_user.checkinout_records.find_by(checkout_time: nil)

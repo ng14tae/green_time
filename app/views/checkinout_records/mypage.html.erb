@@ -114,29 +114,55 @@
                         </thead>
                     <tbody>
                         <% @recent_records.each do |record| %>
-                            <tr class="border-b border-gray-100 hover:bg-gray-50">
-                            <td class="py-3 px-4">
-                                <%= record.checkin_time.strftime("%Y/%m/%d (%a)") %>
-                            </td>
-                            <td class="py-3 px-4">
+                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                        <!-- 勤務日（チェックイン日基準） -->
+                        <td class="py-3 px-4">
+                            <div class="font-medium">
+                                <%= record.checkin_time.strftime("%Y/%m/%d") %>
+                            </div>
+                            <div class="text-xs text-gray-500">
+                                <%= record.checkin_time.strftime("(%a)") %>
+                            </div>
+                        </td>
+
+                        <!-- チェックイン（日時表示） -->
+                        <td class="py-3 px-4">
+                            <div class="font-medium text-blue-600">
                                 <%= record.checkin_time.strftime("%H:%M") %>
-                            </td>
-                            <td class="py-3 px-4">
-                                <% if record.checkout_time %>
-                                <%= record.checkout_time.strftime("%H:%M") %>
-                                <% else %>
-                                <span class="text-red-500 font-bold">勤務中</span>
+                            </div>
+                            <div class="text-xs text-gray-500">
+                                <%= record.checkin_time.strftime("%m/%d") %>
+                            </div>
+                        </td>
+
+                        <!-- チェックアウト（日時表示） -->
+                        <td class="py-3 px-4">
+                            <% if record.checkout_time %>
+                                <div class="font-medium text-orange-600">
+                                    <%= record.checkout_time.strftime("%H:%M") %>
+                                </div>
+                                <div class="text-xs text-gray-500">
+                                    <%= record.checkout_time.strftime("%m/%d") %>
+                                </div>
+                                <!-- 日跨ぎ表示 -->
+                                <% if record.checkin_time.to_date != record.checkout_time.to_date %>
+                                    <div class="text-xs text-purple-600 font-medium">翌日</div>
                                 <% end %>
-                            </td>
-                            <td class="py-3 px-4">
-                                <% if record.checkout_time %>
+                            <% else %>
+                                <span class="text-red-500 font-bold">勤務中</span>
+                            <% end %>
+                        </td>
+
+                        <!-- 労働時間 -->
+                        <td class="py-3 px-4">
+                            <% if record.checkout_time %>
                                 <span class="text-green-600 font-bold">
                                     <%= sprintf("%.1f時間", (record.checkout_time - record.checkin_time) / 3600.0) %>
                                 </span>
-                                <% else %>
+                            <% else %>
                                 <span class="text-orange-500">-</span>
-                                <% end %>
-                            </td>
+                            <% end %>
+                        </td>
 
                     <!-- 気分欄 -->
                     <td class="py-3 px-4">
