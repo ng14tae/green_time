@@ -1,0 +1,70 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+
+    <!-- 今日の状況 -->
+    <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+        <div class="text-center">
+        <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-800">今日</h2>
+        <% if today_record %>
+            <p class="text-green-600 font-bold text-lg sm:text-xl mb-2">勤務中</p>
+            <p class="text-gray-600 text-sm sm:text-base">
+            開始: <%= today_record.checkin_time.strftime("%H:%M") %>
+            </p>
+            <p class="text-xs sm:text-sm text-gray-500 mt-2">
+            経過時間: <span id="elapsed-time"></span>
+            </p>
+        <% else %>
+            <% todays_completed = CheckinoutRecord.where(
+                user_id: current_user.id,
+                checkin_time: Time.current.beginning_of_day..Time.current.end_of_day
+            ).where.not(checkout_time: nil).first %>
+
+            <% if todays_completed %>
+            <p class="text-blue-600 font-bold text-lg sm:text-xl mb-2">勤務完了</p>
+            <p class="text-gray-600 text-sm sm:text-base">
+                <%= sprintf("%.1f時間", (todays_completed.checkout_time - todays_completed.checkin_time) / 3600.0) %>
+            </p>
+            <p class="text-xs sm:text-sm text-gray-500">
+                <%= todays_completed.checkin_time.strftime("%H:%M") %> -
+                <%= todays_completed.checkout_time.strftime("%H:%M") %>
+            </p>
+            <% else %>
+            <p class="text-gray-600 text-lg sm:text-xl">未勤務</p>
+            <p class="text-xs sm:text-sm text-gray-500">まだチェックインしていません</p>
+            <% end %>
+        <% end %>
+        </div>
+    </div>
+
+    <!-- 今週の統計 -->
+    <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+        <div class="text-center">
+        <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-800">今週</h2>
+        <p class="text-2xl sm:text-3xl font-bold text-blue-600 mb-2">
+            <%= weekly_stats[:total_days] %>日
+        </p>
+        <p class="text-gray-600 mb-2 text-sm sm:text-base">
+            <%= sprintf("%.1f時間", weekly_stats[:total_hours]) %>
+        </p>
+        <p class="text-xs sm:text-sm text-gray-500">
+            <%= Date.current.beginning_of_week.strftime("%m/%d") %> -
+            <%= Date.current.end_of_week.strftime("%m/%d") %>
+        </p>
+        </div>
+    </div>
+
+    <!-- 今月の統計 -->
+    <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+        <div class="text-center">
+        <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-800">今月</h2>
+        <p class="text-2xl sm:text-3xl font-bold text-purple-600 mb-2">
+            <%= monthly_stats[:total_days] %>日
+        </p>
+        <p class="text-gray-600 mb-2 text-sm sm:text-base">
+            <%= sprintf("%.1f時間", monthly_stats[:total_hours]) %>
+        </p>
+        <p class="text-xs sm:text-sm text-gray-500">
+            平均: <%= sprintf("%.1f", monthly_stats[:average_hours]) %>時間/日
+        </p>
+        </div>
+    </div>
+</div>
