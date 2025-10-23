@@ -36,14 +36,21 @@
                 </button>
             </div></div>
 
-            <!-- 気分チェッカー -->
-            <div class="max-w-md py-2">
-            <div id="mood-checker">
-                <%= render 'mood_checker',
-                        record: @today_record,
-                        show_mood_success: @today_record.mood&.feeling.present?,
-                        show_comment_success: @today_record.mood&.comment.present? %>
-            </div></div>
+            <!-- ボタンエリア -->
+            <div class="space-y-4">
+            <!-- チェックアウトボタン -->
+            <%= link_to checkout_page_checkinout_records_path,
+                    class: "btn btn-outline btn-accent btn-lg px-16 py-4 text-2xl shadow-lg w-full block" do %>
+                チェックアウト
+                <% end %>
+
+                <!-- マイページボタン（アウトラインスタイル） -->
+                <%= link_to mypage_checkinout_records_path,
+                    class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white/70 hover:border-white hover:text-orange-600 " do %>
+                マイページを見る
+                <% end %>
+            </div>
+
         </div>
     </div>
 </div>
