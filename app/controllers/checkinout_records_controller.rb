@@ -43,19 +43,28 @@ class CheckinoutRecordsController < ApplicationController
     @current_record = current_user.checkinout_records.find_by(checkout_time: nil)
   end
 
-    def checkin
-  # 未チェックアウトの記録があるかチェック
-  current_record = current_user.checkinout_records.find_by(checkout_time: nil)
+  def checkin
+    # 今日のチェックイン記録を探す
+    current_record = current_user.checkinout_records
+      .where(checkout_time: nil)
+      .where('DATE(checkin_time) = ?', Date.current)
+      .first
 
-  if current_record.present?
-    # 既にチェックイン中の場合は、日跨ぎに関係なく継続
-    redirect_to checkin_path, notice: "既にチェックイン中です。まずチェックアウトしてください。"
-  else
-    # 通常の新規チェックイン
-    current_user.checkinout_records.create!(checkin_time: Time.current)
-    redirect_to checkin_path, notice: "チェックインしました！"
+    if current_record.present?
+      redirect_to checkin_path, notice: "既にチェックイン中です。まずチェックアウトしてください。"
+    else
+      # 過去の未チェックアウト記録を自動クローズ
+      old_unclosed = current_user.checkinout_records
+        .where(checkout_time: nil)
+        .where('DATE(checkin_time) < ?', Date.current)
+
+      old_unclosed.update_all(checkout_time: Time.current)
+
+      # 新規チェックイン
+      current_user.checkinout_records.create!(checkin_time: Time.current)
+      redirect_to checkin_path, notice: "チェックインしました！"
+    end
   end
-end
 
   def smart_checkout
     current_record = current_user.checkinout_records.find_by(checkout_time: nil)
@@ -73,15 +82,18 @@ end
     end
 
   def checkout
-    current_record = current_user.checkinout_records.find_by(checkout_time: nil)
+    # 今日のチェックイン記録を探す
+    current_record = current_user.checkinout_records
+      .where(checkout_time: nil)
+      .where('DATE(checkin_time) = ?', Date.current)
+      .first
 
     if current_record.present?
       current_record.update!(checkout_time: Time.current)
-      # チェックアウト後は気分記録ページへ
       redirect_to mood_record_checkinout_records_path,
                   notice: "チェックアウトしました！今日の気分を記録してみませんか？"
     else
-      redirect_to checkin_path, alert: "チェックイン記録が見つかりません"
+      redirect_to checkin_path, alert: "今日のチェックイン記録が見つかりません"
     end
   end
 
