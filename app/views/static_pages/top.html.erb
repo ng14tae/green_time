@@ -21,7 +21,7 @@
 
                 <% if user_signed_in? %>
                 <!-- ログイン済みユーザー -->
-                <%= link_to "チェックイン", checkin_page_checkinout_records_path,
+                <%= link_to "チェックイン", checkin_path,
                     class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full btn-secondary hover:bg-amber-200 text-amber-900 border-0" %>
 
                 <%= link_to "マイページ", mypage_checkinout_records_path,
