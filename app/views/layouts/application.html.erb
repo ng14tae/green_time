@@ -19,8 +19,12 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
     <%= display_meta_tags(default_meta_tags) %>
+
+    <!-- chartkick関連 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://unpkg.com/chartkick@5.0.1/dist/chartkick.min.js"></script>
+    <!-- LIFF関連 -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   </head>
 
   <body class="flex flex-col min-h-screen">

@@ -26,7 +26,8 @@ services:
       - bundle_data:/usr/local/bundle:cached
       - node_modules:/myapp/node_modules
     environment:
-      TZ: Asia/Tokyo
+      - LIFF_ID=2008125283-y0A4KmZj
+      - TZ=Asia/Tokyo
     ports:
       - "3000:3000"
     depends_on:
