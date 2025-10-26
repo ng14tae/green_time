@@ -47,7 +47,7 @@ class CheckinoutRecordsController < ApplicationController
     # 今日のチェックイン記録を探す
     current_record = current_user.checkinout_records
       .where(checkout_time: nil)
-      .where('DATE(checkin_time) = ?', Date.current)
+      .where("DATE(checkin_time) = ?", Date.current)
       .first
 
     if current_record.present?
@@ -56,7 +56,7 @@ class CheckinoutRecordsController < ApplicationController
       # 過去の未チェックアウト記録を自動クローズ
       old_unclosed = current_user.checkinout_records
         .where(checkout_time: nil)
-        .where('DATE(checkin_time) < ?', Date.current)
+        .where("DATE(checkin_time) < ?", Date.current)
 
       old_unclosed.update_all(checkout_time: Time.current)
 
@@ -85,7 +85,7 @@ class CheckinoutRecordsController < ApplicationController
     # 今日のチェックイン記録を探す
     current_record = current_user.checkinout_records
       .where(checkout_time: nil)
-      .where('DATE(checkin_time) = ?', Date.current)
+      .where("DATE(checkin_time) = ?", Date.current)
       .first
 
     if current_record.present?
