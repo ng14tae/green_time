@@ -63,14 +63,19 @@ class MoodsController < ApplicationController
       return
     end
 
-    # グラフ用データの準備
+    # 円グラフ
     @mood_counts = current_user.moods.group(:feeling).count
+
+    # 折れ線グラフ
     @daily_moods = current_user.moods
-                              .group_by_day(:created_at, last: 7)
-                              .group(:feeling)
-                              .count
+                            .where("created_at >= ?", 7.days.ago)
+                            .group_by_day(:created_at)
+                            .group(:feeling)
+                            .count
+    # 週間推移データ
     @weekly_trend = current_user.moods
-                              .group_by_week(:created_at, last: 4)
+                              .where("created_at >= ?", 4.weeks.ago)
+                              .group_by_week(:created_at)
                               .count
   end
 
