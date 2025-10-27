@@ -4,6 +4,13 @@
             <h1 class="text-5xl font-bold mb-8">Hello!</h1>
             <p class="text-xl mb-8">今日も素晴らしい一日にしましょう！</p>
 
+            <!-- 緑ちゃんブース-->
+            <img src="/assets/pochi.png"
+                    alt="ポチ"
+                    id="pochi-image"
+                    class="mx-auto w-48 h-48 object-contain">
+
+            <!-- チェックインブース-->
             <div class="work-summary mb-8 bg-white/20 rounded-lg p-6">
                 <p class="text-lg">
                 <%= Date.current.strftime("%Y年%m月%d日 (%a)") %></p><br>
@@ -34,17 +41,15 @@
             <div id="checkin-section">
             <% if @today_record.present? %>
                 <!-- チェックイン済みの場合 -->
-                <div id="checkin-section">
                 <button class="btn btn-lg w-full bg-gray-400 text-gray-600" disabled>
                     チェックイン済み
                 </button>
-            </div>
             <% else %>
                 <!-- 未チェックインの場合 -->
                 <%= form_with url: checkin_checkinout_records_path,
                             method: :post,
                             data: { turbo_stream: true, turbo: true } do |f| %>
-                <%= f.submit "チェックイン",
+                <%= f.submit "チェックイン", id: "checkin-button",
                             class: "btn btn-primary btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
                 <% end %>
             <% end %>
@@ -53,3 +58,67 @@
         </div>
     </div>
 </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(event) {
+        if (event.target.id === 'checkin-button') {
+        const pochiImage = document.getElementById('pochi-image');
+        if (pochiImage) {
+            // グラデーション光る効果を追加
+            pochiImage.classList.add('pochi-glow');
+
+            // 0.8秒後にクラスを削除（アニメーション終了）
+            setTimeout(function() {
+            pochiImage.classList.remove('pochi-glow');
+            }, 800);
+        }
+        }
+    });
+});
+</script>
+
+<style>
+    #pochi-image {
+        transition: all 0.6s ease;
+  border-radius: 50%; /* 丸い画像の場合 */
+}
+
+/* 光る効果のクラス */
+.pochi-glow {
+    background: linear-gradient(45deg,
+        #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dda0dd, #ff6b6b);
+    background-size: 400% 400%;
+    animation: gradient-glow 0.8s ease-in-out;
+    box-shadow:
+        0 0 20px rgba(255, 107, 107, 0.6),
+        0 0 40px rgba(78, 205, 196, 0.4),
+        0 0 60px rgba(69, 183, 209, 0.3);
+    transform: scale(1.1);
+    padding: 8px; /* グラデーション境界線の太さ */
+}
+
+@keyframes gradient-glow {
+    0% {
+        background-position: 0% 50%;
+        box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+    }
+    25% {
+        background-position: 25% 50%;
+        box-shadow: 0 0 30px rgba(78, 205, 196, 0.6);
+    }
+    50% {
+        background-position: 50% 50%;
+        box-shadow: 0 0 40px rgba(69, 183, 209, 0.8);
+    }
+    75% {
+        background-position: 75% 50%;
+        box-shadow: 0 0 30px rgba(150, 206, 180, 0.6);
+    }
+    100% {
+        background-position: 100% 50%;
+        box-shadow: 0 0 10px rgba(255, 234, 167, 0.3);
+    }
+}
+</style>
