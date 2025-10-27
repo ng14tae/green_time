@@ -33,7 +33,7 @@ class CheckinoutRecordsController < ApplicationController
     # 今日の記録がない場合は初回チェックイン画面へ
     unless @today_record.present?
       redirect_to checkin_checkinout_records_path, notice: "まずはチェックインしてください"
-      nil
+      return
     end
   end
 
@@ -60,9 +60,13 @@ class CheckinoutRecordsController < ApplicationController
 
       old_unclosed.update_all(checkout_time: Time.current)
 
-      # 新規チェックイン
-      current_user.checkinout_records.create!(checkin_time: Time.current)
-      redirect_to checkin_path, notice: "チェックインしました！"
+      @today_record = current_user.checkinout_records.create!(checkin_time: Time.current)
+      @notice_message = "チェックインしました"
+    end
+
+    # ★重要：リダイレクトを削除してTurbo Streamレスポンス
+    respond_to do |format|
+      format.turbo_stream
     end
   end
 

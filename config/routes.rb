@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :checkinout_records, only: [ :index, :edit ] do
     collection do
       get :checkin_page
+      get :checkin
       get :edit_today
       get :checkout_page
       get :mood_record
