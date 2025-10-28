@@ -7,7 +7,7 @@ module.exports = {
   ],
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark",
+    themes: ["light",
       { mytheme: {
           "primary": "#1E90FF",   // 鮮やかなindigoブルー
           "secondary": "#FFECB3", // クリーム色
