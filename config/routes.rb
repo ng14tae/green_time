@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get "/checkin", to: "checkinout_records#smart_checkin"
   get "/checkout", to: "checkinout_records#smart_checkout"
 
+  resources :plants, only: [ :index, :create ]
+
   resources :checkinout_records, only: [ :index, :edit ] do
     collection do
       get :checkin_page
