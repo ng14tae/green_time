@@ -9,9 +9,22 @@ class PlantsController < ApplicationController
     @plant = Plant.new(plant_params)
     if @plant.save
       current_user.update(plant: @plant)
-      redirect_to checkin_path, notice: "名前をつけました🌱"
+      redirect_to plants_path, notice: "名前をつけました🌱"
     else
       render :index, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @plant = current_user.plant
+  end
+
+  def update
+    @plant = current_user.plant
+    if @plant.update(plant_params)
+      redirect_to plants_path, notice: "名前を変更しました🌱"
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
