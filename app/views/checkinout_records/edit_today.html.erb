@@ -1,13 +1,8 @@
 <div class="hero min-h-screen bg-gradient-to-br from-blue-400 to-blue-600">
     <div class="hero-content text-center text-white">
-        <div class="max-w-md py-16">
-            <h1 class="text-5xl font-bold mb-8">
-                Welcome back!
-            </h1>
-
-            <p class="text-xl mb-8">
-                ＼まだまだ素敵な一日にしましょう！／
-            </p>
+        <div class="max-w-md py-8">
+            <p class="text-xl mb-8">まだまだ素敵な一日にしましょう！</p>
+            <h1 class="text-5xl font-bold mb-5 mx-auto fukidashi-02-01">Welcome back!</h1>
 
             <!-- 緑ちゃんブース-->
             <%= image_tag "kuma.png", alt: "ポチ", id: "pochi-image", class: "mx-auto w-48 h-48 object-contain" %>
@@ -60,3 +55,27 @@
         </div>
     </div>
 </div>
+
+<style>
+.fukidashi-02-01 {
+    position: relative;
+    width: fit-content;
+    padding: 12px 20px;
+    color: #333333;
+    border-radius: 10px;
+    background-color: #ffffff;
+    }
+    .fukidashi-02-01::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: -1;
+    width: 20px;
+    height: 12px;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    background-color: #ffffff;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+</style>
