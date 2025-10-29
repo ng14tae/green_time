@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   # アソシエーション
   has_many :checkinout_records, dependent: :destroy
-  has_many :plant, dependent: :destroy
+  has_one :plant, dependent: :destroy
   has_many :moods, dependent: :destroy
 
   # plant登録時のスコープ
@@ -25,5 +25,13 @@ class User < ApplicationRecord
     checkinout_records.where(
       checkin_time: Time.current.beginning_of_day..Time.current.end_of_day
     )
+  end
+
+  after_create :create_plant
+
+  private
+
+  def create_plant
+    Plant.create!(user: self)
   end
 end

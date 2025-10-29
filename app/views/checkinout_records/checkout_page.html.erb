@@ -2,10 +2,13 @@
     <div class="hero-content text-center text-white">
         <div class="max-w-md py-16">
         <h1 class="text-5xl font-bold mb-8">Good Job!</h1>
-        <p class="text-xl mb-8">今日もお疲れさまでした</p>
+        <p class="text-xl mb-4">＼今日もお疲れさまでした／</p>
 
         <!-- 緑ちゃんブース-->
         <%= image_tag "kuma.png", alt: "ポチ", id: "pochi-image", class: "mx-auto w-48 h-48 object-contain" %>
+            <div class="max-w-md mb-8">
+                <p><%= current_plant_name %></p>
+            </div>
 
         <div class="work-summary mb-8 bg-white/20 rounded-lg p-6">
             <p class="text-lg">
@@ -34,7 +37,7 @@
             </div></div>
 
         <!-- ボタンエリア -->
-        <div class="space-y-4 py-8">
+        <div class="space-y-4 py-4">
         <!-- チェックアウトボタン -->
         <%= form_with url: checkout_checkinout_records_path, method: :patch do |f| %>
             <%= f.submit "お疲れさま", id: "checkout-button",
