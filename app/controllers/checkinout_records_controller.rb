@@ -87,17 +87,22 @@ class CheckinoutRecordsController < ApplicationController
 
   def checkout
     # 今日のチェックイン記録を探す
+    today_start = Time.zone.today.beginning_of_day
+    today_end = Time.zone.today.end_of_day
+
     current_record = current_user.checkinout_records
       .where(checkout_time: nil)
-      .where("DATE(checkin_time) = ?", Date.current)
+      .where(checkin_time: today_start..today_end)
+      .order(checkin_time: :desc)
       .first
 
     if current_record.present?
       current_record.update!(checkout_time: Time.current)
       redirect_to mood_record_checkinout_records_path,
-                  notice: "チェックアウトしました！今日の気分を記録してみませんか？"
+                  notice: "チェックアウトしました！"
     else
-      redirect_to checkin_path, alert: "今日のチェックイン記録が見つかりません"
+      redirect_to checkin_page_checkinout_records_path,
+                  alert: "今日のチェックイン記録が見つかりません"
     end
   end
 
