@@ -1,8 +1,9 @@
 <div class="hero min-h-screen bg-gradient-to-br from-orange-400 to-red-500">
     <div class="hero-content text-center text-white">
-        <div class="max-w-md py-16">
-        <h1 class="text-5xl font-bold mb-8">Good Job!</h1>
-        <p class="text-xl mb-4">＼今日もお疲れさまでした／</p>
+        <div class="max-w-md py-8">
+        <p class="text-xl mb-8">今日もお疲れさまでした</p>
+        <h1 class="text-5xl font-bold mb-5 fukidashi-02-01 mx-auto">Good Job!</h1>
+
 
         <!-- 緑ちゃんブース-->
         <%= image_tag "kuma.png", alt: "ポチ", id: "pochi-image", class: "mx-auto w-48 h-48 object-contain" %>
@@ -104,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* 1つ目のスパークル層 */
 .pochi-sparkle::before {
-    background: 
+    background:
         radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.9) 2px, transparent 3px),
         radial-gradient(circle at 75% 20%, rgba(255, 215, 0, 0.8) 1px, transparent 2px),
         radial-gradient(circle at 20% 75%, rgba(255, 255, 255, 0.8) 2px, transparent 3px),
@@ -117,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /* 2つ目のスパークル層（少し遅れて開始） */
 .pochi-sparkle::after {
-    background: 
+    background:
         radial-gradient(circle at 60% 30%, rgba(255, 255, 255, 0.9) 1px, transparent 2px),
         radial-gradient(circle at 30% 60%, rgba(255, 20, 147, 0.8) 2px, transparent 3px),
         radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.7) 1px, transparent 2px),
@@ -171,5 +172,27 @@ document.addEventListener('DOMContentLoaded', function() {
         opacity: 0;
         transform: scale(1.6) rotate(0deg);
     }
+}
+
+.fukidashi-02-01 {
+    position: relative;
+    width: fit-content;
+    padding: 12px 20px;
+    color: #333333;
+    border-radius: 10px;
+    background-color: #ffffff;
+    }
+    .fukidashi-02-01::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: -1;
+    width: 20px;
+    height: 12px;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    background-color: #ffffff;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 </style>
