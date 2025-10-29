@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   # アソシエーション
   has_many :checkinout_records, dependent: :destroy
-  belongs_to :plant, optional: true  # plant_idはnull許可のため
+  has_many :plant, dependent: :destroy
   has_many :moods, dependent: :destroy
 
   # plant登録時のスコープ

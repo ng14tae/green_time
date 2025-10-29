@@ -22,24 +22,22 @@
           <li><%= link_to "マイページ", mypage_checkinout_records_path %></li>
             <% if user_signed_in? %>
               <!-- ログイン済みの場合は常に表示 -->
-              <li>
-                <%= link_to "チェックイン", checkin_path,
-                            class: "menu-item flex items-center px-4 py-2" %>
-              </li>
+              <li><%= link_to "チェックイン", checkin_path,
+                            class: "menu-item flex items-center px-4 py-2" %></li>
+              <li><%= link_to "チェックアウト", checkout_page_checkinout_records_path %></li>
+              <li><%= link_to "気分グラフ", analytics_moods_path %></li>
+              <li><%= link_to "🌱ページ", plants_path %></li>
             <% end %>
-          <li><%= link_to "チェックアウト", checkout_page_checkinout_records_path %></li>
-          <li><%= link_to "気分グラフ", analytics_moods_path %></li>
-          <li><a class="opacity-50 cursor-not-allowed">🌱ページ（準備中）</a></li>
-          <li><%= link_to "使い方", how_to_use_path %></li>
-          <li><%= link_to "お問い合わせ", contact_path %></li>
-          <li><%= link_to "利用規約", terms_path %></li>
-          <li><%= link_to "プライバシーポリシー", privacy_path %></li>
-          <% if user_signed_in? %>
-            <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
-          <% else %>
-            <li><%= link_to "ログイン", new_user_session_path %></li>
-            <li><%= link_to "新規登録", new_user_registration_path %></li>
-          <% end %>
+              <li><%= link_to "使い方", how_to_use_path %></li>
+              <li><%= link_to "お問い合わせ", contact_path %></li>
+              <li><%= link_to "利用規約", terms_path %></li>
+              <li><%= link_to "プライバシーポリシー", privacy_path %></li>
+            <% if user_signed_in? %>
+              <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
+            <% else %>
+              <li><%= link_to "ログイン", new_user_session_path %></li>
+              <li><%= link_to "新規登録", new_user_registration_path %></li>
+            <% end %>
         </ul>
       </div>
     </div>
