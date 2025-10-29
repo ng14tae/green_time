@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_10_28_075953) do
+ActiveRecord::Schema[7.2].define(version: 2025_10_29_031116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_28_075953) do
     t.string "plant_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_plants_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,5 +59,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_10_28_075953) do
   add_foreign_key "checkinout_records", "users"
   add_foreign_key "moods", "checkinout_records"
   add_foreign_key "moods", "users"
+  add_foreign_key "plants", "users"
   add_foreign_key "users", "plants"
 end
