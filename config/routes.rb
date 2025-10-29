@@ -20,13 +20,12 @@ Rails.application.routes.draw do
   resources :checkinout_records, only: [ :index, :edit ] do
     collection do
       get :checkin_page
-      get :checkin
+      post :checkin
       get :edit_today
       get :checkout_page
+      patch :checkout
       get :mood_record
       get :mypage
-      post :checkin
-      patch :checkout
     end
 
     resources :moods, only: [ :create ] do
