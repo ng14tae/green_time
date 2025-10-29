@@ -1,14 +1,16 @@
-<div class="container mx-auto px-4 py-8 max-w-4xl">
+<div class="container mx-auto px-4 py-12 max-w-4xl">
     <h1 class="text-3xl font-bold mb-8 text-center">お問い合わせ</h1>
 
     <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-        <p class="text-gray-700 mb-6 text-center">
+        <p class="text-gray-700 mb-16 text-center">
         サービスに関するご質問やご不明な点がございましたら、<br>
-        以下の方法でお気軽にお問い合わせください。
+        LINE公式アカウントのトークルームにてお気軽にお問い合わせください。
         </p>
 
+        <hr class="py-12 border-gray-300">
+
         <!-- お問い合わせ方法 -->
-        <div class="grid md:grid-cols-2 gap-6">
+        <%# <div class="grid md:grid-cols-2 gap-6">
         <div class="bg-blue-50 rounded-lg p-6">
             <h3 class="text-lg font-semibold mb-3 text-blue-800">📧 メールでのお問い合わせ</h3>
             <p class="text-gray-700 mb-2">
@@ -32,36 +34,21 @@
             </button>
         </div>
         </div>
-    </div>
+    </div> %>
 
     <!-- よくある質問 -->
     <div class="bg-white rounded-lg shadow-md p-6">
         <h2 class="text-2xl font-semibold mb-6 text-center">よくある質問</h2>
 
-        <div class="space-y-4">
-        <div class="border-b pb-4">
-            <h3 class="font-semibold text-gray-800 mb-2">Q. パスワードを忘れてしまいました</h3>
+        <div class="border-b pb-8">
+            <h3 class="font-semibold text-gray-800 mb-2">Q. データを編集・削除できますか？</h3>
             <p class="text-gray-700">
-            A. ログイン画面の「パスワードを忘れた方」リンクから、パスワードリセットの手続きを行ってください。
-            登録されたメールアドレスに再設定用のリンクをお送りします。
+            A. green_timeは保守性を大切にする観点からデータの編集や削除はできません。
+                仮に間違えてしまった場合、当日や翌日の「気分メモ」欄に記入するなどご自身でのご対応をお願いしております。
             </p>
         </div>
 
-        <div class="border-b pb-4">
-            <h3 class="font-semibold text-gray-800 mb-2">Q. チェックイン時刻を間違えて記録してしまいました</h3>
-            <p class="text-gray-700">
-            A. チェックイン画面から編集が可能です。当日中であれば自由に修正していただけます。
-            </p>
-        </div>
-
-        <div class="border-b pb-4">
-            <h3 class="font-semibold text-gray-800 mb-2">Q. 過去のデータを削除できますか？</h3>
-            <p class="text-gray-700">
-            A. 各記録の詳細画面から削除が可能です。削除されたデータは復元できませんのでご注意ください。
-            </p>
-        </div>
-
-        <div class="pb-4">
+        <div class="py-8">
             <h3 class="font-semibold text-gray-800 mb-2">Q. スマートフォンでも利用できますか？</h3>
             <p class="text-gray-700">
             A. はい、スマートフォンやタブレットからもご利用いただけます。レスポンシブデザインに対応しております。
