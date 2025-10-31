@@ -31,7 +31,7 @@
             <%= record.checkout_time.strftime("%H:%M") %>
             </span>
             <% if record.checkin_time.to_date != record.checkout_time.to_date %>
-            <span class="text-purple-600 text-xs ml-1">翌日</span>
+            <span class="text-purple-600 text-xs ml-1">翌日以降</span>
             <% end %>
         <% else %>
             <span class="text-red-500 font-bold ml-1">勤務中</span>
