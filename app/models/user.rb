@@ -4,16 +4,19 @@ class User < ApplicationRecord
 
   # LIFF認証用バリデーション
   validates :line_user_id, presence: true, uniqueness: true, allow_nil: true
-  validates :nickname, length: { maximum: 10 }
+  validates :nickname, length: { maximum: 10 }, allow_blank: true
 
   # アソシエーション
   has_many :checkinout_records, dependent: :destroy
   has_one :plant, dependent: :destroy
   has_many :moods, dependent: :destroy
 
-  # 表示名のロジック
-  def full_name
-    nickname.present? ? nickname : display_name
+  def display_name
+    nickname.presence || line_display_name || "ゲスト"
+  end
+
+  def needs_nickname_setup?
+    nickname.blank?
   end
 
   # LINE認証ユーザーかどうかを判定
