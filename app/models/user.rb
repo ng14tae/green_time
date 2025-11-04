@@ -3,22 +3,22 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # LIFF認証用バリデーション
-  # validates :line_user_id, presence: true, uniqueness: true
-  # validates :display_name, length: { maximum: 255 }
-  # validates :nickname, length: { maximum: 255 }
+  validates :line_user_id, presence: true, uniqueness: true, allow_nil: true
+  validates :nickname, length: { maximum: 10 }
 
   # アソシエーション
   has_many :checkinout_records, dependent: :destroy
   has_one :plant, dependent: :destroy
   has_many :moods, dependent: :destroy
 
-  # plant登録時のスコープ
-  # scope :with_plant, -> { where.not(plant_id: nil) }
-  # scope :without_plant, -> { where(plant_id: nil) }
-
-  # メソッド
+  # 表示名のロジック
   def full_name
     nickname.present? ? nickname : display_name
+  end
+
+  # LINE認証ユーザーかどうかを判定
+  def line_user?
+    line_user_id.present?
   end
 
   def today_checkins

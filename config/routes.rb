@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
+  # LINE認証用ルート
+  post '/line_sessions', to: 'line_sessions#create'
+  delete '/line_sessions', to: 'line_sessions#destroy'
+
   root "static_pages#top"
   get "how_to_use", to: "static_pages#how_to_use"
   get "terms", to: "static_pages#terms"

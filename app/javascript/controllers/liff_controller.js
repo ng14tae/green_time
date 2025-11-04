@@ -20,9 +20,51 @@ export default class extends Controller {
 
       if (this.hasNameTarget) this.nameTarget.textContent = `こんにちは、${profile.displayName} さん！`
       if (this.hasImageTarget) this.imageTarget.src = profile.pictureUrl
+
+      // 🆕 認証処理を追加
+      await this.sendUserDataToRails(profile)
+
     } catch (error) {
       console.error("LIFF error:", error)
       if (this.hasNameTarget) this.nameTarget.textContent = "LIFFの初期化に失敗しました"
     }
   }
-}
+
+    // 🆕 Rails認証処理を追加
+    async sendUserDataToRails(profile) {
+      try {
+        const userData = {
+          line_user_id: profile.userId,
+          avatar_url: profile.pictureUrl
+          // display_nameは削除（先ほどの設計通り）
+        }
+
+        const response = await fetch('/line_sessions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+          },
+          body: JSON.stringify(userData)
+        })
+
+        const data = await response.json()
+
+        if (data.success) {
+          if (data.redirect_to_nickname_setup) {
+            // 初回ユーザー → ニックネーム設定画面へ
+            window.location.href = '/users/setup_nickname'
+          } else {
+            // 既存ユーザー → メイン画面へ
+            window.location.href = '/checkin'
+          }
+        } else {
+          console.error('認証エラー:', data.error)
+          alert('ログインに失敗しました')
+        }
+      } catch (error) {
+        console.error('通信エラー:', error)
+        alert('通信エラーが発生しました')
+      }
+    }
+  }
