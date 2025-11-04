@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_04_053957) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_04_143106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,9 +51,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_04_053957) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.bigint "plant_id"
-    t.string "avatar_url"
+    t.string "line_user_id"
     t.string "nickname"
+    t.string "avatar_url"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["line_user_id"], name: "index_users_on_line_user_id", unique: true
     t.index ["plant_id"], name: "index_users_on_plant_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
