@@ -1,6 +1,6 @@
 class MoodsController < ApplicationController
-  skip_before_action :authenticate_user!
-  before_action :require_line_login
+  # skip_before_action :authenticate_user!
+  # before_action :require_line_login
 
   def mood_check
     render json: { recorded: @checkinout_record.mood.present? }
