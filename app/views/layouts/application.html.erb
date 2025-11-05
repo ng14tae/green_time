@@ -32,7 +32,7 @@
   <body class="flex flex-col min-h-screen">
   <main class="flex-grow">
     <div data-controller="liff" data-liff-liff-id-value="<%= Rails.application.credentials.line[:liff_id] %>">
-    <% if logged_in? %>
+    <% if logged_in_line? %>
         <div class="user-info">
           <img src="<%= current_user.avatar_url %>" alt="avatar">
           <%= current_user.nickname %>さん
