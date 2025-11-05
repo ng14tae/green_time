@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # devise用既存メソッド（段階的に削除予定）
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   allow_browser versions: :modern
   before_action :configure_permitted_parameters, if: :devise_controller?
 

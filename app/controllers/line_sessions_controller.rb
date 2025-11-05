@@ -1,5 +1,5 @@
 class LineSessionsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :create ]
+  # skip_before_action :authenticate_user!, only: [ :create ]
   protect_from_forgery except: :create
 
   def create

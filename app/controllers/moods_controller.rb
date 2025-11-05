@@ -1,5 +1,5 @@
 class MoodsController < ApplicationController
-  skip_before_action :authenticate_user!    # Devise無効化
+  # skip_before_action :authenticate_user!    # Devise無効化
   # before_action :require_line_login    # LINE認証有効化
 
   def mood_check

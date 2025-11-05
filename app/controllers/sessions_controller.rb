@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
   # CSRF保護を無効化（LINE認証用）
-  skip_before_action :verify_authenticity_token, only: [ :line_callback ]
+  # skip_before_action :verify_authenticity_token, only: [ :line_callback ]
   # Devise認証をスキップ
-  skip_before_action :authenticate_user!, only: [ :line_callback, :destroy ]
+  # skip_before_action :authenticate_user!, only: [ :line_callback, :destroy ]
 
   # LINE認証後のコールバック処理
   def line_callback
