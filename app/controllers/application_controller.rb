@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   def require_line_login
     unless logged_in_line?
       # ブラウザの種類で分岐
-      if request.user_agent&.include?('Line') || request.headers['X-Requested-With'] == 'LIFF'
+      if request.user_agent&.include?("Line") || request.headers["X-Requested-With"] == "LIFF"
         # LINEブラウザの場合：ログインページへ
         redirect_to line_redirect_path
       else
@@ -50,11 +50,7 @@ class ApplicationController < ActionController::Base
   private
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname, :display_name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:nickname, :display_name])
-  end
-
-  def require_line_login
-    redirect_to auth_line_path unless session[:line_user_id]
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :nickname, :display_name ])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :nickname, :display_name ])
   end
 end

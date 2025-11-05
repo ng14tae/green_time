@@ -1,5 +1,5 @@
 class LineSessionsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:create]
+  skip_before_action :authenticate_user!, only: [ :create ]
   protect_from_forgery except: :create
 
   def create
@@ -8,7 +8,7 @@ class LineSessionsController < ApplicationController
 
     # バリデーション
     if line_user_id.blank? || display_name.blank?
-      render json: { success: false, error: 'LINE情報が不正です' }
+      render json: { success: false, error: "LINE情報が不正です" }
       return
     end
 
