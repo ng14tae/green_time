@@ -6,6 +6,12 @@ export default class extends Controller {
   static targets = ["name", "image"]
 
   async connect() {
+    if (!liff.isInClient()) {
+      console.log('🌐 外部ブラウザからのアクセス')
+      this.handleExternalAccess()
+      return
+    }
+
     try {
       await liff.init({ liffId: this.liffIdValue })
       console.log("✅ LIFF initialized")
@@ -27,6 +33,19 @@ export default class extends Controller {
     } catch (error) {
       console.error("LIFF error:", error)
       if (this.hasNameTarget) this.nameTarget.textContent = "LIFFの初期化に失敗しました"
+    }
+  }
+
+  handleExternalAccess() {
+    // LINE公式アカウント誘導（STEP 9で使用）
+    if (this.hasNameTarget) {
+      this.nameTarget.innerHTML = `
+        <div class="external-access-message">
+          <h3>📱 このアプリはLINE内でご利用ください</h3>
+          <p>LINE公式アカウントを友だち追加してアクセスしてください</p>
+          <a href="/line_guide" class="btn btn-success">LINE公式アカウントを開く</a>
+        </div>
+      `
     }
   }
 

@@ -1,6 +1,6 @@
 class MoodsController < ApplicationController
-  before_action :set_checkinout_record, except: [ :analytics ]
-  before_action :authenticate_user!, only: [ :analytics ]
+  skip_before_action :authenticate_user!    # Devise無効化
+  before_action :require_line_login    # LINE認証有効化
 
   def mood_check
     render json: { recorded: @checkinout_record.mood.present? }

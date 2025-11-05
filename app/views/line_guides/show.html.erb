@@ -1,0 +1,28 @@
+<div class="container text-center mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+            <h3 class="card-title">📱 このアプリはLINE内でご利用ください</h3>
+            <p class="card-text">
+                LINE公式アカウントを友だち追加して、<br>
+                リッチメニューからアクセスしてください。
+            </p>
+
+            <div class="mt-4">
+                <a href="https://line.me/R/ti/p/<%= Rails.application.credentials.line[:official_account_id] %>"
+                class="btn btn-success btn-lg" target="_blank">
+                📱 LINE公式アカウントを開く
+                </a>
+            </div>
+
+            <div class="mt-3">
+                <small class="text-muted">
+                友だち追加後、リッチメニューの「アプリを開く」をタップしてください
+                </small>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
