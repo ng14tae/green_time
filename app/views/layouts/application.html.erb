@@ -25,11 +25,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://unpkg.com/chartkick@5.0.1/dist/chartkick.min.js"></script>
     <!-- LIFF関連 -->
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <meta name="liff-id" content="<%= Rails.application.credentials.line[:liff_id] %>">
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   </head>
 
   <body class="flex flex-col min-h-screen">
   <main class="flex-grow">
+    <div data-controller="liff" data-liff-liff-id-value="<%= Rails.application.credentials.line[:liff_id] %>">
+    <% if logged_in? %>
+        <div class="user-info">
+          <img src="<%= current_user.avatar_url %>" alt="avatar">
+          <%= current_user.nickname %>さん
+        </div>
+      <% end %>
     <%= yield %>
   </main>
 

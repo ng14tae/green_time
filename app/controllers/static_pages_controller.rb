@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :top ]
+  skip_before_action :authenticate_user!
+  skip_before_action :require_line_login
   def top; end
 
   def how_to_use
