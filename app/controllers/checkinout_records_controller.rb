@@ -1,6 +1,6 @@
 class CheckinoutRecordsController < ApplicationController
-  # skip_before_action :authenticate_user!  # Deviseを無効化
-  # before_action :require_line_login       # LINE認証を有効化
+  skip_before_action :authenticate_user!  # Deviseを無効化
+  before_action :require_line_login       # LINE認証を有効化
   def index
     # メインページ - 状態に応じてリダイレクト
     @today_record = find_today_record

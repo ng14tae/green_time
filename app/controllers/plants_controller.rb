@@ -1,6 +1,6 @@
 class PlantsController < ApplicationController
-  # skip_before_action :authenticate_user!    # Devise無効化
-  # before_action :require_line_login         # LINE認証必須
+  skip_before_action :authenticate_user!    # Devise無効化
+  before_action :require_line_login         # LINE認証必須
   before_action :set_plant
 
   def index
