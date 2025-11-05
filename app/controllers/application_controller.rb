@@ -53,4 +53,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname, :display_name])
     devise_parameter_sanitizer.permit(:account_update, keys: [:nickname, :display_name])
   end
+
+  def require_line_login
+    redirect_to auth_line_path unless session[:line_user_id]
+  end
 end
