@@ -58,28 +58,33 @@ export default class extends Controller {
           avatar_url: profile.pictureUrl
         }
 
-        const response = await fetch('/line_sessions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
-          },
-          body: JSON.stringify(userData)
-        })
+    // 🔧 formを使って送信（ブラウザが自動的にリダイレクトに追従）
+      const form = document.createElement('form')
+      form.method = 'POST'
+      form.action = '/line_sessions'
 
-        const data = await response.json()
+      // CSRF Token
+      const csrfInput = document.createElement('input')
+      csrfInput.type = 'hidden'
+      csrfInput.name = 'authenticity_token'
+      csrfInput.value = document.querySelector('[name="csrf-token"]').content
+      form.appendChild(csrfInput)
 
-        if (data.success) {
-        // 🔧 まずはシンプルに固定リダイレクト
-        console.log('認証成功！リダイレクト先:', data.redirect_url)
-        window.location.href = data.redirect_url || '/checkin'
-      } else {
-        console.error('認証エラー:', data.error)
-        alert(`ログインに失敗しました: ${data.error}`)
-      }
-      } catch (error) {
-        console.error('通信エラー:', error)
-        alert('通信エラーが発生しました')
-      }
+      // データ
+      Object.keys(userData).forEach(key => {
+        const input = document.createElement('input')
+        input.type = 'hidden'
+        input.name = key
+        input.value = userData[key]
+        form.appendChild(input)
+      })
+
+      document.body.appendChild(form)
+      form.submit()
+
+    } catch (error) {
+      console.error('通信エラー:', error)
+      alert('通信エラーが発生しました')
     }
   }
+}
