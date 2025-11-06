@@ -1,6 +1,5 @@
 class LineSessionsController < ApplicationController
-  skip_before_action :authenticate_user!
-  protect_from_forgery except: [ :create, :destroy ]
+  skip_before_action :authenticate_user_with_line_support!, only: [:create]
 
   def create
     begin
@@ -42,11 +41,6 @@ class LineSessionsController < ApplicationController
         error: "システムエラーが発生しました"
       }
     end
-  end
-
-  def destroy
-    log_out_line
-    render json: { success: true, message: "ログアウトしました" }
   end
 
   private
