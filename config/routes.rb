@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     # LINE認証（統一）
   get '/auth/line/callback', to: 'sessions#create'
   post '/auth/line/callback', to: 'sessions#create'
+  post '/line_sessions', to: 'line_sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
   # LINE誘導ページ
