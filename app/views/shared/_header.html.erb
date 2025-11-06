@@ -6,9 +6,11 @@
       <% end %>
     </div>
     <div class="navbar-center">
-      <% if user_signed_in? %>
-    <p class="text-base white-space:nowrap"><%= current_user.email %>の勤怠記録</p>
-    <% end %>
+      <% if current_user %>
+        <p class="text-base white-space:nowrap">
+          <%= current_user.display_name || current_user.email %>の勤怠記録
+        </p>
+      <% end %>
     </div>
     <div class="navbar-end">
       <div class="dropdown dropdown-end">
