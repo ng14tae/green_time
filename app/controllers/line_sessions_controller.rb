@@ -21,11 +21,7 @@ class LineSessionsController < ApplicationController
         # セッション設定（ApplicationControllerのメソッドを使用）
         log_in_line(user)
 
-        render json: {
-          success: true,
-          message: "ログインが完了しました",
-          redirect_url: root_path
-        }
+        redirect_to checkin_page_checkinout_records_path, allow_other_host: false
       else
         Rails.logger.error "ユーザー作成失敗: #{user.errors.full_messages}"
         render json: {
