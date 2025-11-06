@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
     # LINE認証（統一）
-  post '/line_login', to: 'line_sessions#create'
-  delete '/line_logout', to: 'line_sessions#destroy'
+  get '/auth/line/callback', to: 'sessions#create'
+  post '/auth/line/callback', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
 
   # LINE誘導ページ
   get '/line_guide', to: 'line_guides#show'
