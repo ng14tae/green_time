@@ -1,5 +1,4 @@
 class PlantsController < ApplicationController
-  before_action :authenticate_user_with_line_support!
   before_action :set_plant
 
   def index
