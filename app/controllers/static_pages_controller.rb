@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-  before_action :authenticate_user_with_line_support!
+  skip_before_action :authenticate_user_with_line_support!
   def top; end
 
   def how_to_use
