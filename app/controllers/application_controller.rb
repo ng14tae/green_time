@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # devise用既存メソッド（段階的に削除予定）
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   allow_browser versions: :modern
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -13,9 +13,10 @@ class ApplicationController < ActionController::Base
   # === LINE認証用セッション管理メソッド ===
 
   # ユーザーをログインさせる（LINE認証用）
-  def log_in(user)
+  def log_in_line(user)
     session[:line_user_id] = user.line_user_id
     session[:user_id] = user.id
+    session[:login_type] = 'line'
   end
 
   # 現在ログイン中のユーザーを取得（LINE認証用）
@@ -34,6 +35,7 @@ class ApplicationController < ActionController::Base
   def log_out_line
     session.delete(:line_user_id)
     session.delete(:user_id)
+    session.delete(:login_type)
     @current_user_line = nil
   end
 
@@ -43,15 +45,26 @@ class ApplicationController < ActionController::Base
     current_user_line || super
   end
 
-  # ログインが必要なページの制御（LINE認証用）
-  def require_line_login
-    unless logged_in_line?
-      if request.user_agent&.include?("Line") || request.headers["X-Requested-With"] == "LIFF"
-        redirect_to line_guide_path
-      else
-        redirect_to line_guide_path
-      end
+  def authenticate_user!
+    Rails.logger.info "=== 認証チェック開始 ==="
+    Rails.logger.info "セッション: #{session.inspect}"
+    Rails.logger.info "current_user_line: #{current_user_line&.id}"
+
+    # LINE認証ユーザーがいればOK
+    if logged_in_line?
+      Rails.logger.info "LINE認証済みユーザー: #{current_user_line.id}"
+      return
     end
+
+    # Devise認証もチェック
+    if user_signed_in?
+      Rails.logger.info "Devise認証済みユーザー: #{current_user.id}"
+      return
+    end
+
+    # どちらも未ログイン → リダイレクト
+    Rails.logger.info "未ログイン → line_guide にリダイレクト"
+    redirect_to line_guide_path
   end
 
   private
