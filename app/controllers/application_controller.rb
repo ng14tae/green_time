@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def log_in_line(user)
     session[:line_user_id] = user.line_user_id
     session[:user_id] = user.id
-    session[:login_type] = 'line'
+    session[:login_type] = "line"
   end
 
   # 現在ログイン中のユーザーを取得（LINE認証用）
