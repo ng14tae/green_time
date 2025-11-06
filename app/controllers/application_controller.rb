@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def log_in_line(user)
     session[:line_user_id] = user.line_user_id
     session[:user_id] = user.id
-    session[:login_type] = 'line'
+    session[:login_type] = "line"
   end
 
   # 現在ログイン中のユーザーを取得（LINE認証用）
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     current_user_line || super
   end
 
-  def authenticate_user!
+  def authenticate_user_with_line_support!
     Rails.logger.info "=== 認証チェック開始 ==="
     Rails.logger.info "セッション: #{session.inspect}"
     Rails.logger.info "current_user_line: #{current_user_line&.id}"

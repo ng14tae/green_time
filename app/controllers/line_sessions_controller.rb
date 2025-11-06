@@ -1,5 +1,5 @@
 class LineSessionsController < ApplicationController
-  skip_before_action :authenticate_user_with_line_support!, only: [:create]
+  skip_before_action :authenticate_user_with_line_support!, only: [ :create ]
 
   def create
     begin
