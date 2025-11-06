@@ -1,4 +1,5 @@
 class MoodsController < ApplicationController
+  before_action :set_checkinout_record, only: [:mood_check, :create]
 
   def mood_check
     render json: { recorded: @checkinout_record.mood.present? }
