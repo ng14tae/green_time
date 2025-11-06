@@ -57,8 +57,13 @@ class ApplicationController < ActionController::Base
     end
 
     # Devise認証もチェック
-    if user_signed_in?
+    if defined?(Devise) && respond_to?(:user_signed_in?) && user_signed_in?
       Rails.logger.info "Devise認証済みユーザー: #{current_user.id}"
+      return
+    end
+
+    if request.path == line_guide_path
+      Rails.logger.info "既にline_guideページにいるため、リダイレクトしない"
       return
     end
 
