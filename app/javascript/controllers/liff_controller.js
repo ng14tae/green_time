@@ -37,7 +37,7 @@ export default class extends Controller {
   }
 
   handleExternalAccess() {
-    // LINE公式アカウント誘導（STEP 9で使用）
+    // LINE公式アカウント誘導
     if (this.hasNameTarget) {
       this.nameTarget.innerHTML = `
         <div class="external-access-message">

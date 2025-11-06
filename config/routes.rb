@@ -5,11 +5,12 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  # LINE認証用ルート
-  post "/sessions/line_callback", to: "sessions#line_callback"
-  get "auth/line", to: "sessions#line_redirect"        # LINE誘導ページ
-  get "/line_guide", to: "line_guides#show"
-  delete "logout", to: "sessions#destroy"                 # ログアウト
+    # LINE認証（統一）
+  post '/line_login', to: 'line_sessions#create'
+  delete '/line_logout', to: 'line_sessions#destroy'
+
+  # LINE誘導ページ
+  get '/line_guide', to: 'line_guides#show'
 
   root "static_pages#top"
   get "how_to_use", to: "static_pages#how_to_use"

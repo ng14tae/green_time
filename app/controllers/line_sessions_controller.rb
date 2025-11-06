@@ -1,35 +1,52 @@
 class LineSessionsController < ApplicationController
-  # skip_before_action :authenticate_user!, only: [ :create ]
-  protect_from_forgery except: :create
+  skip_before_action :authenticate_user!
+  protect_from_forgery except: [:create, :destroy]
 
   def create
-    line_user_id = params[:line_user_id]
-    avatar_url = params[:avatar_url]
+    begin
+      line_user_id = params[:line_user_id]
+      display_name = params[:display_name]
+      avatar_url = params[:avatar_url]
 
-    # バリデーション
-    if line_user_id.blank? || display_name.blank?
-      render json: { success: false, error: "LINE情報が不正です" }
-      return
-    end
+      Rails.logger.info "LINE認証: line_user_id=#{line_user_id}, display_name=#{display_name}"
 
-    user = find_or_create_line_user(line_user_id, avatar_url)
+      # バリデーション
+      if line_user_id.blank? || display_name.blank?
+        render json: { success: false, error: "LINE情報が不正です" }
+        return
+      end
 
-    # 初回ログイン時はニックネーム設定画面へ
-    if user.nickname.blank?
+      user = find_or_create_line_user(line_user_id, display_name, avatar_url)
+
+      if user.persisted?
+        # セッション設定（ApplicationControllerのメソッドを使用）
+        log_in_line(user)
+
+        render json: {
+          success: true,
+          message: "ログインが完了しました",
+          redirect_url: checkin_page_checkinout_records_path
+        }
+      else
+        Rails.logger.error "ユーザー作成失敗: #{user.errors.full_messages}"
+        render json: {
+          success: false,
+          error: "ユーザー作成に失敗しました"
+        }
+      end
+
+    rescue => e
+      Rails.logger.error "LINE認証エラー: #{e.message}"
       render json: {
-        success: true,
-        redirect_to_nickname_setup: true,
-        user_id: user.id
+        success: false,
+        error: "システムエラーが発生しました"
       }
-    else
-      sign_in(user)
-      render json: { success: true }
     end
   end
 
   def destroy
-    sign_out(current_user) if current_user
-    render json: { success: true }
+    log_out_line
+    render json: { success: true, message: "ログアウトしました" }
   end
 
   private

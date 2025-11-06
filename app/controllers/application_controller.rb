@@ -14,12 +14,15 @@ class ApplicationController < ActionController::Base
 
   # ユーザーをログインさせる（LINE認証用）
   def log_in(user)
+    session[:line_user_id] = user.line_user_id
     session[:user_id] = user.id
   end
 
   # 現在ログイン中のユーザーを取得（LINE認証用）
   def current_user_line
-    @current_user_line ||= User.find(session[:user_id]) if session[:user_id]
+    if session[:line_user_id].present?
+      @current_user_line ||= User.find_by(line_user_id: session[:line_user_id])
+    end
   end
 
   # ログイン状態を確認（LINE認証用）
@@ -28,20 +31,24 @@ class ApplicationController < ActionController::Base
   end
 
   # ユーザーをログアウトさせる（LINE認証用）
-  def log_out
+  def log_out_line
+    session.delete(:line_user_id)
     session.delete(:user_id)
     @current_user_line = nil
+  end
+
+  # 既存のcurrent_userメソッドとの統合
+  def current_user
+    # LINE認証ユーザーを優先
+    current_user_line || super
   end
 
   # ログインが必要なページの制御（LINE認証用）
   def require_line_login
     unless logged_in_line?
-      # ブラウザの種類で分岐
       if request.user_agent&.include?("Line") || request.headers["X-Requested-With"] == "LIFF"
-        # LINEブラウザの場合：ログインページへ
-        redirect_to line_redirect_path
+        redirect_to line_guide_path
       else
-        # 外部ブラウザの場合：LINE公式アカウント誘導ページへ
         redirect_to line_guide_path
       end
     end
