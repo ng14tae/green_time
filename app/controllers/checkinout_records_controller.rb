@@ -1,5 +1,5 @@
 class CheckinoutRecordsController < ApplicationController
-  skip_before_action :authenticate_user!  # Deviseを無効化
+  before_action :authenticate_user_with_line_support!  # Deviseを無効化
   before_action :require_line_login       # LINE認証を有効化
   def index
     # メインページ - 状態に応じてリダイレクト

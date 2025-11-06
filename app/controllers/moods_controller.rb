@@ -1,5 +1,5 @@
 class MoodsController < ApplicationController
-  skip_before_action :authenticate_user!
+  before_action :authenticate_user_with_line_support!
   before_action :require_line_login
 
   def mood_check
