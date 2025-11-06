@@ -46,9 +46,18 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user_with_line_support!
-    Rails.logger.info "=== 認証チェック開始 ==="
-    Rails.logger.info "セッション: #{session.inspect}"
-    Rails.logger.info "current_user_line: #{current_user_line&.id}"
+    Rails.logger.info "=== 認証チェック開始 (#{request.path}) ==="
+  Rails.logger.info "  session[:line_user_id] = #{session[:line_user_id]}"
+  Rails.logger.info "  session[:user_id] = #{session[:user_id]}"
+  Rails.logger.info "  session[:login_type] = #{session[:login_type]}"
+  Rails.logger.info "  session.id = #{session.id}"
+  Rails.logger.info "  current_user_line = #{current_user_line&.id}"
+  Rails.logger.info "  logged_in_line? = #{logged_in_line?}"
+
+      if request.path == line_guide_path
+      Rails.logger.info "既にline_guideページにいるため、リダイレクトしない"
+      return
+    end
 
     # LINE認証ユーザーがいればOK
     if logged_in_line?
@@ -59,11 +68,6 @@ class ApplicationController < ActionController::Base
     # Devise認証もチェック
     if defined?(Devise) && respond_to?(:user_signed_in?) && user_signed_in?
       Rails.logger.info "Devise認証済みユーザー: #{current_user.id}"
-      return
-    end
-
-    if request.path == line_guide_path
-      Rails.logger.info "既にline_guideページにいるため、リダイレクトしない"
       return
     end
 

@@ -7,7 +7,9 @@ class LineSessionsController < ApplicationController
       display_name = params[:display_name]
       avatar_url = params[:avatar_url]
 
-      Rails.logger.info "LINE認証: line_user_id=#{line_user_id}, display_name=#{display_name}"
+      Rails.logger.info "=== LINE認証開始 ==="
+    Rails.logger.info "line_user_id=#{line_user_id}"
+    Rails.logger.info "display_name=#{display_name}"
 
       # バリデーション
       if line_user_id.blank? || display_name.blank?
@@ -18,8 +20,15 @@ class LineSessionsController < ApplicationController
       user = find_or_create_line_user(line_user_id, display_name, avatar_url)
 
       if user.persisted?
+        Rails.logger.info "ユーザー作成/取得成功: user.id=#{user.id}"
         # セッション設定（ApplicationControllerのメソッドを使用）
         log_in_line(user)
+
+        Rails.logger.info "セッション設定後:"
+      Rails.logger.info "  session[:line_user_id] = #{session[:line_user_id]}"
+      Rails.logger.info "  session[:user_id] = #{session[:user_id]}"
+      Rails.logger.info "  session[:login_type] = #{session[:login_type]}"
+      Rails.logger.info "  session.id = #{session.id}"
 
         redirect_to checkin_page_checkinout_records_path, allow_other_host: false
       else
@@ -32,6 +41,7 @@ class LineSessionsController < ApplicationController
 
     rescue => e
       Rails.logger.error "LINE認証エラー: #{e.message}"
+      Rails.logger.error e.backtrace.join("\n")
       render json: {
         success: false,
         error: "システムエラーが発生しました"
