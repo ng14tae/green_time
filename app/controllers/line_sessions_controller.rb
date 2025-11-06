@@ -24,7 +24,7 @@ class LineSessionsController < ApplicationController
         render json: {
           success: true,
           message: "ログインが完了しました",
-          redirect_url: checkin_page_checkinout_records_path
+          redirect_url: root_path
         }
       else
         Rails.logger.error "ユーザー作成失敗: #{user.errors.full_messages}"
