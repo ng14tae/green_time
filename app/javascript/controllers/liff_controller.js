@@ -54,8 +54,8 @@ export default class extends Controller {
       try {
         const userData = {
           line_user_id: profile.userId,
+          display_name: profile.displayName,
           avatar_url: profile.pictureUrl
-          // display_nameは削除（先ほどの設計通り）
         }
 
         const response = await fetch('/line_sessions', {
@@ -70,17 +70,13 @@ export default class extends Controller {
         const data = await response.json()
 
         if (data.success) {
-          if (data.redirect_to_nickname_setup) {
-            // 初回ユーザー → ニックネーム設定画面へ
-            window.location.href = '/users/setup_nickname'
-          } else {
-            // 既存ユーザー → メイン画面へ
-            window.location.href = '/checkin'
-          }
-        } else {
-          console.error('認証エラー:', data.error)
-          alert('ログインに失敗しました')
-        }
+        // 🔧 まずはシンプルに固定リダイレクト
+        console.log('認証成功！リダイレクト先:', data.redirect_url)
+        window.location.href = data.redirect_url || '/checkin'
+      } else {
+        console.error('認証エラー:', data.error)
+        alert(`ログインに失敗しました: ${data.error}`)
+      }
       } catch (error) {
         console.error('通信エラー:', error)
         alert('通信エラーが発生しました')
