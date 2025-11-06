@@ -51,4 +51,9 @@ class User < ApplicationRecord
   def create_plant
     Plant.create!(user: self)
   end
+
+    def password_required?
+    # LINEユーザーの場合はパスワード不要
+    line_user_id.blank?
+  end
 end
