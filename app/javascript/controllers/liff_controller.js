@@ -21,6 +21,13 @@ export default class extends Controller {
         return
       }
 
+      const loggedInMeta = document.querySelector("meta[name='logged-in']")
+      const alreadyLoggedIn = loggedInMeta && loggedInMeta.content === "true"
+      if (alreadyLoggedIn) {
+        console.log("🟢 Railsセッションが存在するため、LINE再認証をスキップ")
+        return
+      }
+
       const profile = await liff.getProfile()
       console.log("👤 Profile:", profile)
 

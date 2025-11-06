@@ -11,6 +11,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <meta name="logged-in" content="<%= logged_in_line? %>">
+
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
