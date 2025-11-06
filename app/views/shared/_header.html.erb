@@ -6,10 +6,10 @@
       <% end %>
     </div>
     <div class="navbar-center">
-      <% if current_user %>
-        <p class="text-base white-space:nowrap">
-          <%= current_user.display_name || "ユーザー" %>の勤怠記録
-        </p>
+      <% if logged_in_line? %>
+        <div class="user-info">
+          <%= current_user.display_name %>の勤怠記録
+        </div>
       <% end %>
     </div>
     <div class="navbar-end">
