@@ -65,6 +65,12 @@ class MoodsController < ApplicationController
     # 円グラフ
     @mood_counts = current_user.moods.group(:feeling).count
 
+    Rails.logger.info "=== feelingの値（keys） ==="
+  Rails.logger.info @mood_counts.keys.inspect
+
+  Rails.logger.info "=== @mood_counts全体 ==="
+  Rails.logger.info @mood_counts.inspect
+
     # 折れ線グラフ
     @daily_moods = current_user.moods
                               .where("created_at >= ?", 7.days.ago)
