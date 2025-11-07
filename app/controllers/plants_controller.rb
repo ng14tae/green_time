@@ -1,4 +1,5 @@
 class PlantsController < ApplicationController
+    skip_before_action :authenticate_user_with_line_support! # 開発用に一時的にskip
   before_action :set_plant
 
   def index
