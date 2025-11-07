@@ -1,4 +1,5 @@
 class MoodsController < ApplicationController
+  skip_before_action :authenticate_user_with_line_support! # 開発用に一時的にskip
   before_action :set_checkinout_record, only: [:mood_check, :create]
 
   def mood_check
@@ -56,40 +57,28 @@ class MoodsController < ApplicationController
   end
 
   def analytics
-    # データが存在しない場合の処理
     if current_user.moods.empty?
       redirect_to root_path, notice: "まずは気分を記録してみましょう！"
       return
     end
 
-    valid_moods = current_user.moods.where.not(feeling: nil)
+  # 円グラフ用
+  @mood_counts = current_user.moods.group(:feeling).count
 
-    # 円グラフ
-    @mood_counts = valid_moods.group(:feeling).count
+  Rails.logger.info "=== feelingの値（keys） ==="
+  Rails.logger.info @mood_counts.keys.inspect
+  Rails.logger.info "=== @mood_counts全体 ==="
+  Rails.logger.info @mood_counts.inspect
 
-    Rails.logger.info "=== feelingの値（keys） ==="
-    Rails.logger.info @mood_counts.keys.inspect
-    Rails.logger.info "=== @mood_counts全体 ==="
-    Rails.logger.info @mood_counts.inspect
+  # 🔧 直近30回分の気分記録を取得
+  @recent_moods = current_user.moods
+                              .where.not(feeling: nil)
+                              .order(created_at: :desc)
+                              .limit(30)
+                              .reverse  # 古い順に並び替え（グラフ表示用）
 
-    # 折れ線グラフ
-    @daily_moods = valid_moods
-                      .where("created_at >= ?", 7.days.ago)
-                      .group_by_day(:created_at)
-                      .group(:feeling)
-                      .count
-
-    Rails.logger.info "=== @daily_moods ==="
-    Rails.logger.info @daily_moods.inspect
-
-    # 週間推移データ
-    @weekly_trend = valid_moods
-                      .where("created_at >= ?", 4.weeks.ago)
-                      .group_by_week(:created_at, format: "%Y-%m-%d")
-                      .count
-
-    Rails.logger.info "=== @weekly_trend ==="
-    Rails.logger.info @weekly_trend.inspect
+  Rails.logger.info "=== @recent_moods ==="
+  Rails.logger.info @recent_moods.pluck(:id, :feeling, :created_at).inspect
   end
 
   private
