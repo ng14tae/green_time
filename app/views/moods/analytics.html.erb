@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <!-- 🔧 直近30回分の気分推移 -->
+        <!-- 直近30回分の気分推移 -->
 <div class="card bg-base-100 shadow-xl">
   <div class="card-body">
     <h2 class="card-title">直近30回の気分推移</h2>
@@ -68,9 +68,7 @@
       記録回数: <%= @recent_moods.count %> / 30回
     </p>
     
-    <% chart_data, datetime_info = mood_chart_data(@recent_moods) %>
-    
-    <%= line_chart chart_data,
+    <%= line_chart mood_data_for_recent(@recent_moods),
         height: "350px",
         colors: ["#10b981", "#6b7280", "#ef4444"],
         library: {
@@ -78,33 +76,21 @@
           plugins: {
             legend: {
               labels: { color: 'hsl(var(--bc))' }
-            },
-            tooltip: {
-              callbacks: {
-                title: function(context) {
-                  var label = context[0].label;
-                  var datetimeInfo = <%= raw datetime_info.to_json %>;
-                  return datetimeInfo[label] || label;
-                },
-                label: function(context) {
-                  return context.dataset.label + ': 記録あり';
-                }
-              }
             }
           },
           scales: {
             x: { 
               title: {
                 display: true,
-                text: '記録回数',
+                text: '記録日時',
                 color: 'hsl(var(--bc))'
               },
               ticks: { 
                 color: 'hsl(var(--bc))',
-                callback: function(value, index) {
-                  // 5の倍数だけラベル表示
-                  return (index + 1) % 5 === 0 ? (index + 1) + '回目' : '';
-                }
+                maxRotation: 45,
+                minRotation: 45,
+                autoSkip: true,
+                maxTicksLimit: 10
               }
             },
             y: { 
@@ -127,7 +113,7 @@
         } %>
     
     <p class="text-xs text-base-content/50 mt-4">
-      ※ポイントにカーソルを合わせると詳細な日時が表示されます
+      ※X軸は記録した日時を表示しています
     </p>
   </div>
 </div>

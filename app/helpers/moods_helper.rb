@@ -13,25 +13,20 @@ module MoodsHelper
   end
 
   # グラフ用データ + 日時情報を保持
-  def mood_chart_data(moods)
-    # グラフデータ
-    chart_data = {}
-    # 日時情報（ツールチップ用）
-    datetime_info = {}
+  def mood_data_for_recent(moods)
+    result = {}
 
-    moods.each_with_index do |mood, index|
+    moods.each do |mood|
       feeling_label = FEELING_LABELS[mood.feeling]
       next if feeling_label.nil?
 
-      label = "#{index + 1}回目"
-      datetime = mood.created_at.in_time_zone('Asia/Tokyo').strftime("%Y年%m月%d日 %H:%M")
+      # X軸ラベル: "11/07 15:30"
+      datetime_label = mood.created_at.in_time_zone('Asia/Tokyo').strftime("%m/%d %H:%M")
 
-      chart_data[feeling_label] ||= {}
-      chart_data[feeling_label][label] = 1
-
-      datetime_info[label] = datetime
+      result[feeling_label] ||= {}
+      result[feeling_label][datetime_label] = 1
     end
 
-    [chart_data, datetime_info]
+    result
   end
 end
