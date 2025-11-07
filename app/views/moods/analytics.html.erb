@@ -8,26 +8,32 @@
         </div>
 
         <!-- 統計カード -->
-        <div class="stats shadow mb-6 w-full bg-base-100">
-            <div class="stat place-items-center">
-                <div class="stat-figure text-4xl">😊</div>
-                <div class="stat-title">良い</div>
-                <div class="stat-value text-success"><%= @mood_counts["happy"] || 0 %></div>
-                <div class="stat-desc">総記録数</div>
-            </div>
+        <div class="card bg-base-100 shadow-xl mb-6 w-full">
+            <div class="card-body p-4 sm:p-6">
+                <h2 class="card-title text-lg sm:text-xl mb-4 justify-center">気分の記録</h2>
 
-            <div class="stat place-items-center">
-                <div class="stat-figure text-4xl">😐</div>
-                <div class="stat-title">普通</div>
-                <div class="stat-value text-base-content"><%= @mood_counts["neutral"] || 0 %></div>
-                <div class="stat-desc">総記録数</div>
-            </div>
+                <div class="grid grid-cols-3 gap-3 sm:gap-4">
+                    <!-- 良い -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-3xl sm:text-4xl mb-2">😊</div>
+                        <div class="text-xs sm:text-sm text-base-content/70 mb-1">良い</div>
+                        <div class="text-2xl sm:text-3xl font-bold text-success"><%= @mood_counts["happy"] || 0 %></div>
+                    </div>
 
-            <div class="stat place-items-center">
-                <div class="stat-figure text-4xl">😢</div>
-                <div class="stat-title">悪い</div>
-                <div class="stat-value text-error"><%= @mood_counts["sad"] || 0 %></div>
-                <div class="stat-desc">総記録数</div>
+                    <!-- 普通 -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-3xl sm:text-4xl mb-2">😐</div>
+                        <div class="text-xs sm:text-sm text-base-content/70 mb-1">普通</div>
+                        <div class="text-2xl sm:text-3xl font-bold text-base-content"><%= @mood_counts["neutral"] || 0 %></div>
+                    </div>
+
+                    <!-- 悪い -->
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-3xl sm:text-4xl mb-2">😢</div>
+                        <div class="text-xs sm:text-sm text-base-content/70 mb-1">悪い</div>
+                        <div class="text-2xl sm:text-3xl font-bold text-error"><%= @mood_counts["sad"] || 0 %></div>
+                    </div>
+                </div>
             </div>
         </div>
 
