@@ -62,26 +62,34 @@ class MoodsController < ApplicationController
       return
     end
 
+    valid_moods = current_user.moods.where.not(feeling: nil)
+
     # 円グラフ
-    @mood_counts = current_user.moods.group(:feeling).count
+    @mood_counts = valid_moods.group(:feeling).count
 
     Rails.logger.info "=== feelingの値（keys） ==="
-  Rails.logger.info @mood_counts.keys.inspect
-
-  Rails.logger.info "=== @mood_counts全体 ==="
-  Rails.logger.info @mood_counts.inspect
+    Rails.logger.info @mood_counts.keys.inspect
+    Rails.logger.info "=== @mood_counts全体 ==="
+    Rails.logger.info @mood_counts.inspect
 
     # 折れ線グラフ
-    @daily_moods = current_user.moods
-                              .where("created_at >= ?", 7.days.ago)
-                              .group_by_day(:created_at)
-                              .group(:feeling)
-                              .count
+    @daily_moods = valid_moods
+                      .where("created_at >= ?", 7.days.ago)
+                      .group_by_day(:created_at)
+                      .group(:feeling)
+                      .count
+
+    Rails.logger.info "=== @daily_moods ==="
+    Rails.logger.info @daily_moods.inspect
+
     # 週間推移データ
-    @weekly_trend = current_user.moods
-                              .where("created_at >= ?", 4.weeks.ago)
-                              .group_by_week(:created_at, format: "%Y-%m-%d")
-                              .count
+    @weekly_trend = valid_moods
+                      .where("created_at >= ?", 4.weeks.ago)
+                      .group_by_week(:created_at, format: "%Y-%m-%d")
+                      .count
+
+    Rails.logger.info "=== @weekly_trend ==="
+    Rails.logger.info @weekly_trend.inspect
   end
 
   private
