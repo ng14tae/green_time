@@ -8,28 +8,29 @@
         </div>
 
         <!-- 統計カード -->
-        <div class="stats shadow mb-6 w-full grid grid-cols-1 sm:grid-cols-3 bg-base-100">
-        <div class="stat text-center">
-            <div class="stat-figure text-4xl">😊</div>
-            <div class="stat-title">ハッピーな日</div>
-            <div class="stat-value text-success text-3xl sm:text-4xl"><%= @mood_counts["happy"] || 0 %></div>
-            <div class="stat-desc">総記録数</div>
+        <div class="stats shadow mb-6 w-full bg-base-100 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-base-200">
+        <div class="stat flex flex-col items-center justify-center p-4">
+            <div class="stat-figure text-3xl sm:text-4xl mb-1">😊</div>
+            <div class="stat-title text-sm sm:text-base">ハッピーな日</div>
+            <div class="stat-value text-success text-2xl sm:text-3xl font-bold"><%= @mood_counts["happy"] || 0 %></div>
+            <div class="stat-desc text-xs sm:text-sm text-base-content/70">総記録数</div>
         </div>
 
-        <div class="stat text-center">
-            <div class="stat-figure text-4xl">😐</div>
-            <div class="stat-title">普通の日</div>
-            <div class="stat-value text-3xl sm:text-4xl"><%= @mood_counts["neutral"] || 0 %></div>
-            <div class="stat-desc">総記録数</div>
+        <div class="stat flex flex-col items-center justify-center p-4">
+            <div class="stat-figure text-3xl sm:text-4xl mb-1">😐</div>
+            <div class="stat-title text-sm sm:text-base">普通の日</div>
+            <div class="stat-value text-2xl sm:text-3xl font-bold"><%= @mood_counts["neutral"] || 0 %></div>
+            <div class="stat-desc text-xs sm:text-sm text-base-content/70">総記録数</div>
         </div>
 
-        <div class="stat text-center">
-            <div class="stat-figure text-4xl">😢</div>
-            <div class="stat-title">悲しい日</div>
-            <div class="stat-value text-error text-3xl sm:text-4xl"><%= @mood_counts["sad"] || 0 %></div>
-            <div class="stat-desc">総記録数</div>
+        <div class="stat flex flex-col items-center justify-center p-4">
+            <div class="stat-figure text-3xl sm:text-4xl mb-1">😢</div>
+            <div class="stat-title text-sm sm:text-base">悲しい日</div>
+            <div class="stat-value text-error text-2xl sm:text-3xl font-bold"><%= @mood_counts["sad"] || 0 %></div>
+            <div class="stat-desc text-xs sm:text-sm text-base-content/70">総記録数</div>
         </div>
         </div>
+
 
         <!-- グラフエリア -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
