@@ -1,70 +1,92 @@
 <div class="hero min-h-screen bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600">
-    <div class="container mx-auto px-4">
-    <!-- ページタイトル -->
-    <div class="text-center mb-8 py-16">
-        <h1 class="text-3xl font-bold text-base-content">気分の分析</h1>
-        <p class="text-base-content/70 mt-2">あなたの気分の傾向を見てみましょう</p>
-    </div>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- 統計カード -->
-    <div class="stats shadow mb-6 w-full">
-        <div class="stat">
-        <div class="stat-figure text-4xl">😊</div>
-        <div class="stat-title">ハッピーな日</div>
-        <div class="stat-value text-success"><%= @mood_counts["happy"] || 0 %></div>
-        <div class="stat-desc">総記録数</div>
+        <!-- ページタイトル -->
+        <div class="text-center text-white mb-8 sm:mb-12 pt-12 sm:pt-16">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-2">気分の分析</h1>
+        <p class="text-white/80 text-sm sm:text-base">あなたの気分の傾向を見てみましょう</p>
         </div>
-        <div class="stat">
-        <div class="stat-figure text-4xl">😐</div>
-        <div class="stat-title">普通の日</div>
-        <div class="stat-value"><%= @mood_counts["neutral"] || 0 %></div>
-        <div class="stat-desc">総記録数</div>
-        </div>
-        <div class="stat">
-        <div class="stat-figure text-4xl">😢</div>
-        <div class="stat-title">悲しい日</div>
-        <div class="stat-value text-error"><%= @mood_counts["sad"] || 0 %></div>
-        <div class="stat-desc">総記録数</div>
-        </div>
-    </div>
 
-    <!-- グラフエリア -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- 統計カード -->
+        <div class="stats shadow mb-6 w-full grid grid-cols-1 sm:grid-cols-3 bg-base-100">
+        <div class="stat text-center">
+            <div class="stat-figure text-4xl">😊</div>
+            <div class="stat-title">ハッピーな日</div>
+            <div class="stat-value text-success text-3xl sm:text-4xl"><%= @mood_counts["happy"] || 0 %></div>
+            <div class="stat-desc">総記録数</div>
+        </div>
+
+        <div class="stat text-center">
+            <div class="stat-figure text-4xl">😐</div>
+            <div class="stat-title">普通の日</div>
+            <div class="stat-value text-3xl sm:text-4xl"><%= @mood_counts["neutral"] || 0 %></div>
+            <div class="stat-desc">総記録数</div>
+        </div>
+
+        <div class="stat text-center">
+            <div class="stat-figure text-4xl">😢</div>
+            <div class="stat-title">悲しい日</div>
+            <div class="stat-value text-error text-3xl sm:text-4xl"><%= @mood_counts["sad"] || 0 %></div>
+            <div class="stat-desc">総記録数</div>
+        </div>
+        </div>
+
+        <!-- グラフエリア -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <!-- 気分の分布（円グラフ） -->
         <div class="card bg-base-100 shadow-xl">
-        <div class="card-body">
-            <h2 class="card-title">気分の分布</h2>
+            <div class="card-body">
+            <h2 class="card-title text-lg sm:text-xl">気分の分布</h2>
             <%= pie_chart mood_data_for_pie(@mood_counts),
                 colors: ["#10b981", "#6b7280", "#ef4444"],
                 height: "300px",
                 library: {
-                backgroundColor: 'transparent',
-                plugins: {
+                    backgroundColor: 'transparent',
+                    plugins: {
                     legend: {
-                    labels: {
+                        labels: {
                         color: 'hsl(var(--bc))',
                         font: { family: 'Inter, system-ui, sans-serif' }
+                        }
                     }
                     }
-                }
                 } %>
-        </div>
+            </div>
         </div>
 
         <!-- 週間トレンド（線グラフ） -->
         <div class="card bg-base-100 shadow-xl">
-        <div class="card-body">
-            <h2 class="card-title">週間記録数</h2>
+            <div class="card-body">
+            <h2 class="card-title text-lg sm:text-xl">週間記録数</h2>
             <%= line_chart @weekly_trend,
                 height: "300px",
                 colors: ["#3b82f6"],
                 suffix: "回",
                 library: {
+                    backgroundColor: 'transparent',
+                    plugins: {
+                    legend: { labels: { color: 'hsl(var(--bc))' } }
+                    },
+                    scales: {
+                    x: { ticks: { color: 'hsl(var(--bc))' } },
+                    y: { ticks: { color: 'hsl(var(--bc))' } }
+                    }
+                } %>
+            </div>
+        </div>
+        </div>
+
+        <!-- 日別気分推移 -->
+        <div class="card bg-base-100 shadow-xl mt-6">
+        <div class="card-body">
+            <h2 class="card-title text-lg sm:text-xl mb-2">直近7日間の気分推移</h2>
+            <%= line_chart mood_data_for_daily(@daily_moods),
+                height: "350px",
+                colors: ["#10b981", "#6b7280", "#ef4444"],
+                library: {
                 backgroundColor: 'transparent',
                 plugins: {
-                    legend: {
-                    labels: { color: 'hsl(var(--bc))' }
-                    }
+                    legend: { labels: { color: 'hsl(var(--bc))' } }
                 },
                 scales: {
                     x: { ticks: { color: 'hsl(var(--bc))' } },
@@ -73,32 +95,11 @@
                 } %>
         </div>
         </div>
-    </div>
 
-    <!-- 日別気分推移 -->
-    <div class="card bg-base-100 shadow-xl mt-6">
-        <div class="card-body">
-        <h2 class="card-title">直近7日間の気分推移</h2>
-        <%= line_chart mood_data_for_daily(@daily_moods),
-            height: "350px",
-            colors: ["#10b981", "#6b7280", "#ef4444"],
-            library: {
-                backgroundColor: 'transparent',
-                plugins: {
-                legend: {
-                    labels: { color: 'hsl(var(--bc))' }
-                }
-                },
-                scales: {
-                x: { ticks: { color: 'hsl(var(--bc))' } },
-                y: { ticks: { color: 'hsl(var(--bc))' } }
-                }
-            } %>
+        <!-- 戻るボタン -->
+        <div class="text-center mt-8 sm:mt-12 py-6 sm:py-8">
+        <%= link_to "マイページに戻る", mypage_checkinout_records_path, class: "btn btn-primary w-full sm:w-auto" %>
         </div>
-    </div>
 
-    <!-- 戻るボタン -->
-    <div class="text-center mt-8 py-8">
-        <%= link_to "マイページに戻る", mypage_checkinout_records_path, class: "btn btn-primary" %>
     </div>
 </div>
