@@ -1,10 +1,11 @@
 # app/helpers/moods_helper.rb
 module MoodsHelper
-  FEELING_LABELS = {
-    "happy" => "😊 良い",
-    "neutral" => "😐 普通",
-    "sad" => "😢 悪い"
-  }.freeze
+  FEELING_MAP = {
+    "happy" => { label: "😊 happy", value: 3 },
+    "neutral" => { label: "😐 neutral", value: 2 },
+    "sad" => { label: "😢 sad", value: 1 }
+  }
+
 
   def mood_data_for_pie(mood_counts)
     mood_counts
@@ -14,18 +15,18 @@ module MoodsHelper
 
   # グラフ用データ + 日時情報を保持
   def mood_data_for_recent(moods)
-    result = Hash.new { |h, k| h[k] = [] }
+    moods = moods.order(:created_at).last(30)
 
-    moods.each do |mood|
-      label = FEELING_LABELS[mood.feeling]
-      next if label.nil?
-
-      time = mood.created_at.in_time_zone('Asia/Tokyo').strftime("%m/%d %H:%M")
-      result[label] << [time, 1]
+    data = moods.map.with_index(1) do |mood, idx|
+      label = FEELING_MAP[mood.feeling][:label]
+      value = FEELING_MAP[mood.feeling][:value]
+      [
+        "#{idx}回目\n(#{mood.created_at.strftime('%m/%d')})",
+        value
+      ]
     end
 
-    Rails.logger.info "=== mood_data_for_recentの戻り値 ==="
-    Rails.logger.info result.inspect  # ✅ 正しい
-    result
+    # Chartkickは { "ラベル" => 配列 } の形式
+    { "気分推移" => data }
   end
 end
