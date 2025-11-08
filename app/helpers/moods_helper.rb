@@ -1,9 +1,9 @@
 # app/helpers/moods_helper.rb
 module MoodsHelper
   FEELING_MAP = {
-    "happy" => { label: "😊 happy", value: 3 },
-    "neutral" => { label: "😐 neutral", value: 2 },
-    "sad" => { label: "😢 sad", value: 1 }
+    "happy" => { label: "😊 良い", value: 3 },
+    "neutral" => { label: "😐 普通", value: 2 },
+    "sad" => { label: "😢 悪い", value: 1 }
   }
 
   def mood_data_for_pie(mood_counts)
@@ -14,16 +14,16 @@ module MoodsHelper
 
   # グラフ用データ + 日時情報を保持
   def mood_data_for_recent(moods)
+    result = {}
 
-    data = moods.map.with_index(1) do |mood, idx|
-      label = FEELING_MAP[mood.feeling][:label]
+    moods.each_with_index do |mood, idx|
+      label = "#{idx + 1}回目\n(#{mood.created_at.in_time_zone('Asia/Tokyo').strftime('%m/%d %H:%M')})"
       value = FEELING_MAP[mood.feeling][:value]
-      [
-        "#{idx}回目\n(#{mood.created_at.strftime('%m/%d')})",
-        value
-      ]
+
+      result[label] = value
     end
 
-    { "気分推移" => data }
+    # 単一の系列として返す
+    { "気分推移" => result }
   end
 end
