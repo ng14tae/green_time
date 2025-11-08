@@ -14,12 +14,17 @@ module MoodsHelper
 
   # グラフ用データ + 日時情報を保持
   def mood_data_for_recent(moods)
-    data = moods.map.with_index(1) do |mood, idx|
-      label = "#{idx}回目\n(#{mood.created_at.in_time_zone('Asia/Tokyo').strftime('%m/%d %H:%M')})"
-      value = FEELING_MAP[mood.feeling][:value]
-      [label, value]
+    {
+    "気分推移" => moods.map.with_index(1) do |mood, i|
+      date_label = "#{i}回目 (#{mood.created_at.strftime("%m/%d")})"
+      value = case mood.feeling
+              when "sad" then 1
+              when "neutral" then 2
+              when "happy" then 3
+              else 0
+              end
+      [date_label, value.to_i]
     end
-
-    { "気分推移" => data }
+  }
   end
 end
