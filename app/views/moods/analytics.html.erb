@@ -69,46 +69,45 @@
             </p>
 
             <%= line_chart mood_data_for_recent(@recent_moods),
-      height: "350px",
-      colors: ["#10b981"],
-      library: {
-        plugins: {
-          legend: { labels: { color: 'hsl(var(--bc))' } }
-        },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: '記録順（＋日付）',
-              color: 'hsl(var(--bc))'
-            },
-            ticks: { color: 'hsl(var(--bc))', maxRotation: 45 }
-          },
-          y: {
-            title: {
-              display: true,
-              text: '気分',
-              color: 'hsl(var(--bc))'
-            },
-            ticks: {
-              color: 'hsl(var(--bc))',
-              stepSize: 1,
-              callback: %|function(value) {
-                switch(value) {
-                  case 3: return "😊 happy";
-                  case 2: return "😐 neutral";
-                  case 1: return "😢 sad";
-                }
-                return value;
-              }|
-            },
-            min: 0,
-            max: 4
-          }
-        }
-      } %>
-
-        </div>
+                height: "350px",
+                colors: ["#10b981"],
+                library: {
+                    plugins: {
+                    legend: { labels: { color: 'hsl(var(--bc))' } }
+                    },
+                    scales: {
+                    x: {
+                        title: {
+                        display: true,
+                        text: '記録順（＋日付）',
+                        color: 'hsl(var(--bc))'
+                        },
+                        ticks: { color: 'hsl(var(--bc))', maxRotation: 45 }
+                    },
+                    y: {
+                        title: {
+                        display: true,
+                        text: '気分',
+                        color: 'hsl(var(--bc))'
+                        },
+                        ticks: {
+                        color: 'hsl(var(--bc))',
+                        stepSize: 1,
+                        callback: %|function(value) {
+                            switch(value) {
+                            case 3: return "😊 happy";
+                            case 2: return "😐 neutral";
+                            case 1: return "😢 sad";
+                            }
+                            return value;
+                        }|
+                        },
+                        min: 0,
+                        max: 4
+                    }
+                    }
+                } %>
+            </div>
         </div>
 
         <!-- 戻るボタン -->

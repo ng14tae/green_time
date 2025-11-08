@@ -6,11 +6,10 @@ module MoodsHelper
     "sad" => { label: "😢 sad", value: 1 }
   }
 
-
   def mood_data_for_pie(mood_counts)
     mood_counts
       .reject { |feeling, _| feeling.nil? }
-      .transform_keys { |feeling| FEELING_LABELS[feeling] || feeling }
+      .transform_keys { |feeling| FEELING_MAP[feeling][:label] || feeling }
   end
 
   # グラフ用データ + 日時情報を保持
