@@ -15,12 +15,9 @@ module MoodsHelper
   # グラフ用データ + 日時情報を保持
   def mood_data_for_recent(moods)
     data = moods.map.with_index(1) do |mood, idx|
-      label = FEELING_MAP[mood.feeling][:label]
+      label = "#{idx}回目\n(#{mood.created_at.in_time_zone('Asia/Tokyo').strftime('%m/%d %H:%M')})"
       value = FEELING_MAP[mood.feeling][:value]
-      [
-        "#{idx}回目\n(#{mood.created_at.strftime('%m/%d')})",
-        value
-      ]
+      [label, value]
     end
 
     { "気分推移" => data }
