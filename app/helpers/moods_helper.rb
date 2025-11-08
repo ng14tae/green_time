@@ -14,19 +14,20 @@ module MoodsHelper
 
   # グラフ用データ + 日時情報を保持
   def mood_data_for_recent(moods)
-    result = {}
+    result = Hash.new { |h, k| h[k] = [] }
 
     moods.each do |mood|
-      feeling_label = FEELING_LABELS[mood.feeling]
-      next if feeling_label.nil?
+      label = FEELING_LABELS[mood.feeling]
+      next if label.nil?
 
-      # X軸ラベル: "11/07 15:30"
-      datetime_label = mood.created_at.in_time_zone('Asia/Tokyo').strftime("%m/%d %H:%M")
+      time = mood.created_at.in_time_zone('Asia/Tokyo').strftime("%m/%d %H:%M")
 
-      result[feeling_label] ||= {}
-      result[feeling_label][datetime_label] = 1
+      # y軸は常に1でよい（チェックインを点で表示）
+      result[label] << [time, 1]
     end
 
     result
+    Rails.logger.info "=== mood_data_for_recentの戻り値 ==="
+    Rails.logger.info mood_data_for_recent(@recent_moods).inspect
   end
 end
