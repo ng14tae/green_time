@@ -61,62 +61,58 @@
         </div>
 
         <!-- 直近30回分の気分推移 -->
-<div class="card bg-base-100 shadow-xl">
-  <div class="card-body">
-    <h2 class="card-title">直近30回の気分推移</h2>
-    <p class="text-sm text-base-content/70 mb-4">
-      記録回数: <%= @recent_moods.count %> / 30回
-    </p>
-    
-    <%= line_chart mood_data_for_recent(@recent_moods),
-        height: "350px",
-        colors: ["#10b981", "#6b7280", "#ef4444"],
-        library: {
-          backgroundColor: 'transparent',
-          plugins: {
-            legend: {
-              labels: { color: 'hsl(var(--bc))' }
-            }
-          },
-          scales: {
-            x: { 
-              title: {
-                display: true,
-                text: '記録日時',
-                color: 'hsl(var(--bc))'
-              },
-              ticks: { 
-                color: 'hsl(var(--bc))',
-                maxRotation: 45,
-                minRotation: 45,
-                autoSkip: true,
-                maxTicksLimit: 10
-              }
-            },
-            y: { 
-              title: {
-                display: true,
-                text: '記録',
-                color: 'hsl(var(--bc))'
-              },
-              ticks: { 
-                color: 'hsl(var(--bc))',
-                stepSize: 1,
-                callback: function(value) {
-                  return value === 1 ? '●' : '';
+        <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">直近30回の気分推移</h2>
+            <p class="text-sm text-base-content/70 mb-4">
+            記録回数: <%= @recent_moods.count %> / 30回
+            </p>
+
+            <%= line_chart mood_data_for_recent(@recent_moods),
+                height: "350px",
+                colors: ["#10b981", "#6b7280", "#ef4444"],
+                library: {
+                backgroundColor: 'transparent',
+                plugins: {
+                    legend: {
+                    labels: { color: 'hsl(var(--bc))' }
+                    }
+                },
+                scales: {
+                    x: {
+                    title: {
+                        display: true,
+                        text: '記録日時',
+                        color: 'hsl(var(--bc))'
+                    },
+                    ticks: {
+                        color: 'hsl(var(--bc))',
+                        maxRotation: 45,
+                        minRotation: 45,
+                        autoSkip: true,
+                        maxTicksLimit: 10
+                    }
+                    },
+                    y: {
+                    title: {
+                        display: true,
+                        text: '記録',
+                        color: 'hsl(var(--bc))'
+                    },
+                    ticks: {
+                        color: 'hsl(var(--bc))',
+                        stepSize: 1
+                    },
+                    min: 0,
+                    max: 2
+                    }
                 }
-              },
-              min: 0,
-              max: 2
-            }
-          }
-        } %>
-    
-    <p class="text-xs text-base-content/50 mt-4">
-      ※X軸は記録した日時を表示しています
-    </p>
-  </div>
-</div>
+                } %>
+            <p class="text-xs text-base-content/50 mt-4">
+            ※X軸は記録した日時を表示しています
+            </p>
+        </div>
+        </div>
 
         <!-- 戻るボタン -->
         <div class="text-center mt-8 sm:mt-12 pb-6 sm:pb-8">
@@ -125,8 +121,3 @@
 
     </div>
 </div>
-
-<script>
-    console.log('Chartkick:', typeof Chartkick);
-    console.log('Chart:', typeof Chart);
-</script>
