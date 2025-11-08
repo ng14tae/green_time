@@ -21,13 +21,11 @@ module MoodsHelper
       next if label.nil?
 
       time = mood.created_at.in_time_zone('Asia/Tokyo').strftime("%m/%d %H:%M")
-
-      # y軸は常に1でよい（チェックインを点で表示）
       result[label] << [time, 1]
     end
 
-    result
     Rails.logger.info "=== mood_data_for_recentの戻り値 ==="
-    Rails.logger.info mood_data_for_recent(@recent_moods).inspect
+    Rails.logger.info result.inspect  # ✅ 正しい
+    result
   end
 end
