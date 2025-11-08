@@ -14,7 +14,6 @@ module MoodsHelper
 
   # グラフ用データ + 日時情報を保持
   def mood_data_for_recent(moods)
-    moods = moods.order(:created_at).last(30)
 
     data = moods.map.with_index(1) do |mood, idx|
       label = FEELING_MAP[mood.feeling][:label]
@@ -25,7 +24,6 @@ module MoodsHelper
       ]
     end
 
-    # Chartkickは { "ラベル" => 配列 } の形式
     { "気分推移" => data }
   end
 end
