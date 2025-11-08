@@ -1,6 +1,6 @@
 class MoodsController < ApplicationController
   skip_before_action :authenticate_user_with_line_support! # 開発用に一時的にskip
-  before_action :set_checkinout_record, only: [:mood_check, :create]
+  before_action :set_checkinout_record, only: [ :mood_check, :create ]
 
   def mood_check
     render json: { recorded: @checkinout_record.mood.present? }
