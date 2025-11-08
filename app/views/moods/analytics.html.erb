@@ -69,48 +69,62 @@
             </p>
 
             <%= line_chart mood_data_for_recent(@recent_moods),
-  height: "350px",
-  colors: ["#10b981"],
-  library: {
-    backgroundColor: 'transparent',
-    scales: {
-      x: {
-        type: 'category',
-        title: {
-          display: true,
-          text: '記録順（回数 + 日付）',
-          color: 'hsl(var(--bc))'
-        },
-        ticks: {
-          color: 'hsl(var(--bc))',
-          maxRotation: 45,
-          minRotation: 45
-        }
-      },
-      y: {
-        title: {
-          display: true,
-          text: '気分',
-          color: 'hsl(var(--bc))'
-        },
-        ticks: {
-          color: 'hsl(var(--bc))',
-          stepSize: 1,
-          callback: %|function(value) {
-            switch (value) {
-              case 1: return "😢 sad";
-              case 2: return "😐 neutral";
-              case 3: return "😊 happy";
-              default: return value;
+            height: "350px",
+            colors: ["#10b981"],
+            discrete: true,
+            points: true,
+            library: {
+                elements: { line: { tension: 0.3, fill: false } },  # 線を滑らかに
+                showLine: true,  # ★ Chart.jsが1点でも線を表示するよう強制
+                spanGaps: true,  # 抜けがあっても線をつなげる
+                backgroundColor: 'transparent',
+                plugins: {
+                legend: { display: false }  # 凡例は非表示（「気分推移」タイトルを消す）
+                },
+                scales: {
+                x: {
+                    type: 'category',
+                    title: {
+                    display: true,
+                    text: '記録順（回数 + 日付）',
+                    color: 'hsl(var(--bc))'
+                    },
+                    ticks: {
+                    color: 'hsl(var(--bc))',
+                    maxRotation: 45,
+                    minRotation: 45
+                    },
+                    grid: {
+                    color: 'rgba(255, 255, 255, 0.1)'  # ほんのり背景線
+                    }
+                },
+                y: {
+                    title: {
+                    display: true,
+                    text: '気分',
+                    color: 'hsl(var(--bc))'
+                    },
+                    ticks: {
+                    color: 'hsl(var(--bc))',
+                    stepSize: 1,
+                    callback: %|function(value) {
+                        switch (value) {
+                        case 1: return "😢 sad";
+                        case 2: return "😐 neutral";
+                        case 3: return "😊 happy";
+                        default: return "";
+                        }
+                    }|
+                    },
+                    min: 0,
+                    max: 3,
+                    grid: {
+                    color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+                }
             }
-          }|
-        },
-        min: 0,
-        max: 3
-      }
-    }
-  } %>
-
+            %>
             </div>
         </div>
 
