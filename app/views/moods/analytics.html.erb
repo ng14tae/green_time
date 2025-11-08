@@ -69,47 +69,47 @@
             </p>
 
             <%= line_chart mood_data_for_recent(@recent_moods),
-    height: "350px",
-    colors: ["#10b981"],
-    library: {
-      backgroundColor: 'transparent',
-      scales: {
-        x: {
-          type: 'category', # ← これを追加！
-          title: {
-            display: true,
-            text: '記録順（回数 + 日付）',
-            color: 'hsl(var(--bc))'
-          },
-          ticks: {
-            color: 'hsl(var(--bc))',
-            maxRotation: 45,
-            minRotation: 45
-          }
+  height: "350px",
+  colors: ["#10b981"],
+  library: {
+    backgroundColor: 'transparent',
+    scales: {
+      x: {
+        type: 'category',
+        title: {
+          display: true,
+          text: '記録順（回数 + 日付）',
+          color: 'hsl(var(--bc))'
         },
-        y: {
-          title: {
-            display: true,
-            text: '気分',
-            color: 'hsl(var(--bc))'
-          },
-          ticks: {
-            color: 'hsl(var(--bc))',
-            stepSize: 1,
-            callback: function(value) {
-              switch (value) {
-                case 1: return "😢 sad";
-                case 2: return "😐 neutral";
-                case 3: return "😊 happy";
-                default: return value;
-              }
-            }
-          },
-          min: 0,
-          max: 3
+        ticks: {
+          color: 'hsl(var(--bc))',
+          maxRotation: 45,
+          minRotation: 45
         }
+      },
+      y: {
+        title: {
+          display: true,
+          text: '気分',
+          color: 'hsl(var(--bc))'
+        },
+        ticks: {
+          color: 'hsl(var(--bc))',
+          stepSize: 1,
+          callback: %|function(value) {
+            switch (value) {
+              case 1: return "😢 sad";
+              case 2: return "😐 neutral";
+              case 3: return "😊 happy";
+              default: return value;
+            }
+          }|
+        },
+        min: 0,
+        max: 3
       }
-    } %>
+    }
+  } %>
 
             </div>
         </div>
