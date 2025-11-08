@@ -69,50 +69,44 @@
             </p>
 
             <%= line_chart mood_data_for_recent(@recent_moods),
-                height: "350px",
-                colors: ["#10b981", "#6b7280", "#ef4444"],
-                library: {
-                backgroundColor: 'transparent',
-                plugins: {
-                    legend: {
-                    labels: { color: 'hsl(var(--bc))' }
-                    }
-                },
-                scales: {
-                    x: {
-                    title: {
-                        display: true,
-                        text: '記録日時',
-                        color: 'hsl(var(--bc))'
-                    },
-                    ticks: {
-                        color: 'hsl(var(--bc))',
-                        maxRotation: 45,
-                        minRotation: 45,
-                        autoSkip: true,
-                        maxTicksLimit: 10
-                    }
-                    },
-                    y: {
-                    title: {
-                        display: true,
-                        text: '記録',
-                        color: 'hsl(var(--bc))'
-                    },
-                    ticks: {
-                        color: 'hsl(var(--bc))',
-                        stepSize: 1
-                    },
-                    min: 0,
-                    max: 2
-                    }
+      height: "350px",
+      colors: ["#10b981"],
+      library: {
+        plugins: {
+          legend: { labels: { color: 'hsl(var(--bc))' } }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: '記録順（＋日付）',
+              color: 'hsl(var(--bc))'
+            },
+            ticks: { color: 'hsl(var(--bc))', maxRotation: 45 }
+          },
+          y: {
+            title: {
+              display: true,
+              text: '気分',
+              color: 'hsl(var(--bc))'
+            },
+            ticks: {
+              color: 'hsl(var(--bc))',
+              stepSize: 1,
+              callback: %|function(value) {
+                switch(value) {
+                  case 3: return "😊 happy";
+                  case 2: return "😐 neutral";
+                  case 1: return "😢 sad";
                 }
-                } %>
-            <p class="text-xs text-base-content/50 mt-4">
-            ※X軸は記録した日時を表示しています
-            </p>
-
-            <%= line_chart({"Test" => [["11/07", 1], ["11/08", 2], ["11/09", 3]]}) %>
+                return value;
+              }|
+            },
+            min: 0,
+            max: 4
+          }
+        }
+      } %>
 
         </div>
         </div>
