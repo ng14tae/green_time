@@ -56,29 +56,11 @@ class MoodsController < ApplicationController
     end
   end
 
-  def analytics
-    if current_user.moods.empty?
-      redirect_to root_path, notice: "まずは気分を記録してみましょう！"
-      return
-    end
-
-  # 円グラフ用
-  @mood_counts = current_user.moods.group(:feeling).count
-
-  Rails.logger.info "=== feelingの値（keys） ==="
-  Rails.logger.info @mood_counts.keys.inspect
-  Rails.logger.info "=== @mood_counts全体 ==="
-  Rails.logger.info @mood_counts.inspect
-
-  # 🔧 直近30回分の気分記録を取得
   @recent_moods = current_user.moods
-                              .where.not(feeling: nil)
-                              .order(created_at: :asc)
-                              .limit(30)
-
-  Rails.logger.info "=== @recent_moods ==="
-  Rails.logger.info @recent_moods.pluck(:id, :feeling, :created_at).inspect
-  end
+                            .where.not(feeling: nil)
+                            .order(created_at: :desc)
+                            .limit(30)
+                            .reverse
 
   private
 
