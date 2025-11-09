@@ -12,9 +12,8 @@ module MoodsHelper
       .transform_keys { |feeling| FEELING_MAP[feeling][:label] || feeling }
   end
 
-  # 🔧 ハッシュ形式に修正
   def mood_data_for_recent(moods)
-    result = {}
+    data = {}
 
     moods.each_with_index do |mood, i|
       date_label = "#{i + 1}回目 (#{mood.created_at.in_time_zone('Asia/Tokyo').strftime('%m/%d')})"
@@ -25,9 +24,9 @@ module MoodsHelper
               else 0
               end
 
-      result[date_label] = value
+      data[date_label] = value
     end
 
-    { "気分推移" => result }
+    { "気分推移" => data }
   end
 end
