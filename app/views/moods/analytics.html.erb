@@ -84,11 +84,11 @@
           color: 'hsl(var(--bc))',
           maxRotation: 0,
           minRotation: 0,
-          callback: js(%|function(value, index, values) {
-            // X軸ラベルを改行表示する
-            const label = this.getLabelForValue(value);
-            return label.replace('(', '\\n(');
-          }|)
+callback: js("function(value, index, values) {
+  const label = this.getLabelForValue(value);
+  return label.replace('(', '\\n(');
+}")
+
         }
       },
       y: {
@@ -98,7 +98,7 @@
           color: 'hsl(var(--bc))'
         },
         min: 0,
-        max: 4,  // 明示的に範囲固定
+        max: 4,  # 明示的に範囲固定
         ticks: {
           color: 'hsl(var(--bc))',
           stepSize: 1,
@@ -133,7 +133,7 @@
     },
     elements: {
       point: {
-        radius: 6, // 点の大きさ
+        radius: 6, # 点の大きさ
         backgroundColor: '#10b981',
       }
     }
