@@ -13,20 +13,8 @@ module MoodsHelper
   end
 
   def mood_data_for_recent(moods)
-    data = {}
-
-    moods.each_with_index do |mood, i|
-      date_label = "#{i + 1}回目 (#{mood.created_at.in_time_zone('Asia/Tokyo').strftime('%m/%d')})"
-      value = case mood.feeling
-              when "sad" then 1
-              when "neutral" then 2
-              when "happy" then 3
-              else 0
-              end
-
-      data[date_label] = value
+    moods.map.with_index(1) do |mood, i|
+      [ "#{i}回目 (#{mood.created_at.strftime("%m/%d")})", FEELING_MAP[mood.feeling][:value] ]
     end
-
-    { "気分推移" => data }
   end
 end
