@@ -98,15 +98,30 @@
                         stepSize: 1,
                         callback: %|function(value) {
                             switch (value) {
-                            case 1: return "😢 sad";
-                            case 2: return "😐 neutral";
-                            case 3: return "😊 happy";
-                            default: return value;
+                            case 1: return "😢";
+                            case 2: return "😐";
+                            case 3: return "😊";
+                            default: return "";
                             }
                         }|
                         },
                         min: 0,
                         max: 4
+                    }
+                    },
+                    plugins: {
+                    tooltip: {
+                        callbacks: {
+                        label: %|function(context) {
+                            var value = context.parsed.y;
+                            switch (value) {
+                            case 1: return "😢 悪い";
+                            case 2: return "😐 普通";
+                            case 3: return "😊 良い";
+                            default: return "";
+                            }
+                        }|
+                        }
                     }
                     }
                 } %>
