@@ -1,3 +1,4 @@
+# app/helpers/moods_helper.rb
 module MoodsHelper
   FEELING_MAP = {
     "happy" => { label: "😊 良い", value: 3 },
@@ -11,11 +12,8 @@ module MoodsHelper
       .transform_keys { |feeling| FEELING_MAP[feeling][:label] || feeling }
   end
 
-  # 🎯 ハッシュ形式 + デバッグ情報付き
+  # 🔧 ハッシュ形式に修正
   def mood_data_for_recent(moods)
-    # 🔧 空の場合の対応
-    return { "気分推移" => { "データなし" => 0 } } if moods.empty?
-
     result = {}
 
     moods.each_with_index do |mood, i|
@@ -28,14 +26,8 @@ module MoodsHelper
               end
 
       result[date_label] = value
-
-      # 🆕 デバッグログ（開発環境のみ）
-      Rails.logger.info "#{i + 1}: #{date_label} => #{value} (feeling: #{mood.feeling})" if Rails.env.development?
     end
 
-    final_result = { "気分推移" => result }
-    Rails.logger.info "最終データ: #{final_result}" if Rails.env.development?
-
-    final_result
+    { "気分推移" => result }
   end
 end

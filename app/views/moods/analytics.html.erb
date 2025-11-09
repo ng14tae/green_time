@@ -62,81 +62,56 @@
 
         <!-- 直近30回分の気分推移 -->
         <div class="card bg-base-100 shadow-xl">
-  <div class="card-body">
-    <h2 class="card-title">直近30回の気分推移</h2>
-    <p class="text-sm text-base-content/70 mb-4">
-      記録回数: <%= @recent_moods.count %> / 30回
-    </p>
+        <div class="card-body">
+            <h2 class="card-title">直近30回の気分推移</h2>
+            <p class="text-sm text-base-content/70 mb-4">
+            記録回数: <%= @recent_moods.count %> / 30回
+            </p>
 
-    <!-- 🔍 開発環境でのデバッグ表示 -->
-    <% if Rails.env.development? %>
-      <div class="bg-gray-100 p-4 mb-4 text-xs rounded">
-        <strong>🔍 デバッグ情報:</strong><br>
-        データ数: <%= @recent_moods.count %><br>
-        グラフデータ: <%= mood_data_for_recent(@recent_moods).inspect %>
-      </div>
-    <% end %>
-
-    <!-- 📊 線グラフ本体 -->
-    <%= line_chart mood_data_for_recent(@recent_moods),
-        height: "350px",
-        colors: ["#10b981"],
-        points: true,
-        curve: false,
-        discrete: true,
-        library: {
-          backgroundColor: 'transparent',
-          elements: {
-            point: {
-              radius: 6,
-              backgroundColor: '#10b981',
-              borderColor: '#ffffff',
-              borderWidth: 2
-            },
-            line: {
-              borderWidth: 3,
-              tension: 0
-            }
-          },
-          scales: {
-            x: {
-              type: 'category',
-              title: {
-                display: true,
-                text: '記録順（回数 + 日付）',
-                color: 'hsl(var(--bc))'
-              },
-              ticks: {
-                color: 'hsl(var(--bc))',
-                maxRotation: 45,
-                minRotation: 45
-              }
-            },
-            y: {
-              title: {
-                display: true,
-                text: '気分レベル',
-                color: 'hsl(var(--bc))'
-              },
-              ticks: {
-                color: 'hsl(var(--bc))',
-                stepSize: 1,
-                callback: %|function(value) {
-                  switch (value) {
-                    case 1: return "😢 悪い";
-                    case 2: return "😐 普通";
-                    case 3: return "😊 良い";
-                    default: return "";
-                  }
-                }|
-              },
-              min: 0,
-              max: 4
-            }
-          }
-        } %>
-  </div>
-</div>
+            <%= line_chart mood_data_for_recent(@recent_moods),
+                height: "350px",
+                colors: ["#10b981"],
+                library: {
+                    backgroundColor: 'transparent',
+                    scales: {
+                    x: {
+                        type: 'category',
+                        title: {
+                        display: true,
+                        text: '記録順（回数 + 日付）',
+                        color: 'hsl(var(--bc))'
+                        },
+                        ticks: {
+                        color: 'hsl(var(--bc))',
+                        maxRotation: 45,
+                        minRotation: 45
+                        }
+                    },
+                    y: {
+                        title: {
+                        display: true,
+                        text: '気分',
+                        color: 'hsl(var(--bc))'
+                        },
+                        ticks: {
+                        color: 'hsl(var(--bc))',
+                        stepSize: 1,
+                        callback: %|function(value) {
+                            switch (value) {
+                            case 1: return "😢 sad";
+                            case 2: return "😐 neutral";
+                            case 3: return "😊 happy";
+                            default: return value;
+                            }
+                        }|
+                        },
+                        min: 0,
+                        max: 3
+                    }
+                    }
+                } %>
+            </div>
+        </div>
 
         <!-- 戻るボタン -->
         <div class="text-center mt-8 sm:mt-12 pb-6 sm:pb-8">
