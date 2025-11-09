@@ -73,8 +73,8 @@ class MoodsController < ApplicationController
     # 🔧 直近30回分の気分記録を取得（この位置が正しい！）
     @recent_moods = current_user.moods
                                 .where.not(feeling: nil)
-                                .order(created_at: :desc)
                                 .limit(30)
+                                .order(created_at: :desc)
                                 .reverse
 
     Rails.logger.info "=== @recent_moods ==="
