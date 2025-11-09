@@ -62,24 +62,22 @@ class MoodsController < ApplicationController
       return
     end
 
-    # 円グラフ用
-    @mood_counts = current_user.moods.group(:feeling).count
+  # 円グラフ用
+  @mood_counts = current_user.moods.group(:feeling).count
 
-    # 🔧 直近30回分を正しく取得
-    @recent_moods = current_user.moods
-                                .where.not(feeling: nil)
-                                .order(created_at: :desc)  # 新しい順
-                                .limit(30)
-                                .reverse                   # 表示用に古い順
+  Rails.logger.info "=== feelingの値（keys） ==="
+  Rails.logger.info @mood_counts.keys.inspect
+  Rails.logger.info "=== @mood_counts全体 ==="
+  Rails.logger.info @mood_counts.inspect
 
-    # 🆕 デバッグ情報
-    if Rails.env.development?
-      Rails.logger.info "=== 気分データ詳細 ==="
-      Rails.logger.info "総データ数: #{current_user.moods.count}"
-      Rails.logger.info "有効データ数: #{@recent_moods.count}"
-      Rails.logger.info "最初のデータ: #{@recent_moods.first&.feeling} (#{@recent_moods.first&.created_at})"
-      Rails.logger.info "最後のデータ: #{@recent_moods.last&.feeling} (#{@recent_moods.last&.created_at})"
-    end
+  # 🔧 直近30回分の気分記録を取得
+  @recent_moods = current_user.moods
+                              .where.not(feeling: nil)
+                              .order(created_at: :asc)
+                              .limit(30)
+
+  Rails.logger.info "=== @recent_moods ==="
+  Rails.logger.info @recent_moods.pluck(:id, :feeling, :created_at).inspect
   end
 
   private
