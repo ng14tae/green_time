@@ -82,8 +82,13 @@
         },
         ticks: {
           color: 'hsl(var(--bc))',
-          maxRotation: 45,
-          minRotation: 45
+          maxRotation: 0,
+          minRotation: 0,
+          callback: js(%|function(value, index, values) {
+            // X軸ラベルを改行表示する
+            const label = this.getLabelForValue(value);
+            return label.replace('(', '\\n(');
+          }|)
         }
       },
       y: {
@@ -92,26 +97,26 @@
           text: '気分',
           color: 'hsl(var(--bc))'
         },
+        min: 0,
+        max: 4,  // 明示的に範囲固定
         ticks: {
           color: 'hsl(var(--bc))',
           stepSize: 1,
-          callback: %|function(value) {
+          callback: js(%|function(value) {
             switch (value) {
               case 1: return "😢";
               case 2: return "😐";
               case 3: return "😊";
               default: return "";
             }
-          }|
-        },
-        min: 0,
-        max: 4
+          }|)
+        }
       }
     },
     plugins: {
       tooltip: {
         callbacks: {
-          label: %|function(context) {
+          label: js(%|function(context) {
             const value = context.parsed.y;
             switch (value) {
               case 1: return "😢 悪い";
@@ -119,13 +124,17 @@
               case 3: return "😊 良い";
               default: return "";
             }
-          }|
+          }|)
         }
       },
       legend: {
-        labels: {
-          color: 'hsl(var(--bc))'
-        }
+        labels: { color: 'hsl(var(--bc))' }
+      }
+    },
+    elements: {
+      point: {
+        radius: 6, // 点の大きさ
+        backgroundColor: '#10b981',
       }
     }
   } %>
