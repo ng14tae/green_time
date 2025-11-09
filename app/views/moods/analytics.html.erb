@@ -69,62 +69,66 @@
             </p>
 
             <%= line_chart mood_data_for_recent(@recent_moods),
-                height: "350px",
-                colors: ["#10b981"],
-                library: {
-                    backgroundColor: 'transparent',
-                    scales: {
-                    x: {
-                        type: 'category',
-                        title: {
-                        display: true,
-                        text: '記録順（回数 + 日付）',
-                        color: 'hsl(var(--bc))'
-                        },
-                        ticks: {
-                        color: 'hsl(var(--bc))',
-                        maxRotation: 45,
-                        minRotation: 45
-                        }
-                    },
-                    y: {
-                        title: {
-                        display: true,
-                        text: '気分',
-                        color: 'hsl(var(--bc))'
-                        },
-                        ticks: {
-                        color: 'hsl(var(--bc))',
-                        stepSize: 1,
-                        callback: %|function(value) {
-                            switch (value) {
-                            case 1: return "😢";
-                            case 2: return "😐";
-                            case 3: return "😊";
-                            default: return "";
-                            }
-                        }|
-                        },
-                        min: 0,
-                        max: 4
-                    }
-                    },
-                    plugins: {
-                    tooltip: {
-                        callbacks: {
-                        label: %|function(context) {
-                            var value = context.parsed.y;
-                            switch (value) {
-                            case 1: return "😢 悪い";
-                            case 2: return "😐 普通";
-                            case 3: return "😊 良い";
-                            default: return "";
-                            }
-                        }|
-                        }
-                    }
-                    }
-                } %>
+  height: "350px",
+  colors: ["#10b981"],
+  chartjs: {
+    scales: {
+      x: {
+        type: 'category',
+        title: {
+          display: true,
+          text: '記録順（回数 + 日付）',
+          color: 'hsl(var(--bc))'
+        },
+        ticks: {
+          color: 'hsl(var(--bc))',
+          maxRotation: 45,
+          minRotation: 45
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: '気分',
+          color: 'hsl(var(--bc))'
+        },
+        ticks: {
+          color: 'hsl(var(--bc))',
+          stepSize: 1,
+          callback: %|function(value) {
+            switch (value) {
+              case 1: return "😢";
+              case 2: return "😐";
+              case 3: return "😊";
+              default: return "";
+            }
+          }|
+        },
+        min: 0,
+        max: 4
+      }
+    },
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: %|function(context) {
+            const value = context.parsed.y;
+            switch (value) {
+              case 1: return "😢 悪い";
+              case 2: return "😐 普通";
+              case 3: return "😊 良い";
+              default: return "";
+            }
+          }|
+        }
+      },
+      legend: {
+        labels: {
+          color: 'hsl(var(--bc))'
+        }
+      }
+    }
+  } %>
             </div>
         </div>
 
