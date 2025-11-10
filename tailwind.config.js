@@ -32,6 +32,12 @@ module.exports = {
       center: true,
       padding: '1rem',
     },
+    extend: {
+      fontFamily: {
+        caprasimo: ["Caprasimo", 'cursive'],
+        mplus: ['"M PLUS Rounded 1c"', 'sans-serif'],
+      },
+    },
   },
   safelist: [
     {

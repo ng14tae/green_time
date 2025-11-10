@@ -2,7 +2,7 @@
   <div class="navbar max-w-7xl mx-auto">
     <div class="navbar-start">
       <%= link_to root_path, class: "btn btn-ghost text-xl font-bold normal-case text-indigo-700" do %>
-        🌱 green_time
+        <h6>🌱 green_time</h6>
       <% end %>
     </div>
     <div class="navbar-center">
@@ -30,10 +30,12 @@
               <li><%= link_to "気分グラフ", analytics_moods_path %></li>
               <li><%= link_to "🌱ページ", plants_path %></li>
             <% end %>
+            <li class="border-t border-base-300 my-1"></li>
               <li><%= link_to "使い方", how_to_use_path %></li>
               <li><%= link_to "お問い合わせ", contact_path %></li>
               <li><%= link_to "利用規約", terms_path %></li>
               <li><%= link_to "プライバシーポリシー", privacy_path %></li>
+              <li class="border-t border-base-300 my-1"></li>
             <% if user_signed_in? %>
               <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
             <% else %>

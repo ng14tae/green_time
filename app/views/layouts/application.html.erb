@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -31,8 +35,9 @@
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   </head>
 
-  <body class="flex flex-col min-h-screen">
+  <body class="flex flex-col min-h-screen font-mplus">
   <main class="flex-grow">
+
     <div data-controller="liff" data-liff-liff-id-value="<%= Rails.application.credentials.line[:liff_id] %>">
     <%= yield %>
   </main>
