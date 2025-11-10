@@ -1,47 +1,48 @@
-<div class="hero min-h-screen bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600">
-    <div class="hero-content text-center text-white">
-        <div class="max-w-md py-12">
+    <div class="hero-content text-center text-orange-500">
+        <div class="max-w-md py-12 relative z-10">
             <!-- タイトル -->
-            <h1 class="text-5xl font-bold mb-8">Welcome to<br /> green_time</h1>
-            <p class="text-xl mb-8">植物を愛でながら時刻を記録しましょう。</p>
+            <h1 class="text-4xl font-bold mb-8">Welcome to green_time</h1>
 
             <!-- メイン画像エリア ※追加実装 -->
-            <div class="mb-8 bg-white/20 rounded-xl p-6 backdrop-blur-sm">
-                <%= image_tag "kuma.png", alt: "ポチ", id: "pochi-image", class: "mx-auto w-48 h-48 object-contain" %>
-                <p class="text-lg leading-relaxed">
+            <div class="relative bg-white">
+                <!-- 背景用の左下固定画像 -->
+                <div class="fixed -bottom-80 -left-36  w-128 h-128 z-0 pointer-events-none">
+                <%= image_tag "kuma-toumei.png", alt: "", class: "w-full h-full object-contain opacity-40" %>
+                </div>
+            </div>
+            <div class="relative z-10 text-gray-500">
                 シンプルで使いやすい時間管理アプリ。<br />
                 チェックインとチェックアウトで、<br />あなたの大切な時間を記録します。
                 </p>
-            </div>
 
             <!-- ボタンエリア -->
-            <div class="space-y-4 mt-16">
-                <%= link_to "使い方", how_to_use_path,
-                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full btn-secondary hover:bg-amber-200 text-amber-900 border-0" %>
+            <div class="grid grid-cols-3 gap-4 mt-16">
+            <%= link_to "使い方", how_to_use_path,
+                class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full btn-secondary hover:bg-amber-200 text-amber-900 border-0" %>
 
-                <% if user_signed_in? %>
+            <% if user_signed_in? %>
                 <!-- ログイン済みユーザー -->
                 <%= link_to "チェックイン", checkin_path,
-                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full btn-secondary hover:bg-amber-200 text-amber-900 border-0" %>
+                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full btn-secondary hover:bg-amber-200 text-amber-900 border-0" %>
 
                 <%= link_to "マイページ", mypage_checkinout_records_path,
-                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
+                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
 
                 <%= link_to "気分グラフ", analytics_moods_path,
-                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
+                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
 
                 <%= link_to "🌱ページ", plants_path,
-                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
-
-                <% else %>
+                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
+            <% else %>
                 <!-- 未ログインユーザー -->
                 <%= link_to "新規登録", new_user_registration_path,
-                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-100 hover:bg-amber-200 text-amber-900 border-0" %>
+                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full bg-amber-100 hover:bg-amber-200 text-amber-900 border-0" %>
 
                 <%= link_to "ログイン", new_user_session_path,
-                    class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
-                <% end %>
+                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full bg-amber-700 hover:bg-amber-800 text-white border-0" %>
+            <% end %>
             </div>
+        </div>
         </div>
     </div>
 </div>
