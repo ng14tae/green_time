@@ -6,7 +6,6 @@
         <div class="grid grid-cols-3 gap-3 sm:gap-4">
         <!-- 今日 -->
         <div class="flex flex-col items-center text-center">
-            <div class="text-2xl sm:text-3xl mb-2">📅</div>
             <div class="text-xs sm:text-sm text-base-content/70 mb-1">今日</div>
 
             <% if today_record %>
@@ -34,7 +33,6 @@
 
         <!-- 今週 -->
         <div class="flex flex-col items-center text-center">
-            <div class="text-2xl sm:text-3xl mb-2">📊</div>
             <div class="text-xs sm:text-sm text-base-content/70 mb-1">今週</div>
             <div class="text-lg sm:text-xl font-bold text-info mb-1">
             <%= weekly_stats[:total_days] %>日
@@ -46,7 +44,6 @@
 
         <!-- 今月 -->
         <div class="flex flex-col items-center text-center">
-            <div class="text-2xl sm:text-3xl mb-2">📈</div>
             <div class="text-xs sm:text-sm text-base-content/70 mb-1">今月</div>
             <div class="text-lg sm:text-xl font-bold text-secondary mb-1">
             <%= monthly_stats[:total_days] %>日

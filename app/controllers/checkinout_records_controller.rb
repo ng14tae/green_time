@@ -1,5 +1,4 @@
 class CheckinoutRecordsController < ApplicationController
-    skip_before_action :authenticate_user_with_line_support! # 開発用に一時的にskip
   def index
     # メインページ - 状態に応じてリダイレクト
     @today_record = find_today_record
