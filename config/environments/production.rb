@@ -35,6 +35,13 @@ Rails.application.configure do
   # Do not fall back to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
+  # ドメイン系
+  config.action_controller.asset_host = "https://cheers-timer.com"
+  Rails.application.routes.default_url_options[:host] = "cheers-timer.com"
+  Rails.application.routes.default_url_options[:protocol] = "https"
+  config.hosts << "cheers-timer.com"
+  config.hosts << "www.cheers-timer.com"
+
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
 

@@ -1,8 +1,8 @@
 module ApplicationHelper
   def default_meta_tags
     {
-      site: "green_time",
-      title: "デジタル観葉植物×簡単出退勤記録アプリ",
+      site: "cheers_timer",
+      title: "簡単勤怠記録アプリ",
       reverse: true,
       charset: "utf-8",
       description: "デジタル観葉植物を愛でながら、ボタンタップ一つで出退勤を打刻・記録できます。",
