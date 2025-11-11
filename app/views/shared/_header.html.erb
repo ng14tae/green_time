@@ -1,8 +1,8 @@
-<header class="bg-amber-100 shadow-sm sticky top-0 z-50">
+<header class="bg-secondary shadow-sm sticky top-0 z-50">
   <div class="navbar max-w-7xl mx-auto">
     <div class="navbar-start">
       <%= link_to root_path, class: "btn btn-ghost text-xl font-bold normal-case text-indigo-700" do %>
-        <h6>🌱 green_time</h6>
+        <h6>ct</h6>
       <% end %>
     </div>
     <div class="navbar-center">
@@ -15,12 +15,12 @@
     <div class="navbar-end">
       <div class="dropdown dropdown-end">
         <!-- ハンバーガーボタン -->
-        <div tabindex="0" role="button" class="btn btn-ghost btn-square text-amber-700">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-square text-neutral">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </div>
-        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg border border-base-200 text-amber-700">
+        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg border border-base-200 text-neutral">
           <li><%= link_to "マイページ", mypage_checkinout_records_path %></li>
             <% if user_signed_in? %>
               <!-- ログイン済みの場合は常に表示 -->
@@ -30,12 +30,12 @@
               <li><%= link_to "気分グラフ", analytics_moods_path %></li>
               <li><%= link_to "🌱ページ", plants_path %></li>
             <% end %>
-            <li class="border-t border-base-300 my-1"></li>
+            <li class="border-t border-neutral my-1"></li>
               <li><%= link_to "使い方", how_to_use_path %></li>
               <li><%= link_to "お問い合わせ", contact_path %></li>
               <li><%= link_to "利用規約", terms_path %></li>
               <li><%= link_to "プライバシーポリシー", privacy_path %></li>
-              <li class="border-t border-base-300 my-1"></li>
+              <li class="border-t my-2 border-neutral"></li>
             <% if user_signed_in? %>
               <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
             <% else %>

@@ -7,17 +7,17 @@ module.exports = {
   ],
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light",
+    themes: [
       { mytheme: {
-          "primary": "#1E90FF",   // 鮮やかなindigoブルー
-          "secondary": "#FFECB3", // クリーム色
-          "accent": "#FFD700",    //
-          "neutral": "#FFA000", // ブラウン
-          "base-100": "#FFFFFF",
-          "info": "#2094f3",
-          "success": "#009485",
-          "warning": "#ff9900",
-          "error": "#ff5724",
+          "primary": "#FB9E3A",   //オレンジ
+          "secondary": "#FCEF91", // 黄色
+          "accent": "#EA2F14",    // 赤
+          "neutral": "#E6521F", // 赤茶
+          "base-100": "#FFFFFF", // 白
+          "info": "#00BFFF",    //オレンジみの強い濃いめの黄色
+          "success": "#32CD99", //薄い水色
+          "warning": "#bae8e8", //水色
+          "error": "#272343",  //濃いグレー
         } }
     ],
     base: true,
