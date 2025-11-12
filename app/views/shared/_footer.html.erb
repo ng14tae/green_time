@@ -1,3 +1,33 @@
-<div class="footer footer-center p-6 bg-secondary text-neutral relative z-10">
-    <h5 class="font-bold text-sm">©cheers_timer</h5>
-</div>
+<footer class="fixed bottom-0 left-0 w-full bg-white shadow-t p-2" style="padding-bottom: env(safe-area-inset-bottom);">
+    <nav class="flex justify-around">
+
+        <a href="<%= checkin_path %>" class="flex flex-col items-center text-gray-500 hover:text-blue-500 active:text-blue-600">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"/>
+        </svg>
+        <span class="text-xs">チェックイン</span>
+        </a>
+
+        <a href="<%= mypage_checkinout_records_path %>" class="flex flex-col items-center text-gray-500 hover:text-blue-500 active:text-blue-600">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0 1 18 14V9a6 6 0 1 0-12 0v5c0 .386-.146.735-.395 1.005L4 17h5m6 0v1a3 3 0 1 1-6 0v-1m6 0H9"/>
+        </svg>
+        <span class="text-xs">マイページ</span>
+        </a>
+
+        <a href="<%= analytics_moods_path %>" class="flex flex-col items-center text-gray-500 hover:text-blue-500 active:text-blue-600">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V12H9v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9z"/>
+        </svg>
+        <span class="text-xs">気分グラフ</span>
+        </a>
+
+        <a href="<%= how_to_use_path %>" class="flex flex-col items-center text-gray-500 hover:text-blue-500 active:text-blue-600">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A4 4 0 0 1 4 14V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a4 4 0 0 1-1.121 2.804M15 21h-6a2 2 0 0 1-2-2v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2a2 2 0 0 1-2 2z"/>
+        </svg>
+        <span class="text-xs">使い方</span>
+        </a>
+
+    </nav>
+</footer>
