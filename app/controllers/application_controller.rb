@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_line, :logged_in_line?
 
   def after_sign_in_path_for(resource)
-    checkin_page_checkinout_records_path
+    root_path
   end
 
   # === LINE認証用セッション管理メソッド ===

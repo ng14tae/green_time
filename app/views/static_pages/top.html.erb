@@ -1,19 +1,54 @@
-    <div class="hero-content text-center">
-        <div class="max-w-md py-12">
+<div class="hero-content h-screen flex flex-col items-center justify-center text-center">
+    <div class="max-w-md">
+        <p class="text-lg leading-relaxed text-gray-500 mb-6">
+        ボタンタップ一つで出退勤を<br />
+        記録できる cheers_timer。<br />
+        パートナーのデジタル観葉植物が<br />
+        あなたの一日を応援します。<br />
+        カジュアルな感謝のあいさつ<br />
+        「Cheers!」<br />
+        から今日を始めましょう！
+        </p>
 
-        <p class="text-lg leading-relaxed">
-            <div class="relative z-10 text-gray-500">
-                ボタンタップ一つで出退勤を<br />記録できる cheers_timer。<br />
-                パートナーのデジタル観葉植物が<br />あなたの一日を応援します。<br />
-                カジュアルな感謝のあいさつ<br />
-                「Cheers!」<br />から今日を始めましょう！</p>
-            </div>
+        <!-- タイトル -->
+        <%= link_to checkin_path, class: "inline-block transition duration-200 hover:scale-105" do %>
+            <h1 class="text-4xl font-bold pt-12 text-primary mx-auto fukidashi-02-01">Cheers!</h1>
+        <% end %>
 
-            <!-- タイトル -->
-            <h1 class="text-4xl font-bold pt-12 pb-2 text-primary">Cheers!</h1>
-
-            <!-- メイン画像エリア ※追加実装 -->
-            <%= image_tag "kuma-toumei.png", alt: "ポチ", id: "pochi-image",
-                class: "auto-mx w-64 h-64 object-contain mb-8" %>
+        <!-- メイン画像 -->
+        <%= image_tag "kuma-toumei.png", alt: "ポチ", id: "pochi-image",
+            class: "w-64 h-64 object-contain mx-auto" %>
     </div>
 </div>
+
+<style>
+.fukidashi-02-01 {
+    position: relative;
+    width: fit-content;
+    padding: 12px 20px;
+    color: #FFFFFF;
+    border-radius: 10px;
+    background-color: #FB9E3A;
+    }
+    .fukidashi-02-01::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: -1;
+    width: 20px;
+    height: 12px;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    background-color: #FB9E3A;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.fukidashi-02-01:hover {
+    background-color: #34D399; /* 例: daisyUIのsuccess色 */
+}
+
+.fukidashi-02-01:hover::after {
+    background-color: #34D399; /* 同じ色にする */
+}
+</style>
