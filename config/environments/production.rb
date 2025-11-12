@@ -37,6 +37,8 @@ Rails.application.configure do
   # Allowed hosts (DNS rebinding protection)
   config.hosts << app_host
   config.hosts << "www.#{app_host}" # wwwありも許可
+  config.hosts << "green-time-9fqz.onrender.com"
+  config.hosts << "cheers-timer.com"
 
   # Force SSL
   config.force_ssl = true
