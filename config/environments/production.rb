@@ -36,11 +36,21 @@ Rails.application.configure do
   config.assets.compile = false
 
   # ドメイン系
+  # Asset host (CDN / main domain for static assets)
   config.action_controller.asset_host = "https://cheers-timer.com"
-  Rails.application.routes.default_url_options[:host] = "cheers-timer.com"
-  Rails.application.routes.default_url_options[:protocol] = "https"
+
+  # Default URL options: prefer configuring via environment variables so the
+  # same image can be deployed to multiple hosts (Render, custom domain, etc.).
+  app_host = ENV.fetch("APP_HOST", "cheers-timer.com")
+  app_protocol = ENV.fetch("APP_PROTOCOL", "https")
+  Rails.application.routes.default_url_options[:host] = app_host
+  Rails.application.routes.default_url_options[:protocol] = app_protocol
+
+  # Allowlist for Host header (DNS rebinding protection). Keep cheers-timer
+  # and also allow the Render-host used in some deployments.
   config.hosts << "cheers-timer.com"
   config.hosts << "www.cheers-timer.com"
+  config.hosts << "green-time.onrender.com"
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
@@ -113,6 +123,3 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
-
-# config/environments/production.rb
-Rails.application.routes.default_url_options[:host] = "https://green-time.onrender.com"
