@@ -1,21 +1,19 @@
     <div class="hero-content text-center">
-        <div class="max-w-md py-12 relative z-10">
+        <div class="max-w-md py-12">
 
-            <!-- メイン画像エリア ※追加実装 -->
-            <div class="relative bg-white">
-                <!-- 背景用の左下固定画像 -->
-                <div class="fixed -bottom-80 -left-36  w-128 h-128 z-0 pointer-events-none">
-                <%= image_tag "kuma-toumei.png", alt: "", class: "w-full h-full object-contain opacity-40" %>
-                </div>
-            </div>
+        <p class="text-lg leading-relaxed">
             <div class="relative z-10 text-gray-500">
                 ボタンタップ一つで出退勤を<br />記録できる cheers_timer。<br />
                 パートナーのデジタル観葉植物が<br />あなたの一日を応援します。<br />
                 カジュアルな感謝のあいさつ<br />
                 「Cheers!」<br />から今日を始めましょう！</p>
+            </div>
 
             <!-- タイトル -->
-            <h1 class="text-4xl font-bold py-16 text-primary">Cheers!</h1>
-        </div></div>
+            <h1 class="text-4xl font-bold pt-12 pb-2 text-primary">Cheers!</h1>
+
+            <!-- メイン画像エリア ※追加実装 -->
+            <%= image_tag "kuma-toumei.png", alt: "ポチ", id: "pochi-image",
+                class: "auto-mx w-64 h-64 object-contain mb-8" %>
     </div>
 </div>
