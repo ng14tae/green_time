@@ -8,8 +8,8 @@ class LineSessionsController < ApplicationController
       avatar_url = params[:avatar_url]
 
       Rails.logger.info "=== LINE認証開始 ==="
-    Rails.logger.info "line_user_id=#{line_user_id}"
-    Rails.logger.info "display_name=#{display_name}"
+      Rails.logger.info "line_user_id=#{line_user_id}"
+      Rails.logger.info "display_name=#{display_name}"
 
       # バリデーション
       if line_user_id.blank? || display_name.blank?
@@ -25,10 +25,10 @@ class LineSessionsController < ApplicationController
         log_in_line(user)
 
         Rails.logger.info "セッション設定後:"
-      Rails.logger.info "  session[:line_user_id] = #{session[:line_user_id]}"
-      Rails.logger.info "  session[:user_id] = #{session[:user_id]}"
-      Rails.logger.info "  session[:login_type] = #{session[:login_type]}"
-      Rails.logger.info "  session.id = #{session.id}"
+        Rails.logger.info "  session[:line_user_id] = #{session[:line_user_id]}"
+        Rails.logger.info "  session[:user_id] = #{session[:user_id]}"
+        Rails.logger.info "  session[:login_type] = #{session[:login_type]}"
+        Rails.logger.info "  session.id = #{session.id}"
 
         redirect_to checkin_page_checkinout_records_path, allow_other_host: false
       else
