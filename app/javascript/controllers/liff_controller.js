@@ -6,15 +6,15 @@ export default class extends Controller {
   static targets = ["name", "image"]
 
   async connect() {
-    if (!liff.isInClient()) {
-      console.log('🌐 外部ブラウザからのアクセス')
-      this.handleExternalAccess()
-      return
-    }
-
     try {
       await liff.init({ liffId: this.liffIdValue })
       console.log("✅ LIFF initialized")
+
+      if (!liff.isInClient()) {
+        console.log('🌐 外部ブラウザからのアクセス')
+        this.handleExternalAccess()
+        return
+      }
 
       if (!liff.isLoggedIn()) {
         liff.login()
@@ -34,7 +34,6 @@ export default class extends Controller {
       if (this.hasNameTarget) this.nameTarget.textContent = `こんにちは、${profile.displayName} さん！`
       if (this.hasImageTarget) this.imageTarget.src = profile.pictureUrl
 
-      // 🆕 認証処理を追加
       await this.sendUserDataToRails(profile)
 
     } catch (error) {
@@ -42,6 +41,7 @@ export default class extends Controller {
       if (this.hasNameTarget) this.nameTarget.textContent = "LIFFの初期化に失敗しました"
     }
   }
+
 
   handleExternalAccess() {
     // LINE公式アカウント誘導
