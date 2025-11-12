@@ -14,7 +14,7 @@ module.exports = {
           "accent": "#EA2F14",    // 赤
           "neutral": "#E6521F", // 赤茶
           "base-100": "#FFFFFF", // 白
-          "info": "#00BFFF",    //オレンジみの強い濃いめの黄色
+          "info": "#00BFFF",    //水色
           "success": "#32CD99", //緑
           "warning": "#bae8e8", //水色
           "error": "#272343",  //濃いグレー
