@@ -1,6 +1,7 @@
-<div class="hero-content h-screen flex flex-col items-center justify-center text-center">
+<div class="hero min-h-screen bg-gradient-to-br from-warning via-secondary to-primary">
+<div class="hero-content h-screen flex flex-col items-center justify-between text-center py-6">
     <div class="max-w-md">
-        <p class="text-lg leading-relaxed text-error mb-6">
+        <p class="text-lg leading-relaxed text-error mb-10 mt-6">
         cheers_timerへようこそ🌼<br />
         パートナーの観葉植物が<br />
         あなたを応援します🌱<br />
@@ -9,13 +10,13 @@
         </p>
 
         <!-- タイトル -->
-        <%= link_to how_to_use_path, class: "inline-block transition duration-200 hover:scale-105" do %>
-            <h3 class="text-4xl font-bold pt-12 text-primary mx-auto fukidashi-02-01 tracking-wide">Cheers!</h3>
+        <%= link_to checkin_path, class: "inline-block transition duration-200 hover:scale-105" do %>
+            <h3 class="text-4xl pt-2 text-primary mx-auto fukidashi-02-01 tracking-wide">Cheers!</h3>
         <% end %>
 
         <!-- メイン画像 -->
         <%= image_tag "kuma-toumei.png", alt: "ポチ", id: "pochi-image",
-            class: "w-64 h-64 object-contain mx-auto" %>
+            class: "w-64 h-64 object-contain mx-auto mt-0 mb-0" %>
     </div>
 </div>
 
