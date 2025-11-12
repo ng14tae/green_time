@@ -15,7 +15,7 @@ module.exports = {
           "neutral": "#E6521F", // 赤茶
           "base-100": "#FFFFFF", // 白
           "info": "#00BFFF",    //オレンジみの強い濃いめの黄色
-          "success": "#32CD99", //薄い水色
+          "success": "#32CD99", //緑
           "warning": "#bae8e8", //水色
           "error": "#272343",  //濃いグレー
         } }
