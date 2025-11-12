@@ -1,7 +1,5 @@
     <div class="hero-content text-center">
         <div class="max-w-md py-12 relative z-10">
-            <!-- タイトル -->
-            <h1 class="text-4xl font-bold mb-8 text-primary">Cheers!</h1>
 
             <!-- メイン画像エリア ※追加実装 -->
             <div class="relative bg-white">
@@ -12,36 +10,12 @@
             </div>
             <div class="relative z-10 text-gray-500">
                 ボタンタップ一つで出退勤を<br />記録できる cheers_timer。<br />
-                パートナーのデジタル観葉植物が<br />あなたの一日を応援します。</p>
+                パートナーのデジタル観葉植物が<br />あなたの一日を応援します。<br />
+                カジュアルな感謝のあいさつ<br />
+                「Cheers!」<br />から今日を始めましょう！</p>
 
-            <!-- ボタンエリア -->
-            <div class="grid grid-cols-3 gap-4 mt-16">
-            <%= link_to "使い方", how_to_use_path,
-                class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full btn-secondary hover:bg-success text-primary border-0" %>
-
-            <% if user_signed_in? %>
-                <!-- ログイン済みユーザー -->
-                <%= link_to "チェックイン", checkin_path,
-                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full btn-secondary hover:bg-amber-200 text-amber-900 border-0" %>
-
-                <%= link_to "マイページ", mypage_checkinout_records_path,
-                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full bg-secondary hover:bg-amber-800 text-white border-0" %>
-
-                <%= link_to "気分グラフ", analytics_moods_path,
-                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full bg-secondary hover:bg-amber-800 text-white border-0" %>
-
-                <%= link_to "🌱ページ", plants_path,
-                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full bg-secondary hover:bg-amber-800 text-white border-0" %>
-            <% else %>
-                <!-- 未ログインユーザー -->
-                <%= link_to "新規登録", new_user_registration_path,
-                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full bg-neutral hover:bg-info text-amber-900 border-0" %>
-
-                <%= link_to "ログイン", new_user_session_path,
-                    class: "btn btn-lg px-6 py-4 text-xl shadow-lg w-full bg-success hover:bg-warning text-white border-0" %>
-            <% end %>
-            </div>
-        </div>
-        </div>
+            <!-- タイトル -->
+            <h1 class="text-4xl font-bold py-16 text-primary">Cheers!</h1>
+        </div></div>
     </div>
 </div>
