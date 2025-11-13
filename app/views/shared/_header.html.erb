@@ -1,9 +1,11 @@
 <header class="bg-secondary shadow-sm sticky top-0 z-50">
   <div class="navbar max-w-7xl mx-auto">
     <div class="navbar-start">
-      <%= link_to root_path, class: "btn btn-ghost text-xl font-bold normal-case text-indigo-700" do %>
-        <h6>ct</h6>
-      <% end %>
+      <%= link_to root_path, class: "inline-block transition duration-200 hover:scale-105" do %>
+  <%= image_tag "timer-logo2.png", alt: "砂時計",
+      class: "w-10 h-10 object-contain mx-auto" %>
+<% end %>
+
     </div>
     <div class="navbar-center">
       <% if logged_in_line? %>
