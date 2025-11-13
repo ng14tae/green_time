@@ -1,0 +1,64 @@
+<div class="bg-yellow-100 min-h-screen flex items-center justify-center p-4">
+        <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <div class="bg-base-100 rounded-lg shadow-xl p-8">
+            <h1 class="text-3xl font-bold mb-6 text-center text-accent">お問い合わせ</h1>
+
+            <p class="text-error text-center mb-8">
+                ご不明な点やご意見がございましたら<br />
+                お気軽にお問い合わせください🌼
+            </p>
+
+            <form
+            action="https://docs.google.com/forms/d/e/1FAIpQLSfcGyvsgdG_DREqtP9HLSVH_AmeG2L-jYOrJFfCh119gASAsQ/formResponse"
+            method="post"
+            target="thanks"
+            onsubmit="submitted=true"
+            class="space-y-6">
+
+                <section class="space-y-4">
+                    <div class="form-control">
+                        <label class="label" for="name">
+                            <span class="label-text text-base font-semibold text-error">お名前 <span class="text-accent">*</span></span>
+                        </label>
+                        <input type="text" id="name" name="entry.1505919660" placeholder="山田 太郎" class="input input-bordered input-primary w-full focus:input-success" required>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label" for="email">
+                            <span class="label-text text-base font-semibold text-error">メールアドレス <span class="text-accent">*</span></span>
+                        </label>
+                        <input type="email" id="email" name="entry.131132016" placeholder="example@email.com" class="input input-bordered input-primary w-full focus:input-success" required>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label" for="message">
+                            <span class="label-text text-base font-semibold text-error">お問合せ内容 <span class="text-accent">*</span></span>
+                        </label>
+                        <textarea id="message" name="entry.403372861" rows="6" placeholder="お問い合わせ内容をご記入ください" class="textarea textarea-bordered textarea-primary w-full focus:textarea-success" required></textarea>
+                    </div>
+                </section>
+
+                <div class="form-control mt-8">
+                    <button type="submit" class="btn btn-primary text-white text-lg w-full hover:bg-success transition-colors duration-200">
+                        送信 🌱
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-8 text-center">
+                <p class="text-sm text-gray-600">
+                    通常1〜2営業日以内にご返信いたします
+                </p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    let submitted = false;
+    </script>
+    <iframe
+        name="thanks"
+        id="thanks"
+        style="display: none"
+        onload="if(submitted){window.location='<%= forms_thanks_path %>';}"
+    ></iframe>
+</div>
