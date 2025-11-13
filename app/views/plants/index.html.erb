@@ -1,10 +1,10 @@
-<div class="text-center py-12 space-y-6 bg-success">
+<div class="min-h-screen flex flex-col justify-center items-center bg-success text-center space-y-6">
     <!-- 植物の表示 -->
     <%= image_tag "kuma.png", alt: @plant.display_name, class: "mx-auto w-48 h-48 object-contain" %>
 
     <!-- 現在の名前表示 -->
-    <h2 class="text-2xl font-bold text-center">
-        現在の名前： <br><%= @plant.display_name %>
+    <h2 class="text-2xl font-bold">
+        現在の名前：<br><%= @plant.display_name %>
     </h2>
 
     <!-- 名前変更フォーム -->
