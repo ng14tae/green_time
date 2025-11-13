@@ -19,12 +19,12 @@
         <%= render 'records_list', recent_records: @recent_records %>
 
         <!-- ページネーション -->
-        <div class="flex justify-center mt-4 sm:mt-6">
+        <div class="flex justify-center mt-2 sm:mt-3">
         <%= paginate @recent_records %>
         </div>
 
         <!-- フッター -->
-        <div class="text-center mt-6 sm:mt-8 py-16 sm:py-16">
+        <div class="text-center mt-2 sm:mt-3 py-6 sm:py-8">
         <p class="text-error text-sm">💪 お疲れさまでした！えらい！</p>
         </div>
     </div>
