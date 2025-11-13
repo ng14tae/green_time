@@ -70,7 +70,7 @@
             <button
                 data-action="click->mood-checker#saveComment"
                 data-mood-checker-target="saveButton"
-                class="btn btn-secondary btn-lg px-16 py-4 text-2xl shadow-lg w-full mt-3"
+                class="btn btn-primary btn-lg px-16 py-4 text-2xl shadow-lg w-full mt-3"
                 <%= 'disabled style="opacity: 0.5;"'.html_safe if defined?(show_comment_success) && show_comment_success %>>
                 <% if defined?(show_comment_success) && show_comment_success %>
                     保存済み
