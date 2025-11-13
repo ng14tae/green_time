@@ -1,32 +1,24 @@
-<div class="container text-center mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-            <h3 class="card-title mx-auto mb-4">このアプリは<br>LINE内でご利用ください</h3>
-            <p class="card-text">
-                cheers_timerの<br>LINE公式アカウントを<br>
-                友だちに追加して、リッチメニューから<br>
-                アクセスしてください。<br>
-            </p>
+<div class="bg-yellow-100 min-h-screen flex flex-col items-center justify-center text-center px-4 py-8">
+    <h3 class="text-2xl font-bold mb-6">
+        このアプリは<br>LINE内でご利用ください
+    </h3>
 
-            <div class="mt-4">
-                <a href="https://line.me/R/ti/p/<%= Rails.application.credentials.line[:official_account_id] %>"
-                class="btn btn-success btn-lg" target="_blank">
-                LINE公式アカウントを開く
-                </a>
-            </div>
+    <p class="text-lg mb-8 leading-relaxed">
+        cheers_timerの<br>LINE公式アカウントを<br>
+        友だちに追加して、リッチメニューから<br>
+        アクセスしてください。
+    </p>
 
-            <div class="mt-3">
-                <small class="text-muted">
-                友だち追加後、リッチメニューの「cheers_timer」をタップしてください。<br>
-                アクセスすると認証画面に移ります。<br>
-                認証すると、自動で会員登録され<br>
-                すぐにアプリを使えるようになります！
-                </small>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
+    <a href="https://line.me/R/ti/p/<%= Rails.application.credentials.line[:official_account_id] %>"
+        class="btn btn-success btn-lg mb-6"
+        target="_blank">
+        LINE公式アカウントを開く
+    </a>
+
+    <small class="text-gray-600 text-sm leading-relaxed">
+        友だち追加後、リッチメニューの「cheers_timer」をタップしてください。<br>
+        アクセスすると認証画面に移ります。<br>
+        認証すると、自動で会員登録され<br>
+        すぐにアプリを使えるようになります！
+    </small>
 </div>
