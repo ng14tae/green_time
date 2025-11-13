@@ -1,10 +1,10 @@
-<div class="container mx-auto px-8 py-12 max-w-4xl">
+<div class="container mx-auto px-8 py-12 max-w-4xl bg-yellow-100">
     <h1 class="text-3xl font-bold mb-8 text-center">利用規約</h1>
 
     <div class="prose max-w-none space-y-6">
-        <p class="text-sm text-gray-600">最終更新日：<%= Date.current.strftime("%Y年%m月%d日") %></p>
+        <p class="text-sm text-error">最終更新日：<%= Date.current.strftime("%Y年%m月%d日") %></p>
 
-        <p class="text-gray-700 leading-relaxed">
+        <p class="text-error leading-relaxed">
         この利用規約（以下、「本規約」といいます。）は、[簡単勤怠管理アプリ cheers_timer]（以下、「本サービス」といいます。）が
         本ウェブサイト上で提供するサービスの利用条件を定めるものです。
         登録ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。
@@ -167,20 +167,18 @@
         </ol>
         </section>
 
-        <div class="mt-8 p-4 bg-gray-50 rounded-lg">
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-error mt-8">
             以上
         </p>
-        <p class="text-sm text-gray-600 mt-2">
+        <p class="text-sm text-error mt-2">
             制定日：<%= Date.current.strftime("%Y年%m月%d日") %>
         </p>
-        </div>
     </div>
 
-    <div class="mt-12 text-center">
-        <p class="text-gray-600">
-        利用規約に関するご不明な点がございましたら、<br>
-        LINE公式アカウントにてお気軽にご連絡ください。
+    <div class="mt-12 text-center mb-10">
+        <p class="text-error">
+        利用規約に関して何かございましたら、<br>
+        LINE公式アカウントにご連絡ください。
         </p>
     </div>
 </div>
