@@ -30,7 +30,7 @@ class LineSessionsController < ApplicationController
         Rails.logger.info "  session[:login_type] = #{session[:login_type]}"
         Rails.logger.info "  session.id = #{session.id}"
 
-        redirect_to checkin_page_checkinout_records_path, allow_other_host: false
+        redirect_to root_path, allow_other_host: false
       else
         Rails.logger.error "ユーザー作成失敗: #{user.errors.full_messages}"
         render json: {

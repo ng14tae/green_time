@@ -1,13 +1,13 @@
 <%= turbo_stream.replace "checkin-section" do %>
     <div id="checkin-section">
         <button class="btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-gray-400 text-gray-600" disabled>
-        水やり済み
+        チェックイン済み
         </button>
 
             <!-- チェックアウトボタン -->
             <div class="space-y-4 py-4">
             <%= link_to checkout_page_checkinout_records_path,
-                    class: "btn btn-outline btn-accent btn-lg px-16 py-4 text-2xl shadow-lg w-full block" do %>
+                    class: "btn btn-outline btn-neutral btn-lg px-16 py-4 text-2xl shadow-lg w-full block" do %>
                 チェックアウト
                 <% end %>
 

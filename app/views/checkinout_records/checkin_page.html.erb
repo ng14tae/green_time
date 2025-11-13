@@ -2,7 +2,7 @@
     <div class="hero-content text-center text-white">
         <div class="max-w-md py-8">
             <p class="text-xl mb-8">今日も素晴らしい一日にしましょう！</p>
-            <h1 class="text-4xl font-bold mb-5 mx-auto fukidashi-02-01">Hello!</h1>
+            <h1 class="text-4xl font-bold mb-5 mx-auto fukidashi-02-01 text-error">Hello!</h1>
 
             <!-- 緑ちゃんブース-->
             <%= image_tag "kuma.png", alt: "ポチ", id: "pochi-image", class: "mx-auto w-48 h-48 object-contain" %>
@@ -42,15 +42,15 @@
             <% if @today_record.present? %>
                 <!-- チェックイン済みの場合 -->
                 <button class="btn btn-lg w-full bg-gray-400 text-gray-600" disabled>
-                    水やり済み
+                    チェックイン済み
                 </button>
             <% else %>
                 <!-- 未チェックインの場合 -->
                 <%= form_with url: checkin_checkinout_records_path,
                             method: :post,
                             data: { turbo_stream: true, turbo: true } do |f| %>
-                <%= f.submit "水をあげる", id: "checkin-button",
-                            class: "btn btn-primary btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
+                <%= f.submit "チェックイン", id: "checkin-button",
+                            class: "btn btn-success btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
                 <% end %>
             <% end %>
             </div>
