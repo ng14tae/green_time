@@ -38,7 +38,7 @@
                 <% end %>
             </div>
 
-            <div id="checkin-section">
+            <div id="checkin-section mb-8">
             <% if @today_record.present? %>
                 <!-- チェックイン済みの場合 -->
                 <button class="btn btn-lg w-full bg-gray-400 text-gray-600" disabled>
@@ -50,7 +50,7 @@
                             method: :post,
                             data: { turbo_stream: true, turbo: true } do |f| %>
                 <%= f.submit "チェックイン", id: "checkin-button",
-                            class: "btn btn-success btn-lg px-16 py-8 text-2xl shadow-lg w-full" %>
+                            class: "btn btn-success btn-lg px-16 py-4 text-2xl shadow-lg w-full" %>
                 <% end %>
             <% end %>
             </div>

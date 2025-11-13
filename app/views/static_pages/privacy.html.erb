@@ -1,12 +1,12 @@
-<div class="container mx-auto px-8 py-12 max-w-4xl">
-    <h1 class="text-3xl font-bold mb-8 text-center">プライバシーポリシー</h1>
+<div class="container mx-auto px-8 py-12 max-w-4xl bg-yellow-100">
+    <h1 class="text-3xl font-bold mb-8 text-center text-error">プライバシーポリシー</h1>
 
     <div class="prose max-w-none space-y-6">
-        <p class="text-sm text-gray-600">最終更新日：<%= Date.current.strftime("%Y年%m月%d日") %></p>
+        <p class="text-sm text-error">最終更新日：<%= Date.current.strftime("%Y年%m月%d日") %></p>
 
         <section>
         <h2 class="text-xl font-semibold mb-3">1. 個人情報の定義</h2>
-        <p class="text-gray-700 leading-relaxed">
+        <p class="text-error leading-relaxed">
             本プライバシーポリシーにおいて、個人情報とは、個人情報保護法にいう「個人情報」を指すものとし、
             生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日、住所、電話番号、
             連絡先その他の記述等により特定の個人を識別できる情報及び容貌、指紋、声紋にかかるデータ、
@@ -95,7 +95,7 @@
 
         <section>
         <h2 class="text-xl font-semibold mb-3">9. プライバシーポリシーの変更</h2>
-        <p class="text-gray-700 leading-relaxed">
+        <p class="text-error leading-relaxed">
             本ポリシーの内容は、法令その他本ポリシーに別段の定めのある事項を除いて、
             ユーザーに通知することなく、変更することができるものとします。
             本サービスが別途定める場合を除いて、変更後のプライバシーポリシーは、
@@ -104,18 +104,10 @@
         </section>
 
         <section>
-        <h2 class="text-xl font-semibold mb-10">10. お問い合わせ窓口</h2>
-        <p class="text-gray-700 leading-relaxed">
+        <h2 class="text-xl font-semibold mb-3">10. お問い合わせ窓口</h2>
+        <p class="text-error leading-relaxed mb-10">
             本ポリシーに関するお問い合わせは、LINE公式アカウントにてお気軽にご連絡ください。
         </p>
-        <%# <div class="bg-gray-50 rounded-lg p-4 mt-4">
-            <%# <p class="text-gray-700">
-            <strong>お問い合わせ先：</strong><br>
-            メールアドレス：
-            <a href="mailto:privacy@example.com" class="text-blue-600 hover:underline">
-                privacy@example.com
-            </a>
-            </p> %>
         </section>
     </div>
 </div>
