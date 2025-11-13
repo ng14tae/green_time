@@ -1,4 +1,4 @@
-<div class="hero min-h-screen bg-red-300">
+<div class="hero min-h-screen bg-red-500">
     <div class="hero-content text-center text-white">
         <div class="max-w-md py-8">
         <p class="text-xl mb-8">今日もお疲れさまでした</p>
@@ -41,8 +41,8 @@
         <div class="space-y-4 py-4">
         <!-- チェックアウトボタン -->
         <%= form_with url: checkout_checkinout_records_path, method: :patch do |f| %>
-            <%= f.submit "お疲れさま", id: "checkout-button",
-                class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-orange-800 hover:bg-orange-900 text-white border-0" %>
+            <%= f.submit "チェックアウト", id: "checkout-button",
+                class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-secondary hover:bg-orange-900 text-error border-0" %>
             <% end %>
 
             <!-- マイページボタン（アウトラインスタイル） -->
