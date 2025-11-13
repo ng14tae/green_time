@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get "contact", to: "static_pages#contact"
   get "privacy", to: "static_pages#privacy"
 
+  # google form用
+  get "forms/custom_form", to: "forms#custom_form"
+  get "forms/thanks", to: "forms#thanks"
 
   get "/checkin", to: "checkinout_records#smart_checkin"
   get "/checkout", to: "checkinout_records#smart_checkout"

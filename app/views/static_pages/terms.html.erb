@@ -1,5 +1,6 @@
-<div class="container mx-auto px-8 py-12 max-w-4xl bg-yellow-100">
-    <h1 class="text-3xl font-bold mb-8 text-center">利用規約</h1>
+<div class="min-h-screen bg-yellow-100 flex justify-center items-center px-4 py-12">
+    <div class="container max-w-4xl bg-yellow-100 rounded-lg p-10">
+        <h1 class="text-3xl font-bold mb-8 text-center text-error">利用規約</h1>
 
     <div class="prose max-w-none space-y-6">
         <p class="text-sm text-error">最終更新日：<%= Date.current.strftime("%Y年%m月%d日") %></p>
@@ -179,10 +180,10 @@
         <p class="text-error">
         利用規約に関して何かございましたら、<br>
         <%= link_to "お問い合わせフォーム",
-        "https://docs.google.com/forms/d/e/1FAIpQLSfcGyvsgdG_DREqtP9HLSVH_AmeG2L-jYOrJFfCh119gASAsQ/viewform?usp=header", 
+        forms_custom_form_path,
         target: "_blank",
         rel: "noopener",
-        class: "link link-primary" %>
+        class: "link link-primary" %><br>
         までご連絡ください。
         </p>
     </div>

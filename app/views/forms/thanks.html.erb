@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="mytheme">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>送信完了 - cheers_timer</title>
+</head>
+<body class="bg-yellow-100 min-h-screen flex items-center justify-center p-4">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <div class="bg-base-100 rounded-lg shadow-xl p-8 text-center">
+            <!-- アイコン -->
+            <div class="mb-6">
+                <div class="inline-block bg-success bg-opacity-20 rounded-full p-4">
+                    <svg class="w-16 h-16 text-success mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <h1 class="text-3xl font-bold mb-6 text-accent">送信完了</h1>
+
+            <p class="text-error text-lg mb-4">
+                お問い合わせいただき<br />
+                ありがとうございます🌼
+            </p>
+
+            <p class="text-gray-700 mb-8">
+                送信が完了しました。<br />
+                通常1〜2営業日以内にご返信いたします。
+            </p>
+
+            <div class="mt-8">
+                <%= link_to "トップページに戻る", root_path, class: "btn btn-primary text-white text-lg hover:bg-success transition-colors duration-200" %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
