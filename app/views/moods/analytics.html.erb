@@ -70,17 +70,13 @@
         <div class="overflow-x-auto">
           <canvas id="mood-line-chart" width="<%= [@recent_moods.size * 40, 300].max %>" height="400"></canvas>
         </div>
-
         <script>
           const labels = <%= raw @recent_moods.map { |m| "\"#{m.created_at.strftime('%m/%d')}\"" }.to_json %>;
           const values = <%= raw @recent_moods.map { |m| m.value }.to_json %>;
-          console.log(labels, values);
-
           if (window.drawMoodLineChart) {
             window.drawMoodLineChart(labels, values);
           }
         </script>
-
                 </div>
               </div>
             </div>

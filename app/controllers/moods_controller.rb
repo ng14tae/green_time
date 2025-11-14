@@ -63,27 +63,18 @@ class MoodsController < ApplicationController
 
     # 円グラフ用
     @mood_counts = current_user.moods.group(:feeling).count
+    @mood_counts_for_pie = helpers.mood_data_for_pie(@mood_counts)
 
-    Rails.logger.info "=== feelingの値（keys） ==="
-    Rails.logger.info @mood_counts.keys.inspect
-    Rails.logger.info "=== @mood_counts全体 ==="
-    Rails.logger.info @mood_counts.inspect
-
-    # 🔧 直近30回分の気分記録を取得（この位置が正しい！）
+    # 直近30回分の折れ線グラフ用
     @recent_moods = current_user.moods
                                 .where.not(feeling: nil)
                                 .limit(30)
                                 .order(created_at: :desc)
                                 .reverse
+    @recent_moods_chart_data = helpers.mood_data_for_recent(@recent_moods)
 
-    Rails.logger.info "=== @recent_moods ==="
-    Rails.logger.info @recent_moods.pluck(:id, :feeling, :created_at).inspect
-  end
-
-  def mood_data_for_recent(moods)
-    moods.map do |m|
-      [m.created_at.strftime("%m/%d"), m.feeling_label]
-    end
+    Rails.logger.info "=== 最近の気分データ（チャート用） ==="
+    Rails.logger.info @recent_moods_chart_data.inspect
   end
 
   private
