@@ -73,9 +73,11 @@
 
         <script>
           const labels = <%= raw @recent_moods.map { |m| "\"#{m.created_at.strftime('%m/%d')}\"" }.to_json %>;
-          const values = <%= raw @recent_moods.map { |m| m.value }.to_json %>;
+          const values = <%= raw @recent_moods.map { |m| m.value }.to_json %>; // 必ず 1,2,3
+          console.log(labels, values);
           window.drawMoodLineChart(labels, values);
         </script>
+
 
                 </div>
               </div>

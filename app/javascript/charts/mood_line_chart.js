@@ -25,30 +25,29 @@ export function drawMoodLineChart(labels, values) {
         }]
         },
         options: {
-        responsive: true,
-        plugins: {
-            tooltip: {
-            callbacks: {
-                label: function(context) {
-                const v = context.parsed.y;
-                return ['','😢 悪い','😐 普通','😊 良い'][v];
+            responsive: true,
+            plugins: {
+                tooltip: {
+                callbacks: {
+                    label: (ctx) => {
+                    const v = ctx.parsed.y;
+                    return ['','😢 悪い','😐 普通','😊 良い',''][v];
+                    }
+                }
+                }
+            },
+            scales: {
+                y: {
+                min: 0,
+                max: 4,
+                ticks: {
+                    stepSize: 1,
+                    callback: (v) => ['','😢 悪い','😐 普通','😊 良い',''][v],
+                    font: { size: 16 }
+                }
                 }
             }
             }
-        },
-        scales: {
-            y: {
-            min: 0,
-            max: 3,
-            ticks: {
-                stepSize: 1,
-                callback: function(v) {
-                return ['','😢 悪い','😐 普通','😊 良い'][v];
-                },
-                font: { size: 16 }
-            }
-            }
-        }
-        }
+
     });
 }
