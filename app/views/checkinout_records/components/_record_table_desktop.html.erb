@@ -1,0 +1,109 @@
+<div class="overflow-x-auto">
+    <table class="w-full">
+        <thead>
+        <tr class="border-b-2 border-gray-200">
+            <th class="text-left py-3 px-4 font-bold text-gray-700">日付</th>
+            <th class="text-left py-3 px-4 font-bold text-gray-700">チェックイン</th>
+            <th class="text-left py-3 px-4 font-bold text-gray-700">チェックアウト</th>
+            <th class="text-left py-3 px-4 font-bold text-gray-700">労働時間</th>
+            <th class="text-left py-3 px-4 font-bold text-gray-700">気分</th>
+            <th class="text-left py-3 px-4 font-bold text-gray-700">メモ</th>
+            <th class="text-left py-3 px-4 font-bold text-gray-700">状態</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% records.each do |record| %>
+            <tr class="border-b border-gray-100 hover:bg-gray-50">
+            <!-- 勤務日 -->
+            <td class="py-3 px-4">
+                <div class="font-medium">
+                <%= record.checkin_time.strftime("%Y/%m/%d") %>
+                </div>
+                <div class="text-xs text-gray-500">
+                <%= record.checkin_time.strftime("(%a)") %>
+                </div>
+            </td>
+
+            <!-- チェックイン -->
+            <td class="py-3 px-4">
+                <div class="font-medium text-blue-600">
+                <%= record.checkin_time.strftime("%H:%M") %>
+                </div>
+                <div class="text-xs text-gray-500">
+                <%= record.checkin_time.strftime("%m/%d") %>
+                </div>
+            </td>
+
+            <!-- チェックアウト -->
+            <td class="py-3 px-4">
+                <% if record.checkout_time %>
+                <div class="font-medium text-orange-600">
+                    <%= record.checkout_time.strftime("%H:%M") %>
+                </div>
+                <div class="text-xs text-gray-500">
+                    <%= record.checkout_time.strftime("%m/%d") %>
+                </div>
+                <% if record.checkin_time.to_date != record.checkout_time.to_date %>
+                    <div class="text-xs text-purple-600 font-medium">翌日以降</div>
+                <% end %>
+                <% else %>
+                <span class="text-red-500 font-bold">勤務中</span>
+                <% end %>
+            </td>
+
+            <!-- 労働時間 -->
+            <td class="py-3 px-4">
+                <% if record.checkout_time %>
+                <span class="text-green-600 font-bold">
+                    <%= sprintf("%.1f時間", (record.checkout_time - record.checkin_time) / 3600.0) %>
+                </span>
+                <% else %>
+                <span class="text-orange-500">-</span>
+                <% end %>
+            </td>
+
+            <!-- 気分 -->
+            <td class="py-3 px-4">
+                <% if record.mood&.feeling.present? %>
+                <span class="text-2xl"><%= record.mood.mood_emoji %></span>
+                <% else %>
+                <span class="text-gray-400 text-sm">未記録</span>
+                <% end %>
+            </td>
+
+            <!-- メモ -->
+            <td class="py-3 px-4">
+                <% if record.has_mood? && record.mood.comment.present? %>
+                <div class="max-w-xs">
+                    <% if record.mood.comment.length > 50 %>
+                    <p class="text-sm text-gray-700" title="<%= record.mood.comment %>">
+                        <%= truncate(record.mood.comment, length: 50) %>
+                    </p>
+                    <button class="text-xs text-blue-500 hover:text-blue-700" onclick="showFullComment(this)">
+                        もっと見る
+                    </button>
+                    <div class="hidden full-comment">
+                        <p class="text-sm text-gray-700"><%= simple_format(record.mood.comment) %></p>
+                    </div>
+                    <% else %>
+                    <p class="text-sm text-gray-700"><%= record.mood.comment %></p>
+                    <% end %>
+                </div>
+                <% else %>
+                <span class="text-gray-400 text-sm">-</span>
+                <% end %>
+            </td>
+
+            <!-- 状態 -->
+            <td class="py-3 px-4">
+                <% if record.checkout_time %>
+                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">完了</span>
+                <% else %>
+                <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">勤務中</span>
+                <% end %>
+            </td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+</div>

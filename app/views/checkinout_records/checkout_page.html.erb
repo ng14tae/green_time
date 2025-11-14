@@ -31,7 +31,7 @@
             <!-- 気分チェッカー -->
             <div class="max-w-md">
             <div id="mood-checker">
-                <%= render 'mood_checker',
+                <%= render 'checkinout_records/components/mood_checker',
                         record: @today_record,
                         show_mood_success: @today_record.mood&.feeling.present?,
                         show_comment_success: @today_record.mood&.comment.present? %>

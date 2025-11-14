@@ -1,0 +1,57 @@
+<!-- 勤務統計カード -->
+<div class="card bg-base-100 shadow-xl mb-6 w-full">
+    <div class="card-body p-4 sm:p-6">
+        <h2 class="card-title text-lg sm:text-xl mb-4 justify-center">勤務統計</h2>
+
+        <div class="grid grid-cols-3 gap-3 sm:gap-4">
+        <!-- 今日 -->
+        <div class="flex flex-col items-center text-center">
+            <div class="text-xs sm:text-sm text-base-content/70 mb-1">今日</div>
+
+            <% if today_record %>
+            <div class="text-lg sm:text-xl font-bold text-success mb-1">勤務中</div>
+            <div class="text-xs text-base-content/70">
+                <%= today_record.checkin_time.strftime("%H:%M") %>〜
+            </div>
+            <% else %>
+            <% todays_completed = CheckinoutRecord.where(
+                user_id: current_user.id,
+                checkin_time: Time.current.beginning_of_day..Time.current.end_of_day
+            ).where.not(checkout_time: nil).first %>
+
+            <% if todays_completed %>
+                <div class="text-lg sm:text-xl font-bold text-info mb-1">完了</div>
+                <div class="text-xs text-base-content/70">
+                <%= sprintf("%.1fh", (todays_completed.checkout_time - todays_completed.checkin_time) / 3600.0) %>
+                </div>
+            <% else %>
+                <div class="text-lg sm:text-xl font-bold text-base-content/50">未勤務</div>
+                <div class="text-xs text-base-content/50">-</div>
+            <% end %>
+            <% end %>
+        </div>
+
+        <!-- 今週 -->
+        <div class="flex flex-col items-center text-center">
+            <div class="text-xs sm:text-sm text-base-content/70 mb-1">今週</div>
+            <div class="text-lg sm:text-xl font-bold text-info mb-1">
+            <%= weekly_stats[:total_days] %>日
+            </div>
+            <div class="text-xs text-base-content/70">
+            <%= sprintf("%.1fh", weekly_stats[:total_hours]) %>
+            </div>
+        </div>
+
+        <!-- 今月 -->
+        <div class="flex flex-col items-center text-center">
+            <div class="text-xs sm:text-sm text-base-content/70 mb-1">今月</div>
+            <div class="text-lg sm:text-xl font-bold text-secondary mb-1">
+            <%= monthly_stats[:total_days] %>日
+            </div>
+            <div class="text-xs text-base-content/70">
+            <%= sprintf("%.1fh", monthly_stats[:total_hours]) %>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
