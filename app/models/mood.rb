@@ -8,7 +8,7 @@ class Mood < ApplicationRecord
     "sad"     => { emoji: "😢", label: "悪い", value: 1 }
   }
 
-  def emoji
+  def mood_emoji
     EMOJI_LABELS[feeling][:emoji]
   end
 
