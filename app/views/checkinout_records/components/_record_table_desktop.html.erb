@@ -64,11 +64,11 @@
 
             <!-- 気分 -->
             <td class="py-3 px-4">
-                <% if record.mood&.feeling.present? %>
-                <span class="text-2xl"><%= record.mood.mood_emoji %></span>
-                <% else %>
+            <% if record.mood&.feeling.present? %>
+                <span class="text-2xl"><%= record.mood.full_label %></span>
+            <% else %>
                 <span class="text-gray-400 text-sm">未記録</span>
-                <% end %>
+            <% end %>
             </td>
 
             <!-- メモ -->
