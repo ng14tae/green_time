@@ -17,7 +17,7 @@ class Mood < ApplicationRecord
   end
 
   def full_label
-    "#{emoji} #{EMOJI_LABELS[feeling][:label]}"
+    "#{mood_emoji} #{EMOJI_LABELS[feeling][:label]}"
   end
 
   validates :feeling, inclusion: {
