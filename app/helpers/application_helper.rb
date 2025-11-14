@@ -5,7 +5,7 @@ module ApplicationHelper
       title: "簡単勤怠記録アプリ",
       reverse: true,
       charset: "utf-8",
-      description: "デジタル観葉植物を愛でながら、ボタンタップ一つで出退勤を打刻・記録できます。",
+      description: "ボタンタップ一つで出退勤を記録するアプリ。パートナーの観葉植物があなたの一日を応援します",
       keywords: "観葉植物,出勤,退勤,記録,勤怠管理",
       canonical: root_url,
       separator: "|",
