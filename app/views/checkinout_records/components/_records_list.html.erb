@@ -1,0 +1,19 @@
+<% if recent_records.any? %>
+    <div class="bg-white rounded-xl shadow-lg p-3 sm:p-6">
+        <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">最近の勤怠記録</h2>
+
+        <!-- モバイル表示 -->
+        <div class="block lg:hidden space-y-4">
+        <% recent_records.each do |record| %>
+            <%= render 'checkinout_records/components/record_card_mobile', record: record %>
+        <% end %>
+        </div>
+
+        <!-- デスクトップ表示 -->
+        <div class="hidden lg:block">
+        <%= render 'checkinout_records/components/record_table_desktop', records: recent_records %>
+        </div>
+    </div>
+    <% else %>
+    <%= render 'checkinout_records/components/no_records' %>
+<% end %>

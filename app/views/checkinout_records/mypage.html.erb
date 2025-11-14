@@ -6,17 +6,17 @@
         <h1 class="text-3xl sm:text-4xl font-bold mb-4">マイページ</h1>
         </div>
 
-        <!-- ナビゲーション -->
-        <%= render 'navigation', today_record: @today_record %>
+    <!-- ナビゲーション -->
+    <%= render 'checkinout_records/components/navigation', today_record: @today_record %>
 
-        <!-- 統計カード -->
-        <%= render 'stats_cards',
-                today_record: @today_record,
-                weekly_stats: @weekly_stats,
-                monthly_stats: @monthly_stats %>
+    <!-- 統計カード -->
+    <%= render 'checkinout_records/components/stats_cards',
+        today_record: @today_record,
+        weekly_stats: @weekly_stats,
+        monthly_stats: @monthly_stats %>
 
-        <!-- 勤怠記録一覧 -->
-        <%= render 'records_list', recent_records: @recent_records %>
+    <!-- 勤怠記録一覧 -->
+    <%= render 'checkinout_records/components/records_list', recent_records: @recent_records %>
 
         <!-- ページネーション -->
         <div class="flex justify-center mt-2 sm:mt-3">
@@ -31,5 +31,5 @@
 </div>
 
 <!-- JavaScript -->
-<%= render 'elapsed_time_script', today_record: @today_record if @today_record %>
-<%= render 'comment_toggle_script' %>
+<%= render 'checkinout_records/scripts/elapsed_time_script', today_record: @today_record if @today_record %>
+<%= render 'checkinout_records/scripts/comment_toggle_script' %>

@@ -1,15 +1,4 @@
 class CheckinoutRecordsController < ApplicationController
-  def index
-    # メインページ - 状態に応じてリダイレクト
-    @today_record = find_today_record
-
-    if @today_record.present?
-      redirect_to checkout_page_checkinout_records_path
-    else
-      redirect_to checkin_page_checkinout_records_path
-    end
-  end
-
   def smart_checkin
     # 現在チェックイン中（未チェックアウト）のレコードがあるかチェック
     current_checkin = current_user.checkinout_records.find_by(checkout_time: nil)
