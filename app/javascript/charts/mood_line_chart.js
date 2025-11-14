@@ -1,19 +1,17 @@
+// app/javascript/charts/mood_line_chart.js
 import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Title } from "chart.js";
 
 Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Title);
 
 export function drawMoodLineChart(labels, values) {
-    const ctx = document.getElementById('mood-line-chart').getContext('2d');
-
-    // 既に描画済みなら破棄
-    if (window.moodChart) {
-        window.moodChart.destroy();
-    }
+    const ctx = document.getElementById('mood-line-chart')?.getContext('2d');
+    if (!ctx) return;
+    if (window.moodChart) window.moodChart.destroy();
 
     window.moodChart = new Chart(ctx, {
         type: 'line',
         data: {
-        labels: labels,
+        labels,
         datasets: [{
             label: '気分',
             data: values,
@@ -25,29 +23,25 @@ export function drawMoodLineChart(labels, values) {
         }]
         },
         options: {
-            responsive: true,
-            plugins: {
-                tooltip: {
-                callbacks: {
-                    label: (ctx) => {
-                    const v = ctx.parsed.y;
-                    return ['','😢 悪い','😐 普通','😊 良い',''][v];
-                    }
-                }
-                }
-            },
-            scales: {
-                y: {
-                min: 0,
-                max: 4,
-                ticks: {
-                    stepSize: 1,
-                    callback: (v) => ['','😢 悪い','😐 普通','😊 良い',''][v],
-                    font: { size: 16 }
-                }
-                }
+        responsive: true,
+        plugins: {
+            tooltip: {
+            callbacks: {
+                label: (ctx) => ['','😢 悪い','😐 普通','😊 良い',''][Math.round(ctx.parsed.y)] || ''
             }
             }
-
+        },
+        scales: {
+            y: {
+            min: 0,
+            max: 4,
+            ticks: {
+                stepSize: 1,
+                callback: (v) => ['','😢 悪い','😐 普通','😊 良い',''][Math.round(v)] || '',
+                font: { size: 16 }
+            }
+            }
+        }
+        }
     });
 }
