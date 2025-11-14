@@ -5,6 +5,8 @@ Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryS
 
 export function drawMoodLineChart(labels, values) {
     const ctx = document.getElementById('mood-line-chart')?.getContext('2d');
+        if (!canvas) return;
+        canvas.style.width = `${labels.length * 50}px`;
     if (!ctx) return;
     if (window.moodChart) window.moodChart.destroy();
 
