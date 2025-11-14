@@ -13,7 +13,6 @@ export function drawMoodLineChart(labels, values) {
         data: {
         labels,
         datasets: [{
-            label: '気分',
             data: values,
             fill: false,
             borderColor: '#10b981',
@@ -23,11 +22,11 @@ export function drawMoodLineChart(labels, values) {
         }]
         },
         options: {
-        responsive: true,
+        responsive: false,
         plugins: {
             tooltip: {
             callbacks: {
-                label: (ctx) => ['','😢 悪い','😐 普通','😊 良い',''][Math.round(ctx.parsed.y)] || ''
+                label: (ctx) => ['','😢','😐','😊',''][Math.round(ctx.parsed.y)] || ''
             }
             }
         },
@@ -37,7 +36,7 @@ export function drawMoodLineChart(labels, values) {
             max: 4,
             ticks: {
                 stepSize: 1,
-                callback: (v) => ['','😢 悪い','😐 普通','😊 良い',''][Math.round(v)] || '',
+                callback: (v) => ['','😢','😐','😊',''][Math.round(v)] || '',
                 font: { size: 16 }
             }
             }
