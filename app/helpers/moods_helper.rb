@@ -15,7 +15,7 @@ module MoodsHelper
   # 折れ線グラフ用（数値）
   def mood_data_for_recent(moods)
     moods.map do |m|
-      [m.created_at.strftime("%m/%d"), FEELING_MAP[m.feeling][:value]]
+      [ m.created_at.strftime("%m/%d"), FEELING_MAP[m.feeling][:value] ]
     end
   end
 end
