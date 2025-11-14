@@ -13,12 +13,8 @@ module MoodsHelper
   end
 
   def mood_data_for_recent(moods)
-    moods.map do |mood|
-      {
-        name: mood.created_at.strftime("%m/%d"),
-        value: mood.value,
-        label: mood.full_label
-      }
+    moods.map do |m|
+      [m.created_at.strftime("%m/%d"), m.value]
     end
   end
 end

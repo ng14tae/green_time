@@ -69,25 +69,28 @@
             </p>
         <div style="overflow-x: auto;">
           <div style="width: <%= @recent_moods.size * 40 %>px;">
-        <%= line_chart mood_data_for_recent(@recent_moods), 
-      height: "350px",
-      library: {
-        scales: {
-          y: {
-            ticks: {
-              callback: "function(v){return this.getLabelForValue(v);}"
+        <%= line_chart mood_data_for_recent(@recent_moods),
+          height: "350px",
+          colors: ["#10b981"],
+          xtitle: "記録順",
+          ytitle: "気分",
+          library: {
+            scales: {
+              y: {
+                ticks: {
+                  callback: "function(v){ return ['','😢 悪い','😐 普通','😊 良い'][v]; }"
+                }
+              }
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: "function(ctx){ return ['','😢 悪い','😐 普通','😊 良い'][ctx.parsed.y]; }"
+                }
+              }
             }
           }
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: "function(ctx){return ctx.raw.label;}"
-            }
-          }
-        }
-      } %>
-
+    %>
                 </div>
               </div>
             </div>
