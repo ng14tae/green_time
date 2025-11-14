@@ -13,6 +13,7 @@ export function drawMoodLineChart(labels, values) {
         data: {
         labels,
         datasets: [{
+            label: '気分',
             data: values,
             fill: false,
             borderColor: '#10b981',
