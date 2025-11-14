@@ -69,66 +69,25 @@
             </p>
         <div style="overflow-x: auto;">
           <div style="width: <%= @recent_moods.size * 40 %>px;">
-        <%= line_chart mood_data_for_recent(@recent_moods),
-          height: "350px",
-          colors: ["#10b981"],
-          library: {
-            backgroundColor: 'transparent',
-            plugins: {
-              tooltip: {
-                callbacks: {
-                  label: %|function(context) {
-                    var value = context.parsed.y;
-                    var feeling = '';
-                    switch (value) {
-                      case 1: feeling = "😢 悪い"; break;
-                      case 2: feeling = "😐 普通"; break;
-                      case 3: feeling = "😊 良い"; break;
-                      default: feeling = value;
-                    }
-                    return feeling;
-                  }|
-                }
-              }
-            },
-            scales: {
-              x: {
-                type: 'category',
-                title: {
-                  display: true,
-                  text: '記録順（回数 + 日付）',
-                  color: 'hsl(var(--bc))'
-                },
-                ticks: {
-                  color: 'hsl(var(--bc))',
-                  maxRotation: 45,
-                  minRotation: 45
-                }
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: '気分',
-                  color: 'hsl(var(--bc))'
-                },
-                ticks: {
-                  color: 'hsl(var(--bc))',
-                  stepSize: 1,
-                  font: { size: 18 },
-                  callback: %|function(value) {
-                    switch (value) {
-                      case 1: return "😢 悪い";
-                      case 2: return "😐 普通";
-                      case 3: return "😊 良い";
-                      default: return value;
-                    }
-                  }|
-                },
-                min: 0,
-                max: 4
-              }
+        <%= line_chart mood_data_for_recent(@recent_moods), 
+      height: "350px",
+      library: {
+        scales: {
+          y: {
+            ticks: {
+              callback: "function(v){return this.getLabelForValue(v);}"
             }
-          } %>
+          }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: "function(ctx){return ctx.raw.label;}"
+            }
+          }
+        }
+      } %>
+
                 </div>
               </div>
             </div>

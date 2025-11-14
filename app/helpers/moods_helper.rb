@@ -13,8 +13,12 @@ module MoodsHelper
   end
 
   def mood_data_for_recent(moods)
-    moods.map.with_index(1) do |mood, i|
-      [ "#{i}回目 (#{mood.created_at.strftime("%m/%d")})", FEELING_MAP[mood.feeling][:value] ]
+    moods.map do |mood|
+      {
+        name: mood.created_at.strftime("%m/%d"),
+        value: mood.value,
+        label: mood.full_label
+      }
     end
   end
 end

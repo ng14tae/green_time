@@ -2,12 +2,22 @@ class Mood < ApplicationRecord
   belongs_to :user
   belongs_to :checkinout_record
 
-  def mood_emoji
-    case feeling
-    when "happy" then "😊"
-    when "neutral" then "😐"
-    when "sad" then "😢"
-    end
+  EMOJI_LABELS = {
+    "happy"   => { emoji: "😊", label: "良い", value: 3 },
+    "neutral" => { emoji: "😐", label: "普通", value: 2 },
+    "sad"     => { emoji: "😢", label: "悪い", value: 1 }
+  }
+
+  def emoji
+    EMOJI_LABELS[feeling][:emoji]
+  end
+
+  def value
+    EMOJI_LABELS[feeling][:value]
+  end
+
+  def full_label
+    "#{emoji} #{EMOJI_LABELS[feeling][:label]}"
   end
 
   validates :feeling, inclusion: {

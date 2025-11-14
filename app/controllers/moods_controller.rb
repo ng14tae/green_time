@@ -80,6 +80,12 @@ class MoodsController < ApplicationController
     Rails.logger.info @recent_moods.pluck(:id, :feeling, :created_at).inspect
   end
 
+  def mood_data_for_recent(moods)
+    moods.map do |m|
+      [m.created_at.strftime("%m/%d"), m.feeling_label]
+    end
+  end
+
   private
 
   def set_checkinout_record
