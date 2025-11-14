@@ -43,7 +43,7 @@
         <div class="flex items-center gap-2">
         <span class="text-gray-500 text-sm">気分:</span>
         <% if record.mood&.feeling.present? %>
-            <span class="text-lg"><%= record.mood.mood_emoji %></span>
+            <span class="text-lg"><%= record.mood&.full_label || "" %></span>
         <% else %>
             <span class="text-gray-400 text-xs">未記録</span>
         <% end %>
