@@ -68,17 +68,15 @@
             記録回数: <%= @recent_moods.count %> / 30回
             </p>
         <div class="overflow-x-auto">
-          <canvas id="mood-line-chart" width="<%= @recent_moods.size * 40 %>" height="300"></canvas>
+          <canvas id="mood-line-chart" width="<%= [@recent_moods.size * 40, 300].max %>" height="300"></canvas>
         </div>
 
-        <script type="module">
-          import { drawMoodLineChart } from "/charts/mood_line_chart.js";
-
+        <script>
           const labels = <%= raw @recent_moods.map { |m| "\"#{m.created_at.strftime('%m/%d')}\"" }.to_json %>;
           const values = <%= raw @recent_moods.map { |m| m.value }.to_json %>;
-
-          drawMoodLineChart(labels, values);
+          window.drawMoodLineChart(labels, values);
         </script>
+
                 </div>
               </div>
             </div>
