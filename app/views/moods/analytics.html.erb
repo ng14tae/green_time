@@ -67,30 +67,18 @@
             <p class="text-sm text-base-content/70 mb-4">
             記録回数: <%= @recent_moods.count %> / 30回
             </p>
-        <div style="overflow-x: auto;">
-          <div style="width: <%= @recent_moods.size * 40 %>px;">
-        <%= line_chart mood_data_for_recent(@recent_moods),
-          height: "350px",
-          colors: ["#10b981"],
-          xtitle: "記録順",
-          ytitle: "気分",
-          library: {
-            scales: {
-              y: {
-                ticks: {
-                  callback: "function(v){ return ['','😢 悪い','😐 普通','😊 良い'][v]; }"
-                }
-              }
-            },
-            plugins: {
-              tooltip: {
-                callbacks: {
-                  label: "function(ctx){ return ['','😢 悪い','😐 普通','😊 良い'][ctx.parsed.y]; }"
-                }
-              }
-            }
-          }
-    %>
+        <div class="overflow-x-auto">
+          <canvas id="mood-line-chart" width="<%= @recent_moods.size * 40 %>" height="300"></canvas>
+        </div>
+
+        <script type="module">
+          import { drawMoodLineChart } from "/charts/mood_line_chart.js";
+
+          const labels = <%= raw @recent_moods.map { |m| "\"#{m.created_at.strftime('%m/%d')}\"" }.to_json %>;
+          const values = <%= raw @recent_moods.map { |m| m.value }.to_json %>;
+
+          drawMoodLineChart(labels, values);
+        </script>
                 </div>
               </div>
             </div>
