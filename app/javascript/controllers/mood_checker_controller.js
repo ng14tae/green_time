@@ -11,7 +11,12 @@ export default class extends Controller {
 
   // 気分選択（統合版）
   async select(event) {
-    const mood = event.target.dataset.mood
+    const button = event.currentTarget;
+    document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.classList.remove('mood-selected');
+  });
+    button.classList.add('mood-selected');
+    const mood = button.dataset.mood
     console.log("気分選択:", mood)
 
     // 即座にボタン無効化を追加
