@@ -5,7 +5,7 @@
             <th class="text-left py-3 px-4 font-bold text-gray-700">日付</th>
             <th class="text-left py-3 px-4 font-bold text-gray-700">チェックイン</th>
             <th class="text-left py-3 px-4 font-bold text-gray-700">チェックアウト</th>
-            <th class="text-left py-3 px-4 font-bold text-gray-700">労働時間</th>
+            <th class="text-left py-3 px-4 font-bold text-gray-700">活動時間</th>
             <th class="text-left py-3 px-4 font-bold text-gray-700">気分</th>
             <th class="text-left py-3 px-4 font-bold text-gray-700">メモ</th>
             <th class="text-left py-3 px-4 font-bold text-gray-700">状態</th>
@@ -14,7 +14,7 @@
         <tbody>
         <% records.each do |record| %>
             <tr class="border-b border-gray-100 hover:bg-gray-50">
-            <!-- 勤務日 -->
+            <!-- 活動日 -->
             <td class="py-3 px-4">
                 <div class="font-medium">
                 <%= record.checkin_time.strftime("%Y/%m/%d") %>
@@ -47,7 +47,7 @@
                     <div class="text-xs text-purple-600 font-medium">翌日以降</div>
                 <% end %>
                 <% else %>
-                <span class="text-red-500 font-bold">勤務中</span>
+                <span class="text-red-500 font-bold">活動中</span>
                 <% end %>
             </td>
 
@@ -99,7 +99,7 @@
                 <% if record.checkout_time %>
                 <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">完了</span>
                 <% else %>
-                <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">勤務中</span>
+                <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">活動中</span>
                 <% end %>
             </td>
             </tr>

@@ -25,7 +25,7 @@
                     <%= @today_record.checkin_time.strftime("%H:%M") %>
                 </p>
 
-                <p class="text-lg mb-2">勤務時間</p>
+                <p class="text-lg mb-2">活動時間</p>
                 <p class="text-3xl font-mono" id="working-time"
                     data-checkin-time="<%= @today_record.checkin_time.in_time_zone('Asia/Tokyo').iso8601 %>">
                     <%= time_diff(@today_record.checkin_time, Time.current) %>
