@@ -45,7 +45,7 @@
 
     <!-- 気分メモセクション -->
         <div>
-            <p class="text-lg mb-3 py-4">💭 気分メモ（任意）</p>
+            <p class="text-lg mb-3 py-2">💭 気分メモ（任意）</p>
 
             <textarea
                 data-mood-checker-target="comment"
@@ -57,12 +57,12 @@
                 <%= 'disabled style="opacity: 0.5;"'.html_safe if defined?(show_comment_success) && show_comment_success %>><%= record.mood&.comment %></textarea>
 
             <!-- 文字数カウンター -->
-            <div class="flex justify-between items-center mt-2">
+            <div class="flex justify-between items-center mt-2 mb-4 ">
                 <div data-mood-checker-target="commentStatus"
                     class="text-sm text-green-600 <%= defined?(show_comment_success) && show_comment_success ? '' : 'hidden' %>">
                 </div>
                 <div class="text-sm text-gray-300">
-                    <span data-mood-checker-target="counter"><%= record.mood&.comment&.length || 0 %></span>/140
+                    <span data-mood-checker-target="counter"><%= record.mood&.comment&.length || 0 %></span>/140   ※一度保存すると編集できません。
                 </div>
             </div>
 
@@ -70,12 +70,12 @@
             <button
                 data-action="click->mood-checker#saveComment"
                 data-mood-checker-target="saveButton"
-                class="btn btn-primary btn-lg px-16 py-4 text-2xl shadow-lg w-full mt-3"
+                class="btn btn-outline w-full text-gray-600 border-gray-400"
                 <%= 'disabled style="opacity: 0.5;"'.html_safe if defined?(show_comment_success) && show_comment_success %>>
                 <% if defined?(show_comment_success) && show_comment_success %>
                     保存済み
                 <% else %>
-                    気分メモを保存
+                    メモを記録する（任意）
                 <% end %>
             </button>
         </div>
