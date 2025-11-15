@@ -35,7 +35,7 @@
         <div class="flex flex-col items-center text-center">
             <div class="text-xs sm:text-sm text-base-content/70 mb-1">今週</div>
             <div class="text-lg sm:text-xl font-bold text-info mb-1">
-            <%= weekly_stats[:total_days] %>日
+            <%= weekly_stats[:total_days] %>回
             </div>
             <div class="text-xs text-base-content/70">
             <%= sprintf("%.1fh", weekly_stats[:total_hours]) %>
@@ -46,8 +46,9 @@
         <div class="flex flex-col items-center text-center">
             <div class="text-xs sm:text-sm text-base-content/70 mb-1">今月</div>
             <div class="text-lg sm:text-xl font-bold text-secondary mb-1">
-            <%= monthly_stats[:total_days] %>日
+            <%= monthly_stats[:total_days] %>回
             </div>
+
             <div class="text-xs text-base-content/70">
             <%= sprintf("%.1fh", monthly_stats[:total_hours]) %>
             </div>
