@@ -2,10 +2,10 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: "cheers_timer",
-      title: "簡単活動時間記録アプリ",
+      title: "簡単！活動時間記録アプリ",
       reverse: true,
       charset: "utf-8",
-      description: "ボタンタップ一つで出退勤を記録するアプリ。パートナーの観葉植物があなたの一日を応援します",
+      description: "ボタンタップ一つで活動時間を記録するアプリ。パートナーの観葉植物があなたの一日を応援します",
       keywords: "観葉植物,出勤,退勤,記録,活動時間記録",
       canonical: root_url,
       separator: "|",
