@@ -37,8 +37,10 @@
                         show_comment_success: @today_record.mood&.comment.present? %>
             </div></div>
 
+            <li class="border-t border-error my-1"></li>
+
         <!-- ボタンエリア -->
-        <div class="space-y-4 py-4">
+        <div class="space-y-4 py-4 mt-4">
         <!-- チェックアウトボタン -->
         <%= form_with url: checkout_checkinout_records_path, method: :patch do |f| %>
             <%= f.submit "チェックアウト", id: "checkout-button",

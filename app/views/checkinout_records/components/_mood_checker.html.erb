@@ -70,7 +70,6 @@
             <button
                 data-action="click->mood-checker#saveComment"
                 data-mood-checker-target="saveButton"
-
                 class="btn btn-outline w-full text-gray-600 border-gray-400"
                 <%= 'disabled style="opacity: 0.5;"'.html_safe if defined?(show_comment_success) && show_comment_success %>>
                 <% if defined?(show_comment_success) && show_comment_success %>
