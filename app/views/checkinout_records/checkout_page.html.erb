@@ -29,7 +29,7 @@
         </div>
 
             <!-- 気分チェッカー -->
-            <div class="max-w-md mb-2">
+            <div class="max-w-md mb-4">
             <div id="mood-checker">
                 <%= render 'checkinout_records/components/mood_checker',
                         record: @today_record,
@@ -37,7 +37,7 @@
                         show_comment_success: @today_record.mood&.comment.present? %>
             </div></div>
 
-            <li class="border-t border-error my-1"></li>
+            <div class="border-t border-gray-300 my-1"></div>
 
         <!-- ボタンエリア -->
         <div class="space-y-4 py-4 mt-4">
