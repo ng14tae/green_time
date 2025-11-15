@@ -16,7 +16,7 @@ function updateClocks() {
             }
         }
 
-        // 勤務時間の更新
+        // 活動時間の更新
         const workTimeElement = document.getElementById('working-time');
         if (workTimeElement && workTimeElement.dataset.checkinTime) {
             const checkinTime = new Date(workTimeElement.dataset.checkinTime);

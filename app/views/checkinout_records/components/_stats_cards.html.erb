@@ -1,7 +1,7 @@
-<!-- 勤務統計カード -->
+<!-- 活動統計カード -->
 <div class="card bg-base-100 shadow-xl mb-6 w-full">
     <div class="card-body p-4 sm:p-6">
-        <h2 class="card-title text-lg sm:text-xl mb-4 justify-center">勤務統計</h2>
+        <h2 class="card-title text-lg sm:text-xl mb-4 justify-center">活動統計</h2>
 
         <div class="grid grid-cols-3 gap-3 sm:gap-4">
         <!-- 今日 -->
@@ -9,7 +9,7 @@
             <div class="text-xs sm:text-sm text-base-content/70 mb-1">今日</div>
 
             <% if today_record %>
-            <div class="text-lg sm:text-xl font-bold text-success mb-1">勤務中</div>
+            <div class="text-lg sm:text-xl font-bold text-success mb-1">活動中</div>
             <div class="text-xs text-base-content/70">
                 <%= today_record.checkin_time.strftime("%H:%M") %>〜
             </div>
@@ -25,7 +25,7 @@
                 <%= sprintf("%.1fh", (todays_completed.checkout_time - todays_completed.checkin_time) / 3600.0) %>
                 </div>
             <% else %>
-                <div class="text-lg sm:text-xl font-bold text-base-content/50">未勤務</div>
+                <div class="text-lg sm:text-xl font-bold text-base-content/50">未活動</div>
                 <div class="text-xs text-base-content/50">-</div>
             <% end %>
             <% end %>
