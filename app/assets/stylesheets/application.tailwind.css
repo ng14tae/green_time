@@ -9,5 +9,5 @@
 }
 
 .mood-selected {
-  @apply border-4 border-white;
+    @apply border-4 border-white;
 }
