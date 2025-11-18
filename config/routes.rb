@@ -36,7 +36,6 @@ Rails.application.routes.draw do
       get :edit_today
       get :checkout_page
       patch :checkout
-      get :mood_record
       get :mypage
     end
 

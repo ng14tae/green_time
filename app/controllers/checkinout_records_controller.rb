@@ -66,11 +66,11 @@ class CheckinoutRecordsController < ApplicationController
       redirect_to mood_record_checkinout_records_path
     end
   end
-    def checkout_page
-      # チェックアウト専用ページ
-      @today_record = find_today_record
-      redirect_to checkin_page_checkinout_records_path if @today_record.blank?
-    end
+  def checkout_page
+    # チェックアウト専用ページ
+    @today_record = find_today_record
+    redirect_to checkin_page_checkinout_records_path if @today_record.blank?
+  end
 
   def checkout
     # 今日のチェックイン記録を探す
@@ -90,22 +90,6 @@ class CheckinoutRecordsController < ApplicationController
     else
       redirect_to checkin_page_checkinout_records_path,
                   alert: "今日のチェックイン記録が見つかりません"
-    end
-  end
-
-  def mood_record
-    @latest_record = current_user.checkinout_records.order(created_at: :desc).first
-
-    unless @today_record
-        redirect_to checkin_page_checkinout_records_path,
-                    alert: "今日のチェックイン記録が見つかりません。先にチェックインしてください。"
-        return
-    end
-
-    if @latest_record.present?
-      # 気分記録ページを表示（ビューで@latest_recordを使用）
-    else
-      redirect_to checkin_page_checkinout_records_path, notice: "まずはチェックインしてください"
     end
   end
 
@@ -129,7 +113,7 @@ class CheckinoutRecordsController < ApplicationController
     @recent_moods = if current_user.respond_to?(:moods)
                     current_user.moods.includes(:checkinout_record).recent.limit(10)
     else
-                    []
+      []
     end
   end
 
@@ -153,7 +137,7 @@ class CheckinoutRecordsController < ApplicationController
     ).where.not(checkout_time: nil)
 
     {
-      total_days: records.count,
+      total_counts: records.count,
       total_hours: calculate_total_hours(records),
       average_hours: calculate_average_hours(records)
     }
