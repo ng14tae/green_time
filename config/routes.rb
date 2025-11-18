@@ -24,19 +24,14 @@ Rails.application.routes.draw do
   get "forms/custom_form", to: "forms#custom_form"
   get "forms/thanks", to: "forms#thanks"
 
-  get "/checkin", to: "checkinout_records#smart_checkin"
-  get "/checkout", to: "checkinout_records#smart_checkout"
-
   resources :plants, only: [ :index, :update ]
 
   resources :checkinout_records, only: [ :edit ] do
     collection do
       get :checkin_page
       post :checkin
-      get :edit_today
       get :checkout_page
       patch :checkout
-      get :mypage
     end
 
     resources :moods, only: [ :create ] do
@@ -45,6 +40,11 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  # My page (moved out from checkinout_records)
+  # Use a singular resource to model a single per-user page; keep the old path helper for compatibility
+  resource :mypage, only: [ :show ]
+  get "/checkinout_records/mypage", to: "mypage#show", as: "mypage_checkinout_records"
 
   resources :moods, only: [] do
     collection do
