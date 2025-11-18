@@ -29,9 +29,9 @@ Rails.application.routes.draw do
 
   resources :checkinout_records, only: [] do
     collection do
-      get "checkin", to: "checkinout_records#checkin_page", as: :checkin_page
+      get "checkin", to: "checkinout_records#checkin_page", as: :checkin
       post "checkin", to: "checkinout_records#checkin"
-      get "checkout", to: "checkinout_records#checkout_page", as: :checkout_page
+      get "checkout", to: "checkinout_records#checkout_page", as: :checkout
       patch "checkout", to: "checkinout_records#checkout"
     end
   end
