@@ -27,19 +27,20 @@ Rails.application.routes.draw do
 
   resources :plants, only: [ :index, :update ]
 
-  resources :checkinout_records, only: [ :edit ] do
+  resources :checkinout_records, only: [] do
     collection do
-      get :checkin_page, as: :checkin
-      post :checkin
-      get :checkout_page, as: :checkout
-      patch :checkout
+      get "checkin", to: "checkinout_records#checkin_page", as: :checkin_page
+      post "checkin", to: "checkinout_records#checkin"
+      get "checkout", to: "checkinout_records#checkout_page", as: :checkout_page
+      patch "checkout", to: "checkinout_records#checkout"
     end
+  end
 
-    resources :moods, only: [ :create ] do
-      collection do
-        get :mood_check
-      end
+  resources :moods, only: [ :create ] do
+    collection do
+      get :mood_check
     end
+  end
   end
 
   resource :mypage, only: [ :show ]
@@ -50,4 +51,3 @@ Rails.application.routes.draw do
       get :analytics
     end
   end
-end
