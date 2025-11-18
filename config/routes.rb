@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # LINE誘導ページ
   get "/line_guide", to: "line_guides#show"
 
+  # 静的ページ
   root "static_pages#top"
   get "how_to_use", to: "static_pages#how_to_use"
   get "terms", to: "static_pages#terms"
@@ -28,9 +29,9 @@ Rails.application.routes.draw do
 
   resources :checkinout_records, only: [ :edit ] do
     collection do
-      get :checkin_page
+      get :checkin_page, as: :checkin
       post :checkin
-      get :checkout_page
+      get :checkout_page, as: :checkout
       patch :checkout
     end
 
@@ -41,8 +42,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # My page (moved out from checkinout_records)
-  # Use a singular resource to model a single per-user page; keep the old path helper for compatibility
   resource :mypage, only: [ :show ]
   get "/checkinout_records/mypage", to: "mypage#show", as: "mypage_checkinout_records"
 
