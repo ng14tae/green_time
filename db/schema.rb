@@ -14,6 +14,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_05_031750) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  # チェックインアウト記録
   create_table "checkinout_records", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.datetime "checkin_time", precision: nil, null: false
