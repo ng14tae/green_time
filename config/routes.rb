@@ -41,7 +41,6 @@ Rails.application.routes.draw do
       get :mood_check
     end
   end
-  end
 
   resource :mypage, only: [ :show ]
   get "/checkinout_records/mypage", to: "mypage#show", as: "mypage_checkinout_records"
@@ -51,3 +50,4 @@ Rails.application.routes.draw do
       get :analytics
     end
   end
+end

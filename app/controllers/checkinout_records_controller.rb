@@ -1,5 +1,4 @@
 class CheckinoutRecordsController < ApplicationController
-
   def checkin_page
     # チェックイン専用ページ
     @today_record = find_today_record
