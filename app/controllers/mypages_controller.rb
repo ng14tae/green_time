@@ -1,4 +1,4 @@
-class MypageController < ApplicationController
+class MypagesController < ApplicationController
   def show
     # 最新の記録から順に取得
     @recent_records = CheckinoutRecord.where(user_id: current_user.id)
