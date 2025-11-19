@@ -49,18 +49,18 @@ export default class extends Controller {
 
         if (response.ok) {
           // 気分メッセージを表示
-          this.moodStatusTarget.innerHTML = "記録されました！<br>チェックアウトする前までは編集できます！"
+          this.moodStatusTarget.innerHTML = '<span class="text-sm">記録されました！<br>チェックアウトする前までは編集できます！</span>'
           this.moodStatusTarget.classList.remove('hidden')
 
           // コメントボタンを押したときだけの演出
           if (comment && this.hasSaveButtonTarget) {
             const originalText = this.saveButtonTarget.textContent
             this.saveButtonTarget.textContent = "保存しました！"
-            this.saveButtonTarget.classList.add('btn-success') // optional: 緑色に変えるなど
+            this.saveButtonTarget.classList.add('btn-success') // optional: 緑色に変える
             setTimeout(() => {
-              this.saveButtonTarget.textContent = originalText
+              this.saveButtonTarget.textContent = "メモを更新する"
               this.saveButtonTarget.classList.remove('btn-success')
-            }, 1500) // 1.5秒後に元に戻す
+            }, 2000)
           }
         } else {
           const data = await response.json()
