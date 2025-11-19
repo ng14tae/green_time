@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   # moods関連
   resources :checkinout_records, only: [] do
-    resources :moods, only: [:create] do
+    resources :moods, only: [ :create ] do
       member do
         get :mood_check
       end

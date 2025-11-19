@@ -42,16 +42,15 @@
         <!-- ボタンエリア -->
         <div class="space-y-4 py-4 mt-4">
         <!-- チェックアウトボタン -->
-        <%= form_with url: checkout_path, method: :patch do |f| %>
-            <%= f.submit "チェックアウト", id: "checkout-button",
-                class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-primary hover:bg-orange-900 text-error border-0" %>
-            <% end %>
+        <%= form_with url: checkout_path, method: :patch, data: { turbo: false } do |f| %>
+        <%= f.submit "チェックアウト", id: "checkout-button",
+            class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-primary hover:bg-orange-900 text-error border-0" %>
+        <% end %>
 
-            <!-- マイページボタン（アウトラインスタイル） -->
-            <%= link_to mypage_path,
-                class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white/70 hover:border-white hover:text-orange-600 mb-8" do %>
-            マイページを見る
-            <% end %>
+        <%= link_to mypage_path,
+            class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white/70 hover:border-white hover:text-orange-600 mb-8" do %>
+        マイページを見る
+        <% end %>
         </div>
         </div>
     </div>

@@ -52,7 +52,7 @@ class CheckinoutRecordsController < ApplicationController
       @notice_message = "チェックアウトできる記録がありません"
     end
 
-    redirect_to mypage_path, notice: notice_message
+    redirect_to mypage_path, notice: @notice_message
   end
 
 
