@@ -1,11 +1,13 @@
 <div class="mt-6" data-controller="mood-checker" data-mood-checker-record-id-value="<%= record.id %>">
-
     <!-- 気分選択セクション -->
+
     <%
         is_disabled = defined?(disabled) && disabled
         is_mood_success = defined?(show_mood_success) && show_mood_success
         is_comment_success = defined?(show_comment_success) && show_comment_success
-    %>
+        %>
+
+    <div class="mt-6 <%= 'opacity-50 pointer-events-none' if is_disabled %>">
 
     <!-- チェックイン前メッセージ -->
     <% if is_disabled %>
