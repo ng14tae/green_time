@@ -9,120 +9,155 @@ export default class extends Controller {
     this.initCounter()
   }
 
-  // 気分選択（統合版）
+  // 気分選択
   async select(event) {
     const button = event.currentTarget;
-    document.querySelectorAll('.mood-btn').forEach(btn => {
-    btn.classList.remove('mood-selected');
-  });
+    document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('mood-selected'));
     button.classList.add('mood-selected');
     const mood = button.dataset.mood
-    console.log("気分選択:", mood)
 
-    // 即座にボタン無効化を追加
     this.disableMoodButtons()
 
-    await this.saveMoodData(mood, null) // currentCommentをnullに変更
+    await this.saveMoodData(mood, null)
   }
 
-  // メモ保存（統合版）
+  // メモ保存
   async saveComment(event) {
-    event.preventDefault() // 追加
+    event.preventDefault()
     const comment = this.commentTarget.value.trim()
-    console.log("送信データ:", comment, "文字数:", comment.length)
-
     if (!comment) {
       alert("メモを入力してください")
       return
     }
 
-    // 即座にボタン無効化を追加
     this.disableCommentButton()
 
     await this.saveMoodData(null, comment)
   }
 
-  // 統合された保存メソッド
+  // 統合保存（JSONベース）
   async saveMoodData(mood, comment) {
     try {
       const formData = new FormData()
+      if (mood) formData.append('mood[feeling]', mood)
+      if (comment) formData.append('mood[comment]', comment)
 
-        if (mood) {
-          formData.append('mood[feeling]', mood)
+      const response = await fetch(`/checkinout_records/${this.recordIdValue}/moods`, {
+        method: 'POST',
+        headers: {
+          'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content,
+          'Accept': 'application/json'
+        },
+        body: formData,
+        credentials: 'same-origin'
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data.status === 'success' || data.status === 'complete' || data.status === 'feeling_only' || data.status === 'comment_only') {
+          this.applySuccessState(data)
+        } else {
+          // 既に記録済みなどのカスタムステータス
+          alert(data.message || '記録に失敗しました')
+          this.enableButtons()
         }
-        if (comment) {
-          formData.append('mood[comment]', comment)
+      } else {
+        // 非200系：サーバーエラー or forbidden
+        const data = await response.json().catch(() => null)
+        alert(data?.errors?.join?.(", ") || data?.message || '通信エラーが発生しました')
+        this.enableButtons()
+      }
+    } catch (error) {
+      console.error('通信エラー:', error)
+      alert("通信エラーが発生しました")
+      this.enableButtons()
+    }
+  }
+
+  applySuccessState(data) {
+    // data: { status, mood_emoji, comment, mood_complete, feeling_present, comment_present }
+    // 気分があるならボタンを無効化して表示を更新
+    if (data.feeling_present) {
+      // disable mood buttons and visually mark selected one (if you included mood in response, use it)
+      document.querySelectorAll('.mood-btn').forEach(btn => {
+        btn.disabled = true
+        btn.style.opacity = '0.5'
+        if (data.feeling && btn.dataset.mood === data.feeling) {
+          btn.classList.add('mood-selected')
         }
+      })
+      if (this.hasMoodStatusTarget) {
+        this.moodStatusTarget.classList.remove('hidden')
+        this.moodStatusTarget.textContent = `${data.mood_emoji || ''} 記録されました`
+      }
+    }
 
-        const response = await fetch(`/checkinout_records/${this.recordIdValue}/moods`, {
-          method: 'POST',
-          headers: {
-            'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content,
-            'Accept': 'text/vnd.turbo-stream.html'
-          },
-          body: formData
-        })
-        if (response.ok) {
-              // Turbo Stream が自動でページをリダイレクト
-              console.log('気分記録成功')
-            } else {
-              const data = await response.json()
-              alert(data.status === 'already_recorded' ?
-                    '既に記録済みです' : '記録に失敗しました')
-            }
-          } catch (error) {
-            // エラー時にボタンを再有効化
-            this.enableButtons()
-            console.error('通信エラー:', error)
-            alert("通信エラーが発生しました")
-          }
-        }
+    if (data.comment_present) {
+      if (this.hasSaveButtonTarget) {
+        this.saveButtonTarget.disabled = true
+        this.saveButtonTarget.style.opacity = '0.5'
+        this.saveButtonTarget.textContent = '保存済み'
+      }
+      if (this.hasCommentTarget) {
+        this.commentTarget.disabled = true
+        this.commentTarget.style.opacity = '0.5'
+      }
+      if (this.hasCommentStatusTarget) {
+        this.commentStatusTarget.classList.remove('hidden')
+        this.commentStatusTarget.textContent = 'メモを保存しました'
+      }
+    }
 
-        disableMoodButtons() {
-          const moodButtons = document.querySelectorAll('.mood-btn')
-          moodButtons.forEach(button => {
-            button.disabled = true
-            button.style.opacity = '0.5'
-          })
-        }
+    // コメント文字列を更新（サーバーの値を反映）
+    if (data.comment !== undefined && this.hasCommentTarget) {
+      this.commentTarget.value = data.comment
+      if (this.hasCounterTarget) this.counterTarget.textContent = data.comment.length
+    }
 
-        // コメントボタン無効化
-        disableCommentButton() {
-          if (this.hasSaveButtonTarget) {
-            this.saveButtonTarget.disabled = true
-            this.saveButtonTarget.style.opacity = '0.5'
-            this.saveButtonTarget.textContent = '投稿しました！'
-          }
+    // 完了フラグがある場合（両方完了）、optionally replace the whole checker with complete partial
+    if (data.mood_complete) {
+      // 単純に文言を切り替える例。部分テンプレートをサーバからHTMLで取得する方法もあります。
+      if (this.hasMoodStatusTarget) {
+        this.moodStatusTarget.textContent = '完了しました！'
+      }
+    }
+  }
 
-          if (this.hasCommentTarget) {
-            this.commentTarget.disabled = true
-            this.commentTarget.style.opacity = '0.5'
-          }
-        }
+  disableMoodButtons() {
+    document.querySelectorAll('.mood-btn').forEach(button => {
+      button.disabled = true
+      button.style.opacity = '0.5'
+    })
+  }
 
-        // 全ボタン再有効化（エラー時用）
-        enableButtons() {
-          // 気分選択ボタン
-          const moodButtons = document.querySelectorAll('.mood-btn')
-          moodButtons.forEach(button => {
-            button.disabled = false
-            button.style.opacity = '1'
-          })
+  disableCommentButton() {
+    if (this.hasSaveButtonTarget) {
+      this.saveButtonTarget.disabled = true
+      this.saveButtonTarget.style.opacity = '0.5'
+      this.saveButtonTarget.textContent = '投稿しました！'
+    }
+    if (this.hasCommentTarget) {
+      this.commentTarget.disabled = true
+      this.commentTarget.style.opacity = '0.5'
+    }
+  }
 
-          // コメントボタン
-          if (this.hasSaveButtonTarget) {
-            this.saveButtonTarget.disabled = false
-            this.saveButtonTarget.style.opacity = '1'
-            this.saveButtonTarget.textContent = '💭 気分メモを保存'
-          }
+  enableButtons() {
+    document.querySelectorAll('.mood-btn').forEach(button => {
+      button.disabled = false
+      button.style.opacity = '1'
+    })
+    if (this.hasSaveButtonTarget) {
+      this.saveButtonTarget.disabled = false
+      this.saveButtonTarget.style.opacity = '1'
+      this.saveButtonTarget.textContent = '💭 気分メモを保存'
+    }
+    if (this.hasCommentTarget) {
+      this.commentTarget.disabled = false
+      this.commentTarget.style.opacity = '1'
+    }
+  }
 
-          if (this.hasCommentTarget) {
-            this.commentTarget.disabled = false
-            this.commentTarget.style.opacity = '1'
-          }
-        }
-
-  // 文字数カウンター
   initCounter() {
     if (this.hasCommentTarget && this.hasCounterTarget) {
       this.commentTarget.addEventListener('input', () => {
