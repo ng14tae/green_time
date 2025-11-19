@@ -6,6 +6,20 @@ class MoodsController < ApplicationController
   end
 
   def create
+    # Prevent edits after checkout: server-side authoritative guard
+    if @checkinout_record.checked_out?
+      respond_to do |format|
+        format.turbo_stream do
+          ts = turbo_stream.update("mood-checker") do
+            content_tag(:div, "チェックアウト後は編集できません", class: "alert alert-error")
+          end
+          render turbo_stream: ts, status: :forbidden
+        end
+        format.json { render json: { status: "error", message: "checked out" }, status: :forbidden }
+      end
+      return
+    end
+
     service = MoodCreateService.new(record: @checkinout_record, user: current_user, params: mood_params.to_h)
     result = service.call
 
