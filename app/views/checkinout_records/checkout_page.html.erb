@@ -42,7 +42,7 @@
         <!-- ボタンエリア -->
         <div class="space-y-4 py-4 mt-4">
         <!-- チェックアウトボタン -->
-        <%= form_with url: checkout_checkinout_records_path, method: :patch do |f| %>
+        <%= form_with url: checkout_path, method: :patch do |f| %>
             <%= f.submit "チェックアウト", id: "checkout-button",
                 class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-primary hover:bg-orange-900 text-error border-0" %>
             <% end %>
