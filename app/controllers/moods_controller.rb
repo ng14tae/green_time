@@ -6,7 +6,6 @@ class MoodsController < ApplicationController
   end
 
   def create
-    # Prevent edits after checkout: server-side authoritative guard
     if @checkinout_record.checked_out?
       respond_to do |format|
         format.turbo_stream do
