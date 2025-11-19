@@ -17,7 +17,7 @@ class MypageController < ApplicationController
     @recent_moods = if current_user.respond_to?(:moods)
                       current_user.moods.includes(:checkinout_record).recent.limit(10)
     else
-                      []
+      []
     end
   end
 
