@@ -28,13 +28,13 @@ class CheckinoutRecordsController < ApplicationController
   end
 
   def checkout_page
-    # チェックアウト専用ページ
-    @current_record = current_user.checkinout_records
-                                  .where(checkout_time: nil)
-                                  .order(checkin_time: :desc)
-                                  .first
+    # 今日の未チェックアウトの記録を取得
+    @today_record = current_user.checkinout_records
+                                .where(checkin_time: Time.zone.now.all_day, checkout_time: nil)
+                                .order(checkin_time: :desc)
+                                .first
 
-    if @current_record.nil?
+    if @today_record.nil?
       redirect_to checkin_path, notice: "チェックアウトできる記録がありません"
     end
   end
