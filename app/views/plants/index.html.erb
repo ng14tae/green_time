@@ -1,8 +1,12 @@
 <div class="min-h-screen flex flex-col justify-center items-center bg-success text-center space-y-6 -translate-y-8">
-    <h1>Hi!</h1>
-    <p class="text-lg leading-relaxed text-error mb-10 mt-6">
-        パートナーの名前をつけましょう！
+
+    <p class="text-xl leading-relaxed text-base-100 mb-10 mt-6">
+        パートナーに名前をつけよう！
         </p>
+
+    <%= link_to checkin_path, class: "inline-block transition duration-200 hover:scale-105" do %>
+        <h3 class="text-4xl pt-2 text-primary mx-auto fukidashi-02-01 tracking-wide">Hi !</h3>
+    <% end %>
 
     <!-- 植物の表示 -->
     <%= image_tag "kuma.png", alt: @plant.display_name, class: "mx-auto w-48 h-48 object-contain" %>
@@ -23,3 +27,37 @@
         </div>
     <% end %>
 </div>
+
+
+<style>
+.fukidashi-02-01 {
+    position: relative;
+    width: fit-content;
+    padding: 12px 20px;
+    color: #FFFFFF;
+    border-radius: 10px;
+    background-color: #FB9E3A;
+    }
+    .fukidashi-02-01::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: -1;
+    width: 20px;
+    height: 12px;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    background-color: #FB9E3A;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.fukidashi-02-01:hover {
+    background-color: #34D399; /* 例: daisyUIのsuccess色 */
+}
+
+.fukidashi-02-01:hover::after {
+    background-color: #34D399; /* 同じ色にする */
+}
+</style>
+
