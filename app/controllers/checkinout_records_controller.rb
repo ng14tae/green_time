@@ -42,21 +42,22 @@ class CheckinoutRecordsController < ApplicationController
     today_start = Time.zone.today.beginning_of_day
     today_end = Time.zone.today.end_of_day
 
-    @today_record = current_user.checkinout_records
-      .where(checkout_time: nil)
-      .where(checkin_time: today_start..today_end)
-      .order(checkin_time: :desc)
-      .first
+    current_record = current_user.checkinout_records
+                                .where(checkout_time: nil)
+                                .where(checkin_time: today_start..today_end)
+                                .order(checkin_time: :desc)
+                                .first
 
-    if @today_record
-      @today_record.update(checkout_time: Time.current)
+    if current_record
+      current_record.update(checkout_time: Time.current)
     end
 
     respond_to do |format|
-      format.html { redirect_to checkin_path, notice: "チェックアウトしました" }
       format.turbo_stream
+      format.html { redirect_to checkin_path, notice: "チェックアウトしました" }
     end
   end
+
 
   private
 
