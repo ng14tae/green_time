@@ -35,7 +35,7 @@ class CheckinoutRecordsController < ApplicationController
   def checkout_page
     # チェックアウト専用ページ
     @today_record = find_today_record
-    redirect_to checkin_page_checkinout_records_path if @today_record.blank?
+    redirect_to checkin_path if @today_record.blank?
   end
 
   def checkout
