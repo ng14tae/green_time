@@ -35,10 +35,12 @@ Rails.application.routes.draw do
   patch "checkout", to: "checkinout_records#checkout"
 
   # moods関連
-  resources :moods, only: [ :create ] do
-    collection do
-      get :mood_check
-      get :analytics
+  resources :checkinout_records, only: [] do
+    resources :moods, only: [ :create ] do
+      collection do
+        get :mood_check
+        get :analytics
+      end
     end
   end
 
