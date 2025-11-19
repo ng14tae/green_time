@@ -35,30 +35,42 @@ export default class extends Controller {
   }
 
   // 保存共通
-  async saveMoodData(mood, comment) {
-    try {
-      const formData = new FormData()
-      if (mood) formData.append('mood[feeling]', mood)
-      if (comment) formData.append('mood[comment]', comment)
+    async saveMoodData(mood, comment) {
+      try {
+        const formData = new FormData()
+        if (mood) formData.append('mood[feeling]', mood)
+        if (comment) formData.append('mood[comment]', comment)
 
-      const response = await fetch(`/checkinout_records/${this.recordIdValue}/moods`, {
-        method: 'POST',
-        headers: { 'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content },
-        body: formData
-      })
+        const response = await fetch(`/checkinout_records/${this.recordIdValue}/moods`, {
+          method: 'POST',
+          headers: { 'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content },
+          body: formData
+        })
 
-      if (response.ok) {
-        this.moodStatusTarget.textContent = "記録されました！チェックアウトする前までは編集できます！"
-        this.moodStatusTarget.classList.remove('hidden')
-      } else {
-        const data = await response.json()
-        alert(data.status === 'already_recorded' ? '既に記録済みです' : '記録に失敗しました')
+        if (response.ok) {
+          // 気分メッセージを表示
+          this.moodStatusTarget.innerHTML = "記録されました！<br>チェックアウトする前までは編集できます！"
+          this.moodStatusTarget.classList.remove('hidden')
+
+          // コメントボタンを押したときだけの演出
+          if (comment && this.hasSaveButtonTarget) {
+            const originalText = this.saveButtonTarget.textContent
+            this.saveButtonTarget.textContent = "保存しました！"
+            this.saveButtonTarget.classList.add('btn-success') // optional: 緑色に変えるなど
+            setTimeout(() => {
+              this.saveButtonTarget.textContent = originalText
+              this.saveButtonTarget.classList.remove('btn-success')
+            }, 1500) // 1.5秒後に元に戻す
+          }
+        } else {
+          const data = await response.json()
+          alert(data.status === 'already_recorded' ? '既に記録済みです' : '記録に失敗しました')
+        }
+      } catch (error) {
+        console.error("通信エラー:", error)
+        alert("通信エラーが発生しました")
       }
-    } catch (error) {
-      console.error("通信エラー:", error)
-      alert("通信エラーが発生しました")
     }
-  }
 
   // 文字数カウンター
   initCounter() {
