@@ -17,7 +17,7 @@ class MypageController < ApplicationController
     @recent_moods = if current_user.respond_to?(:moods)
                       current_user.moods.includes(:checkinout_record).recent.limit(10)
     else
-                      []
+      []
     end
   end
 
@@ -29,7 +29,4 @@ class MypageController < ApplicationController
       checkout_time: nil
     )
   end
-
-  # 今月の統計を計算
-  # 統計ロジックは CheckinoutStatsService に移行しました
 end
