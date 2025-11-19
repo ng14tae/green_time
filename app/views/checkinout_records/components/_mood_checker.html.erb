@@ -38,7 +38,8 @@
                     %>
                     <%= 'mood-selected' if record.mood&.feeling == feeling %>"
             >
-            <%= emoji + ' ' + label %>
+            <%= "#{emoji} #{label}" %>
+
             </button>
         <% end %>
         </div>
