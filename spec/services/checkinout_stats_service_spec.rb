@@ -8,7 +8,7 @@ RSpec.describe CheckinoutStatsService, type: :service do
 
         stats = described_class.monthly_stats(user)
 
-        expect(stats[:total_counts]).to eq(0)
+        expect(stats[:total_dayss]).to eq(0)
         expect(stats[:total_hours]).to eq(0)
         expect(stats[:average_hours]).to eq(0)
       end
@@ -31,7 +31,7 @@ RSpec.describe CheckinoutStatsService, type: :service do
 
         stats = described_class.monthly_stats(user)
 
-        expect(stats[:total_counts]).to eq(2)
+        expect(stats[:total_dayss]).to eq(2)
         expect(stats[:total_hours]).to be_within(0.001).of(16.5)
         expect(stats[:average_hours]).to be_within(0.001).of(8.25)
       end
