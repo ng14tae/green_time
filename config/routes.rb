@@ -44,5 +44,4 @@ Rails.application.routes.draw do
 
   # mypage関連
   resource :mypage, only: [ :show ]
-  get "/checkinout_records/mypage", to: "mypage#show", as: "mypage_checkinout_records"
 end
