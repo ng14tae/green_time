@@ -25,29 +25,24 @@ Rails.application.routes.draw do
   get "forms/custom_form", to: "forms#custom_form"
   get "forms/thanks", to: "forms#thanks"
 
+  # plants関連
   resources :plants, only: [ :index, :update ]
 
-  resources :checkinout_records, only: [] do
-    collection do
-      get "checkin", to: "checkinout_records#checkin_page", as: :checkin
-      post "checkin", to: "checkinout_records#checkin"
-      get "checkout", to: "checkinout_records#checkout_page", as: :checkout
-      patch "checkout", to: "checkinout_records#checkout"
-    end
-  end
+  # checkinout_records関連
+  get "checkin", to: "checkinout_records#checkin_page", as: :checkin
+  post "checkin", to: "checkinout_records#checkin"
+  get "checkout", to: "checkinout_records#checkout_page", as: :checkout
+  patch "checkout", to: "checkinout_records#checkout"
 
+  # moods関連
   resources :moods, only: [ :create ] do
     collection do
       get :mood_check
-    end
-  end
-
-  resource :mypage, only: [ :show ]
-  get "/checkinout_records/mypage", to: "mypage#show", as: "mypage_checkinout_records"
-
-  resources :moods, only: [] do
-    collection do
       get :analytics
     end
   end
+
+  # mypage関連
+  resource :mypage, only: [ :show ]
+  get "/checkinout_records/mypage", to: "mypage#show", as: "mypage_checkinout_records"
 end
