@@ -36,13 +36,14 @@ Rails.application.routes.draw do
 
   # moods関連
   resources :checkinout_records, only: [] do
-    resources :moods, only: [ :create ] do
-      collection do
+    resources :moods, only: [:create] do
+      member do
         get :mood_check
-        get :analytics
       end
     end
   end
+
+  get "moods/analytics", to: "moods#analytics", as: :analytics_moods
 
   # mypage関連
   resource :mypage, only: [ :show ]
