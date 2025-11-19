@@ -29,7 +29,4 @@ class MypageController < ApplicationController
       checkout_time: nil
     )
   end
-
-  # 今月の統計を計算
-  # 統計ロジックは CheckinoutStatsService に移行しました
 end

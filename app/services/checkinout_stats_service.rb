@@ -42,8 +42,6 @@ class CheckinoutStatsService
     end
     private
 
-    # Note: helper methods kept private in case we need them later. Current
-    # monthly_stats/weekly_stats perform aggregation in DB for performance.
     def total_hours_from_relation(relation)
       seconds = relation.sum("EXTRACT(EPOCH FROM (checkout_time - checkin_time))") || 0
       seconds.to_f / 3600.0
