@@ -52,10 +52,7 @@ class CheckinoutRecordsController < ApplicationController
       @notice_message = "チェックアウトできる記録がありません"
     end
 
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to checkin_path, notice: @notice_message }
-    end
+    redirect_to mypage_path, notice: notice_message
   end
 
 
