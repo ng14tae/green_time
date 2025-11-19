@@ -46,7 +46,7 @@
                 </button>
             <% else %>
                 <!-- 未チェックインの場合 -->
-                <%= form_with url: checkin_checkinout_records_path,
+                <%= form_with url: checkin_path,
                             method: :post,
                             data: { turbo_stream: true, turbo: true } do |f| %>
                 <%= f.submit "チェックイン", id: "checkin-button",

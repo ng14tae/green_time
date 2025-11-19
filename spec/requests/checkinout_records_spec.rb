@@ -33,7 +33,7 @@ RSpec.describe "CheckinoutRecords", type: :request do
 
   describe 'GET /checkin_page' do
     it '表示されること' do
-      get checkin_page_checkinout_records_path
+      get checkin_path
       expect(response).to have_http_status(:ok)
     end
   end
@@ -41,7 +41,7 @@ RSpec.describe "CheckinoutRecords", type: :request do
   describe 'POST /checkin' do
     it 'チェックインを作成し turbo_stream を返すこと' do
       expect {
-        post checkin_checkinout_records_path, headers: { "ACCEPT" => "text/vnd.turbo-stream.html" }
+        post checkin_path, headers: { "ACCEPT" => "text/vnd.turbo-stream.html" }
       }.to change { CheckinoutRecord.where(user: @user).count }.by(1)
 
       expect(response).to have_http_status(:ok)
