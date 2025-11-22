@@ -9,14 +9,14 @@ class CheckinoutStatsService
         checkin_time: start_of_month..end_of_month
       ).where.not(checkout_time: nil)
 
-      total_dayss = relation.count
+      total_days = relation.count
       # Postgres: sum interval in seconds, then convert to hours
       seconds = relation.sum("EXTRACT(EPOCH FROM (checkout_time - checkin_time))") || 0
       total_hours = seconds.to_f / 3600.0
-      average_hours = total_dayss.zero? ? 0 : (total_hours / total_dayss)
+      average_hours = total_days.zero? ? 0 : (total_hours / total_days)
 
       {
-        total_dayss: total_dayss,
+        total_days: total_days,
         total_hours: total_hours,
         average_hours: average_hours
       }
