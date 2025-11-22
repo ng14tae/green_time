@@ -8,6 +8,9 @@ class CheckinoutRecord < ApplicationRecord
   validates :user_id, presence: true
   validate :checkout_after_checkin
 
+  # 最新の未チェックアウトレコードがある場合、新規チェックインを禁止
+  validate :no_concurrent_checkin, on: :create
+
   # スコープ
   scope :recent, -> { order(checkin_time: :desc) }
   scope :today, -> { where(checkin_time: Time.current.beginning_of_day..Time.current.end_of_day) }
@@ -48,6 +51,16 @@ class CheckinoutRecord < ApplicationRecord
 
     if checkout_time <= checkin_time
       errors.add(:checkout_time, "はチェックイン時刻より後である必要があります")
+    end
+  end
+
+  def no_concurrent_checkin
+    # 最新のレコードを取得（チェックアウト済みかどうか確認）
+    last_record = user.checkinout_records.order(checkin_time: :desc).limit(1).first
+    return unless last_record
+
+    if last_record.checkout_time.nil?
+      errors.add(:base, "前回のチェックアウトが完了していないため、チェックインできません")
     end
   end
 end

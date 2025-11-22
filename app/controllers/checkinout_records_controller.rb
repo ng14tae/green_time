@@ -6,24 +6,29 @@ class CheckinoutRecordsController < ApplicationController
   end
 
   def checkin
-    # 今日のチェックイン記録を探す
+    # 最新の未チェックアウトレコードを確認
     current_record = current_user.checkinout_records
                                 .where(checkout_time: nil)
-                                .where("DATE(checkin_time) = ?", Date.current)
+                                .order(checkin_time: :desc)
                                 .first
 
     if current_record.present?
-      # 今日のチェックインが既にある場合
       redirect_to checkin_path, notice: "既にチェックイン中です。まずチェックアウトしてください。"
-    else
-      # 新規チェックインを作成
-      @today_record = current_user.checkinout_records.create!(checkin_time: Time.current)
-      @notice_message = "チェックインしました"
+      return
     end
+
+    # 新規チェックインを作成
+    @today_record = current_user.checkinout_records.create(checkin_time: Time.current)
+
+    @notice_message = if @today_record.persisted?
+                        "チェックインしました"
+                      else
+                        @today_record.errors.full_messages.join(", ")
+                      end
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to checkin_path, notice: @notice_message } # HTMLでも対応
+      format.html { redirect_to checkin_path, notice: @notice_message }
     end
   end
 
