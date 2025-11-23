@@ -71,4 +71,4 @@ https://drive.google.com/file/d/11cEdUsBhc6pWWuzGJGsinwHReApQAppc/view?usp=shari
 
 
 ### 画面遷移図 （MVP段階）
-Figma：https://www.figma.com/design/VJUTI8TCANBkCnw2zwyZzZ/%E5%8D%92%E5%88%B6?node-id=0-1&p=f&t=qV9D5bVuMZfzqVXu-0
+https://www.figma.com/design/VJUTI8TCANBkCnw2zwyZzZ/%E5%8D%92%E5%88%B6?node-id=0-1&p=f&t=qV9D5bVuMZfzqVXu-0
