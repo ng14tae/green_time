@@ -1,23 +1,27 @@
 <%= turbo_stream.replace "checkin-section" do %>
     <div id="checkin-section">
+        <% if @current_record.present? %>
         <button class="btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-gray-400 text-gray-600" disabled>
-        チェックイン済み
+            チェックイン済み
         </button>
 
-            <!-- チェックアウトボタン -->
-            <div class="space-y-4 py-4">
+        <!-- チェックアウト・マイページボタン -->
+        <div class="space-y-4 py-4">
             <%= link_to checkout_path,
                     class: "btn btn-outline btn-accent btn-lg px-16 py-4 text-2xl shadow-lg w-full block" do %>
-                チェックアウト へ
-                <% end %>
+            チェックアウト へ
+            <% end %>
 
-                <!-- マイページボタン（アウトラインスタイル） -->
-                <%= link_to mypage_path,
-                    class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white/70 hover:border-white hover:text-orange-600 " do %>
-                マイページを見る
-                <% end %>
-            </div>
+            <%= link_to mypage_path,
+                    class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white/70 hover:border-white hover:text-orange-600" do %>
+            マイページを見る
+            <% end %>
         </div>
-    <% end %>
-
-
+        <% else %>
+        <%= form_with url: checkin_path, method: :post, data: { turbo_stream: true, turbo: true } do |f| %>
+            <%= f.submit "チェックイン", id: "checkin-button",
+                        class: "btn btn-success btn-lg px-16 py-4 text-2xl shadow-lg w-full mb-8" %>
+        <% end %>
+        <% end %>
+    </div>
+<% end %>
