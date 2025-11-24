@@ -1,28 +1,20 @@
 class CheckinoutRecordsController < ApplicationController
   def checkin_page
-    # 勤務中レコード（未チェックアウト）
+    # 未チェックアウトの最新レコード
     @current_record = current_user.checkinout_records
                                   .where(checkout_time: nil)
                                   .order(checkin_time: :desc)
                                   .first
 
-    # 今日新しくチェックインしている場合だけ today 表示に使う
-    @today_record =
-      if @current_record&.checkin_time&.to_date == Date.current
-        @current_record
-      else
-        nil
-      end
-
-    # ※ 夜勤の場合（昨日の記録）は @current_record はあるが @today_record は nil
-    # → ビュー側で “チェックイン済み” 表示、チェックインボタン無効
+    # 今日チェックインした場合だけ today 表示にセット
+    @today_record = @current_record if @current_record&.checkin_time&.to_date == Date.current
   end
 
   def checkin
-    ongoing = current_user.checkinout_records.where(checkout_time: nil).first
+    # 未チェックアウトレコードがあればチェックイン不可
+    ongoing = current_user.checkinout_records.where(checkout_time: nil).order(checkin_time: :desc).first
 
     if ongoing.present?
-      # Turbo用：チェックイン済み表示に戻す
       @today_record = ongoing if ongoing.checkin_time.to_date == Date.current
       respond_to do |format|
         format.turbo_stream
@@ -31,8 +23,9 @@ class CheckinoutRecordsController < ApplicationController
       return
     end
 
-    # チェックイン作成
-    @today_record = current_user.checkinout_records.create(checkin_time: Time.current)
+    # 新規チェックイン作成
+    @current_record = current_user.checkinout_records.create!(checkin_time: Time.current)
+    @today_record = @current_record if @current_record.checkin_time.to_date == Date.current
 
     respond_to do |format|
       format.turbo_stream
@@ -41,22 +34,19 @@ class CheckinoutRecordsController < ApplicationController
   end
 
   def checkout_page
-    # 今日の未チェックアウトの記録を取得
-    @today_record = current_user.checkinout_records
-                                .where(checkin_time: Time.zone.now.all_day, checkout_time: nil)
-                                .order(checkin_time: :desc)
-                                .first
+    # 未チェックアウトレコードがあればチェックアウト可能
+    @current_record = current_user.checkinout_records.where(checkout_time: nil).order(checkin_time: :desc).first
 
-    if @today_record.nil?
+    unless @current_record
       redirect_to checkin_path, notice: "チェックアウトできる記録がありません"
     end
   end
 
   def checkout
-    ongoing = current_user.checkinout_records.where(checkout_time: nil).first
+    ongoing = current_user.checkinout_records.where(checkout_time: nil).order(checkin_time: :desc).first
 
-    if ongoing.present?
-      ongoing.update(checkout_time: Time.current)
+    if ongoing
+      ongoing.update!(checkout_time: Time.current)
       redirect_to mypage_path, notice: "チェックアウトしました"
     else
       redirect_to checkin_path, notice: "チェックアウトできる記録がありません"
