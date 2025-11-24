@@ -33,14 +33,7 @@
                     show_comment_success: @current_record.mood&.comment.present? %>
 
             <%= form_with url: checkout_path, method: :patch, data: { turbo: false } do |f| %>
-                <%= f.submit "チェックアウト", class: "btn btn-lg w-full bg-primary text-white" %>
-            <% end %>
-
-            <% else %>
-            <p class="text-lg mt-8">チェックアウトできる記録がありません。</p>
-            <%= link_to checkin_path, class: "btn btn-success btn-lg w-full mt-4" do %>
-                チェックインページへ戻る
-            <% end %>
+                <%= f.submit "チェックアウト", class: "btn btn-primary btn-lg px-16 py-4 text-2xl shadow-lg w-full mt-8 mb-8" %>
             <% end %>
 
         </div>
