@@ -1,34 +1,42 @@
 class CheckinoutRecordsController < ApplicationController
   def checkin_page
-    # チェックイン専用ページ
-    @today_record = find_today_record
-    @current_record = current_user.checkinout_records.find_by(checkout_time: nil)
+    # 勤務中レコード（未チェックアウト）
+    @current_record = current_user.checkinout_records
+                                  .where(checkout_time: nil)
+                                  .order(checkin_time: :desc)
+                                  .first
+
+    # 今日新しくチェックインしている場合だけ today 表示に使う
+    @today_record =
+      if @current_record&.checkin_time&.to_date == Date.current
+        @current_record
+      else
+        nil
+      end
+
+    # ※ 夜勤の場合（昨日の記録）は @current_record はあるが @today_record は nil
+    # → ビュー側で “チェックイン済み” 表示、チェックインボタン無効
   end
 
   def checkin
-    # 最新の未チェックアウトレコードを確認
-    current_record = current_user.checkinout_records
-                                .where(checkout_time: nil)
-                                .order(checkin_time: :desc)
-                                .first
+    ongoing = current_user.checkinout_records.where(checkout_time: nil).first
 
-    if current_record.present?
-      redirect_to checkin_path, notice: "既にチェックイン中です。まずチェックアウトしてください。"
+    if ongoing.present?
+      # Turbo用：チェックイン済み表示に戻す
+      @today_record = ongoing if ongoing.checkin_time.to_date == Date.current
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to checkin_path, notice: "既にチェックイン中です。まずチェックアウトしてください。" }
+      end
       return
     end
 
-    # 新規チェックインを作成
+    # チェックイン作成
     @today_record = current_user.checkinout_records.create(checkin_time: Time.current)
-
-    @notice_message = if @today_record.persisted?
-                        "チェックインしました"
-                      else
-                        @today_record.errors.full_messages.join(", ")
-                      end
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to checkin_path, notice: @notice_message }
+      format.html { redirect_to checkin_path, notice: "チェックインしました" }
     end
   end
 
@@ -45,19 +53,14 @@ class CheckinoutRecordsController < ApplicationController
   end
 
   def checkout
-    current_record = current_user.checkinout_records
-                                  .where(checkout_time: nil)
-                                  .order(checkin_time: :desc)
-                                  .first
+    ongoing = current_user.checkinout_records.where(checkout_time: nil).first
 
-    if current_record
-      current_record.update(checkout_time: Time.current)
-      @notice_message = "チェックアウトしました"
+    if ongoing.present?
+      ongoing.update(checkout_time: Time.current)
+      redirect_to mypage_path, notice: "チェックアウトしました"
     else
-      @notice_message = "チェックアウトできる記録がありません"
+      redirect_to checkin_path, notice: "チェックアウトできる記録がありません"
     end
-
-    redirect_to mypage_path, notice: @notice_message
   end
 
 

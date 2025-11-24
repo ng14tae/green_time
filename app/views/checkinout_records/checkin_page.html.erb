@@ -62,19 +62,22 @@
 
 <!-- 緑ちゃんアニメーション -->
 <script>
-document.addEventListener('click', function(event) {
-    const button = event.target.closest('#checkin-button');
-    if (button) {
+    document.addEventListener('turbo:load', setupPochiEffect);
+    document.addEventListener('turbo:render', setupPochiEffect);
+
+    function setupPochiEffect() {
         const pochiImage = document.getElementById('pochi-image');
-        if (pochiImage) {
-        pochiImage.classList.add('pochi-mega-sparkle');
-        setTimeout(() => {
-            pochiImage.classList.remove('pochi-mega-sparkle');
-        }, 1000);
+        const button = document.getElementById('checkin-button');
+
+        if (button && pochiImage) {
+            button.addEventListener('click', () => {
+                pochiImage.classList.add('pochi-mega-sparkle');
+                setTimeout(() => {
+                    pochiImage.classList.remove('pochi-mega-sparkle');
+                }, 1000);
+            });
         }
     }
-});
-
 </script>
 
 <style>
@@ -171,9 +174,8 @@ document.addEventListener('click', function(event) {
         radial-gradient(circle at 35% 85%, rgba(0, 255, 255, 0.7) 1px, transparent 2px),
         radial-gradient(circle at 65% 85%, rgba(138, 43, 226, 0.7) 1px, transparent 2px);
 
-    animation: mega-sparkle-burst 1s ease-out
-animation: mega-sparkle-burst 1s ease-out 0.2s;
-}
+    animation: mega-sparkle-burst 1s ease-out 0.2s;
+    }
 
 /* 内側爆発アニメーション */
 @keyframes mega-sparkle-explosion {
