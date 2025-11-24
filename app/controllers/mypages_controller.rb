@@ -11,7 +11,7 @@ class MypagesController < ApplicationController
     @weekly_stats = CheckinoutStatsService.weekly_stats(current_user)
 
     # 今日の記録
-    @today_record = find_today_record
+    @today_status = detect_today_status
 
     # 最近の気分記録
     @recent_moods = if current_user.respond_to?(:moods)
@@ -23,10 +23,28 @@ class MypagesController < ApplicationController
 
   private
 
-  def find_today_record
-    current_user.checkinout_records.find_by(
-      checkin_time: Date.current.beginning_of_day..Date.current.end_of_day,
-      checkout_time: nil
-    )
+  def detect_today_status
+    ongoing = current_user.checkinout_records.where(checkout_time: nil)
+                                            .order(checkin_time: :desc)
+                                            .first
+
+    return { status: :ongoing, record: ongoing } if ongoing.present?
+
+    # 今日の活動を1秒でも含むレコードを探す
+    today_range = Time.current.beginning_of_day..Time.current.end_of_day
+
+    completed_today = current_user.checkinout_records
+                                  .where(
+                                    "(checkin_time <= ?) AND (checkout_time >= ?)",
+                                    today_range.end,
+                                    today_range.begin
+                                  )
+                                  .where.not(checkout_time: nil)
+                                  .order(checkout_time: :desc)
+                                  .first
+
+    return { status: :completed, record: completed_today } if completed_today
+
+    { status: :none }
   end
 end

@@ -6,29 +6,27 @@
         <div class="grid grid-cols-3 gap-3 sm:gap-4">
         <!-- 今日 -->
         <div class="flex flex-col items-center text-center">
-            <div class="text-xs sm:text-sm text-base-content/70 mb-1">今日</div>
+        <div class="text-xs sm:text-sm text-base-content/70 mb-1">今日</div>
 
-            <% if today_record %>
+        <% case @today_status[:status] %>
+        <% when :ongoing %>
+            <% record = @today_status[:record] %>
             <div class="text-lg sm:text-xl font-bold text-success mb-1">活動中</div>
             <div class="text-xs text-base-content/70">
-                <%= today_record.checkin_time.strftime("%H:%M") %>〜
+            <%= record.checkin_time.strftime("%H:%M") %>〜
             </div>
-            <% else %>
-            <% todays_completed = CheckinoutRecord.where(
-                user_id: current_user.id,
-                checkin_time: Time.current.beginning_of_day..Time.current.end_of_day
-            ).where.not(checkout_time: nil).first %>
 
-            <% if todays_completed %>
-                <div class="text-lg sm:text-xl font-bold text-info mb-1">完了</div>
-                <div class="text-xs text-base-content/70">
-                <%= sprintf("%.1fh", (todays_completed.checkout_time - todays_completed.checkin_time) / 3600.0) %>
-                </div>
-            <% else %>
-                <div class="text-lg sm:text-xl font-bold text-base-content/50">未活動</div>
-                <div class="text-xs text-base-content/50">-</div>
-            <% end %>
-            <% end %>
+        <% when :completed %>
+            <% record = @today_status[:record] %>
+            <div class="text-lg sm:text-xl font-bold text-info mb-1">完了</div>
+            <div class="text-xs text-base-content/70">
+            <%= sprintf("%.1fh", (record.checkout_time - record.checkin_time) / 3600.0) %>
+            </div>
+
+        <% else %>
+            <div class="text-lg sm:text-xl font-bold text-base-content/50">未活動</div>
+            <div class="text-xs text-base-content/50">-</div>
+        <% end %>
         </div>
 
         <!-- 今週 -->
