@@ -40,33 +40,29 @@ class CheckinoutRecordsController < ApplicationController
                                   .order(checkin_time: :desc)
                                   .first
 
-    unless @current_record
+    if @current_record.nil?
       redirect_to checkin_path, notice: "チェックアウトできる記録がありません"
-      return
     end
-
-    # 今日のチェックインとして表示する場合だけ @today_record にセット
-    @today_record = @current_record if @current_record.checkin_time.to_date == Date.current
   end
 
   def checkout
-    ongoing = current_user.checkinout_records
-                          .where(checkout_time: nil)
-                          .order(checkin_time: :desc)
-                          .first
+    @current_record = current_user.checkinout_records
+                                  .where(checkout_time: nil)
+                                  .order(checkin_time: :desc)
+                                  .first
 
-    if ongoing
-      ongoing.update!(checkout_time: Time.current)
+    if @current_record
+      @current_record.update!(checkout_time: Time.current)
 
-      # 今日のチェックインとして表示する場合だけ @today_record にセット
-      @current_record = ongoing
-      @today_record = ongoing if ongoing.checkin_time.to_date == Date.current
+      # 今日表示が必要な場合だけ today_record にセット
+      @today_record = @current_record if @current_record.checkin_time.to_date == Date.current
 
       redirect_to mypage_path, notice: "チェックアウトしました"
     else
       redirect_to checkin_path, notice: "チェックアウトできる記録がありません"
     end
   end
+
 
   private
 
