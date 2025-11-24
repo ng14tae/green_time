@@ -4,196 +4,59 @@
         <p class="text-xl mb-8">お疲れさまでした</p>
         <h1 class="text-5xl font-bold mb-5 fukidashi-02-01 mx-auto">Good Job!</h1>
 
+        <!-- 緑ちゃんブース -->
+        <%= image_tag "kuma.png", alt: "ポチ", class: "mx-auto w-48 h-48 object-contain" %>
+        <div class="max-w-md mb-8">
+            <p><%= current_plant_name %></p>
+        </div>
 
-        <!-- 緑ちゃんブース-->
-        <%= image_tag "kuma.png", alt: "ポチ", id: "pochi-image", class: "mx-auto w-48 h-48 object-contain" %>
-            <div class="max-w-md mb-8">
-                <p><%= current_plant_name %></p>
-            </div>
-
-        <div class="work-summary mb-8 bg-white/20 rounded-lg p-6">
-            <p class="text-lg">
-            <%= Date.current.strftime("%Y年%m月%d日 (%a)") %></p><br>
+        <% if @today_record %>
+            <div class="work-summary mb-8 bg-white/20 rounded-lg p-6">
+            <p class="text-lg"><%= Date.current.strftime("%Y年%m月%d日 (%a)") %></p><br>
             <p class="text-lg">現在時刻</p>
-            <p class="text-3xl font-mono" id="current-time">
-                <%= Time.current.strftime("%H:%M:%S") %></p><br>
+            <p class="text-3xl font-mono" id="current-time"><%= Time.current.strftime("%H:%M:%S") %></p><br>
 
             <p class="text-lg mb-2">チェックイン時刻</p>
             <p class="text-2xl font-mono mb-4"><%= @today_record.checkin_time.strftime("%H:%M") %></p>
 
             <p class="text-lg mb-2">活動時間</p>
-                <p class="text-3xl font-mono" id="working-time"
-                    data-checkin-time="<%= @today_record.checkin_time.in_time_zone('Asia/Tokyo').iso8601 %>">
-                    <%= time_diff(@today_record.checkin_time, Time.current) %>
-                </p>
-        </div>
+            <p class="text-3xl font-mono" id="working-time"
+                data-checkin-time="<%= @today_record.checkin_time.in_time_zone('Asia/Tokyo').iso8601 %>">
+                <%= time_diff(@today_record.checkin_time, Time.current) %>
+            </p>
+            </div>
 
             <!-- 気分チェッカー -->
             <div class="max-w-md mb-4">
             <div id="mood-checker">
                 <%= render 'checkinout_records/components/mood_checker',
-                        record: @today_record,
-                        show_mood_success: @today_record.mood&.feeling.present?,
-                        show_comment_success: @today_record.mood&.comment.present? %>
-            </div></div>
+                            record: @today_record,
+                            show_mood_success: @today_record.mood&.feeling.present?,
+                            show_comment_success: @today_record.mood&.comment.present? %>
+            </div>
+            </div>
 
             <div class="border-t border-gray-300 my-1"></div>
 
-        <!-- ボタンエリア -->
-        <div class="space-y-4 py-4 mt-4">
-        <!-- チェックアウトボタン -->
-        <%= form_with url: checkout_path, method: :patch, data: { turbo: false } do |f| %>
-        <%= f.submit "チェックアウト", id: "checkout-button",
-            class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-primary hover:bg-orange-900 text-error border-0" %>
-        <% end %>
+            <!-- ボタンエリア -->
+            <div class="space-y-4 py-4 mt-4">
+            <%= form_with url: checkout_path, method: :patch, data: { turbo: false } do |f| %>
+                <%= f.submit "チェックアウト", id: "checkout-button",
+                            class: "btn btn-lg px-16 py-4 text-2xl shadow-lg w-full bg-primary hover:bg-orange-900 text-error border-0" %>
+            <% end %>
 
-        <%= link_to mypage_path,
-            class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white/70 hover:border-white hover:text-orange-600 mb-8" do %>
-        マイページを見る
+            <%= link_to mypage_path,
+                class: "btn btn-outline btn-lg px-16 py-4 text-2xl shadow-lg w-full block border-white text-white hover:bg-white/70 hover:border-white hover:text-orange-600 mb-8" do %>
+                マイページを見る
+            <% end %>
+            </div>
+        <% else %>
+            <p class="text-lg mt-8">チェックアウトできる記録がありません。</p>
+            <%= link_to checkin_path,
+                class: "btn btn-success btn-lg px-16 py-4 text-2xl shadow-lg w-full mt-4" do %>
+            チェックインページへ戻る
+            <% end %>
         <% end %>
-        </div>
         </div>
     </div>
 </div>
-
-<!-- 緑ちゃんアニメーション -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.addEventListener('click', function(event) {
-        if (event.target.id === 'checkout-button') {
-            const pochiImage = document.getElementById('pochi-image');
-            if (pochiImage) {
-                // スパークル効果を追加
-                pochiImage.classList.add('pochi-sparkle');
-
-                // 0.8秒後にクラスを削除
-                setTimeout(function() {
-                    pochiImage.classList.remove('pochi-sparkle');
-                }, 800);
-            }
-        }
-    });
-});
-</script>
-
-<style>
-#pochi-image {
-    position: relative;
-    transition: all 0.6s ease;
-    border-radius: 50%;
-    overflow: hidden; /* 重要：画像からはみ出た効果を隠す */
-}
-
-/* スパークル効果のクラス */
-.pochi-sparkle {
-    transform: scale(1.05);
-    filter: brightness(1.3) saturate(1.2);
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-}
-
-.pochi-sparkle::before,
-.pochi-sparkle::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* 1つ目のスパークル層 */
-.pochi-sparkle::before {
-    background:
-        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.9) 2px, transparent 3px),
-        radial-gradient(circle at 75% 20%, rgba(255, 215, 0, 0.8) 1px, transparent 2px),
-        radial-gradient(circle at 20% 75%, rgba(255, 255, 255, 0.8) 2px, transparent 3px),
-        radial-gradient(circle at 80% 80%, rgba(255, 105, 180, 0.9) 1px, transparent 2px),
-        radial-gradient(circle at 50% 10%, rgba(0, 255, 255, 0.7) 1px, transparent 2px),
-        radial-gradient(circle at 10% 50%, rgba(255, 255, 255, 0.6) 1px, transparent 2px),
-        radial-gradient(circle at 90% 40%, rgba(255, 215, 0, 0.8) 2px, transparent 3px);
-    animation: sparkle-rotate 0.8s ease-out;
-}
-
-/* 2つ目のスパークル層（少し遅れて開始） */
-.pochi-sparkle::after {
-    background:
-        radial-gradient(circle at 60% 30%, rgba(255, 255, 255, 0.9) 1px, transparent 2px),
-        radial-gradient(circle at 30% 60%, rgba(255, 20, 147, 0.8) 2px, transparent 3px),
-        radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.7) 1px, transparent 2px),
-        radial-gradient(circle at 15% 85%, rgba(0, 191, 255, 0.8) 1px, transparent 2px),
-        radial-gradient(circle at 70% 70%, rgba(255, 215, 0, 0.9) 1px, transparent 2px),
-        radial-gradient(circle at 40% 15%, rgba(255, 255, 255, 0.8) 2px, transparent 3px);
-    animation: sparkle-rotate-reverse 0.8s ease-out 0.1s;
-}
-
-@keyframes sparkle-rotate {
-    0% {
-        opacity: 0;
-        transform: scale(0.5) rotate(0deg);
-    }
-    20% {
-        opacity: 1;
-        transform: scale(0.8) rotate(72deg);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.1) rotate(180deg);
-    }
-    80% {
-        opacity: 0.8;
-        transform: scale(1.3) rotate(288deg);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(1.5) rotate(360deg);
-    }
-}
-
-@keyframes sparkle-rotate-reverse {
-    0% {
-        opacity: 0;
-        transform: scale(0.3) rotate(360deg);
-    }
-    30% {
-        opacity: 1;
-        transform: scale(0.9) rotate(240deg);
-    }
-    60% {
-        opacity: 1;
-        transform: scale(1.2) rotate(120deg);
-    }
-    90% {
-        opacity: 0.6;
-        transform: scale(1.4) rotate(60deg);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(1.6) rotate(0deg);
-    }
-}
-
-.fukidashi-02-01 {
-    position: relative;
-    width: fit-content;
-    padding: 12px 20px;
-    color: #333333;
-    border-radius: 10px;
-    background-color: #ffffff;
-    }
-    .fukidashi-02-01::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    z-index: -1;
-    width: 20px;
-    height: 12px;
-    transform: translateX(-50%);
-    box-sizing: border-box;
-    background-color: #ffffff;
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-}
-</style>
