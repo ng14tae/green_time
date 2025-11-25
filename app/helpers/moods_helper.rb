@@ -7,9 +7,12 @@ module MoodsHelper
 
   # 円グラフ用
   def mood_data_for_pie(mood_counts)
-    mood_counts
-      .reject { |feeling, _| feeling.nil? }
-      .transform_keys { |feeling| FEELING_MAP[feeling][:label] || feeling }
+    FEELING_MAP.keys.map do |key|
+      [
+        FEELING_MAP[key][:label],
+        mood_counts[key].to_i
+      ]
+    end.to_h
   end
 
   # 折れ線グラフ用（数値）
