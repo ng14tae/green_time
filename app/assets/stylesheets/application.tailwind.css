@@ -11,3 +11,10 @@
 .mood-selected {
     @apply border-4 border-white;
 }
+
+@layer base {
+    header, footer {
+        margin: 0;
+        padding: 0;
+    }
+}
