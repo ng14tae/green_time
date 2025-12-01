@@ -1,7 +1,7 @@
 module ApplicationHelper
   def default_meta_tags
     {
-      site: "cheers_timer",
+      site: "cheers-timer",
       title: "簡単！活動時間記録アプリ",
       reverse: true,
       charset: "utf-8",
