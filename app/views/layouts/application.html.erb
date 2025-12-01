@@ -35,11 +35,10 @@
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   </head>
 
-  <body class="flex flex-col min-h-screen font-mplus">
+    <body class="flex flex-col min-h-screen font-mplus">
   <main class="flex-grow">
-
     <div data-controller="liff" data-liff-liff-id-value="<%= Rails.application.credentials.line[:liff_id] %>">
-    <%= yield %>
+      <%= yield %>
     </div>
   </main>
 
