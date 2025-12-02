@@ -24,7 +24,7 @@
         <!-- フッター -->
         <div class="text-center mt-2 sm:mt-3 py-6 sm:py-8 mb-10">
         <% if @today_record&.checkout_time.nil? %>
-            <p class="text-warning text-sm">まだまだ頑張ろう〜！💪</p>
+            <p class="text-error text-sm">まだまだ頑張ろう〜！💪</p>
         <% else %>
             <p class="text-error text-sm">💪 お疲れさまでした！えらい！</p>
         <% end %>
