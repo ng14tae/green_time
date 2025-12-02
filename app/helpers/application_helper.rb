@@ -27,8 +27,8 @@ module ApplicationHelper
   end
 
   def current_plant_name
-    return "MIDORI" unless user_signed_in?
+    return "Sunny" unless user_signed_in?
 
-    current_user.plant&.display_name || "MIDORI"
+    current_user.plant&.display_name || "Sunny"
   end
 end

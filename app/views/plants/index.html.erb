@@ -21,7 +21,7 @@
     <%= form_with model: @plant, local: true do |f| %>
         <div class="space-y-4">
         <%= f.text_field :plant_name,
-            placeholder: "新しい名前を入力（空白の場合：MIDORI）",
+            placeholder: "新しい名前を入力（空白の場合：Sunny）",
             class: "input input-bordered w-full max-w-xs" %>
 
         <%= f.submit "名前を変更", class: "btn btn-secondary" %>

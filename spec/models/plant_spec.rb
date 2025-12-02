@@ -16,9 +16,9 @@ RSpec.describe Plant, type: :model do
       expect(p.errors[:plant_name]).to be_present
     end
 
-    it '#display_name は plant_name がなければ MIDORI を返す' do
+    it '#display_name は plant_name がなければ Sunny を返す' do
       p = Plant.new(plant_name: nil)
-      expect(p.display_name).to eq 'MIDORI'
+      expect(p.display_name).to eq 'Sunny'
       p2 = Plant.new(plant_name: 'Greenie')
       expect(p2.display_name).to eq 'Greenie'
     end

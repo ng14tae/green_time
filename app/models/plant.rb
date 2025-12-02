@@ -3,6 +3,6 @@ class Plant < ApplicationRecord
   validates :plant_name, allow_blank: true, length: { maximum: 20 }
 
   def display_name
-    plant_name.presence || "MIDORI"
+    plant_name.presence || "Sunny"
   end
 end
