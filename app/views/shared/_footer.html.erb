@@ -1,35 +1,8 @@
-<div class="fixed bottom-0 left-0 w-full bg-secondary shadow-t z-50 opacity-100" style="padding-bottom: env(safe-area-inset-bottom);">
-    <nav class="flex bg-secondary">
-        <!-- チェックイン -->
-        <a href="<%= checkin_path %>" class="flex-1 flex flex-col items-center py-2 text-error hover:bg-secondary-focus active:bg-secondary-focus transition-colors">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        <span class="text-xs">チェックイン</span>
-        </a>
-
-    <!-- マイページ -->
-    <a href="<%= mypage_path %>" class="flex-1 flex flex-col items-center py-2 text-error hover:bg-secondary-focus active:bg-secondary-focus transition-colors">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-        </svg>
-        <span class="text-xs">マイページ</span>
-        </a>
-
-        <!-- 気分グラフ -->
-        <a href="<%= analytics_moods_path %>" class="flex-1 flex flex-col items-center py-2 text-error hover:bg-secondary-focus active:bg-secondary-focus transition-colors">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-        </svg>
-        <span class="text-xs">気分グラフ</span>
-        </a>
-
-        <!-- 使い方 -->
-        <a href="<%= how_to_use_path %>" class="flex-1 flex flex-col items-center py-2 text-error hover:bg-secondary-focus active:bg-secondary-focus transition-colors">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        <span class="text-xs">使い方</span>
-        </a>
-    </nav>
+<div class="w-full bg-yellow-100 text-gray-500 text-sm shadow-t z-50 opacity-100 px-10 pb-4 leading-loose">
+    <div class="border-t border-gray-300 mb-16"></div>
+    <%= image_tag "tittlelogo.png", alt: "タイトルロゴ", class: "w-44 mb-5" %>
+    <div><%= link_to "使い方", how_to_use_path %></div>
+    <div><%= link_to "お問い合わせ", contact_path %></div>
+    <div><%= link_to "利用規約", terms_path %></div>
+    <div><%= link_to "プライバシーポリシー", privacy_path %></div>
 </div>
