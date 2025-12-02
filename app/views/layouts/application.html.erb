@@ -35,8 +35,6 @@
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   </head>
 
-    <body class="bg-secondary">
-
     <body class="flex flex-col min-h-screen font-mplus">
     <main class="flex-grow">
     <div data-controller="liff" data-liff-liff-id-value="<%= Rails.application.credentials.line[:liff_id] %>">
@@ -44,7 +42,7 @@
     </div>
   </main>
 
-  <footer class="w-full pb-16">
+  <footer class="w-full pb-16 <%= yield(:footer_bg_color) || 'bg-yellow-100' %>">
     <%= render 'shared/footer' %>
     <%= render 'shared/footer_navigation' %>
   </footer>
