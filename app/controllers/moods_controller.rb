@@ -60,11 +60,6 @@ class MoodsController < ApplicationController
   end
 
   def analytics
-    if current_user.moods.empty?
-      redirect_to root_path, notice: "まずは気分を記録してみましょう！"
-      return
-    end
-
     # 円グラフ用
     @mood_counts = current_user.moods.group(:feeling).count
     @mood_counts_for_pie = helpers.mood_data_for_pie(@mood_counts)
