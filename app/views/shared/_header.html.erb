@@ -32,12 +32,7 @@
               <li><%= link_to "気分グラフ", analytics_moods_path %></li>
               <li><%= link_to "🌱ページ", plants_path %></li>
             <% end %>
-            <li class="border-t border-error my-1"></li>
-              <li><%= link_to "使い方", how_to_use_path %></li>
-              <li><%= link_to "お問い合わせ", contact_path %></li>
-              <li><%= link_to "利用規約", terms_path %></li>
-              <li><%= link_to "プライバシーポリシー", privacy_path %></li>
-              <li class="border-t my-2 border-error"></li>
+
             <% if user_signed_in? %>
               <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
             <% else %>
