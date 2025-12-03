@@ -7,14 +7,16 @@ export function drawMoodLineChart(labels, values) {
     const canvas = document.getElementById('mood-line-chart');
     if (!canvas) return;
 
-    const minWidth = 200;
-    const realWidth = Math.max(labels.length * 50, minWidth);
-    canvas.style.width = realWidth + "px";
-    canvas.width = realWidth;
-    canvas.height = 400;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    const minBarWidth = 50;        // 1データあたりの幅
+    const minTotalWidth = 300;     // データが少ない場合の最小キャンバス幅
+    const realWidth = Math.max(labels.length * minBarWidth, minTotalWidth);
+
+    canvas.width = realWidth;      // 内部描画幅
+    canvas.height = 400;
+    canvas.style.width = realWidth + "px"; // 表示幅
 
     if (window.moodChart) window.moodChart.destroy();
 
@@ -33,8 +35,7 @@ export function drawMoodLineChart(labels, values) {
             }]
         },
         options: {
-            responsive: true,           // 親要素に合わせて調整
-            maintainAspectRatio: false, // 高さを固定
+            responsive: false,
             plugins: {
                 tooltip: {
                     callbacks: {
