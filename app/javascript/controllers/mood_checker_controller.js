@@ -60,7 +60,7 @@ export default class extends Controller {
             setTimeout(() => {
               this.saveButtonTarget.textContent = "メモを更新する"
               this.saveButtonTarget.classList.remove('btn-success')
-            }, 2000)
+            }, 1500)
           }
         } else {
           const data = await response.json()
