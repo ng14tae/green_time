@@ -1,36 +1,19 @@
 <header class="bg-secondary shadow-sm sticky top-0 z-50">
   <div class="navbar max-w-7xl mx-auto">
     <div class="navbar-start">
-      <%= link_to root_path, class: "inline-block transition duration-200 hover:scale-105" do %>
-      <%= image_tag "timer-logo2.png", alt: "砂時計",
-          class: "w-10 h-10 object-contain mx-auto" %>
+      <%= link_to root_path, class: "inline-block transition duration-200 hover:scale-105 px-2" do %>
+      <%= image_tag "tittlelogo-2.png", alt: "砂時計",
+          class: "w-60 object-contain mx-auto" %>
     <% end %>
     </div>
 
-    <div class="navbar-center">
+    <div class="navbar-end">
       <% if logged_in_line? %>
         <div class="user-info">
           <%= current_user.display_name %>の活動記録
         </div>
       <% end %>
     </div>
-    <div class="navbar-end">
-      <div class="dropdown dropdown-end">
-        <!-- ハンバーガーボタン -->
-        <div tabindex="0" role="button" class="btn btn-ghost btn-square text-error">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </div>
-        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg border border-base-200 text-neutral">
-          <li><%= link_to "マイページ", mypage_path %></li>
-              <li><%= link_to "チェックイン", checkin_path,
-                            class: "menu-item flex items-center px-4 py-2" %></li>
-              <li><%= link_to "チェックアウト", checkout_path %></li>
-              <li><%= link_to "気分グラフ", analytics_moods_path %></li>
-              <li><%= link_to "🌱ページ", plants_path %></li>
-        </ul>
-      </div>
-    </div>
+
   </div>
 </header>
