@@ -39,21 +39,7 @@
                 <% end %>
             </div>
 
-            <div id="checkin-section" class="mb-8">
-            <% if @current_record.present? %>
-                <!-- チェックイン済み -->
-                <button class="btn btn-lg w-full bg-gray-400 text-gray-600" disabled>
-                チェックイン済み
-                </button>
-            <% else %>
-                <!-- 未チェックイン -->
-                <%= form_with url: checkin_path, method: :post, data: { turbo_stream: true, turbo: true } do |f| %>
-                <%= f.submit "チェックイン", id: "checkin-button",
-                            class: "btn btn-success btn-lg px-16 py-4 text-2xl shadow-lg w-full mb-8" %>
-                <% end %>
-            <% end %>
-            </div>
-
+            <%= render "checkinout_records/components/checkin_section" %>
         </div>
     </div>
 </div>
