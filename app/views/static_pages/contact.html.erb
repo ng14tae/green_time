@@ -1,5 +1,6 @@
 <% content_for :footer_bg_color, 'bg-yellow-100' %>
-    <div class="bg-yellow-100 shadow-md p-6 mb-8">
+<div class="min-h-screen bg-yellow-100">
+    <div class="shadow-md p-6">
     <h1 class="text-3xl font-bold mt-8 mb-8 text-center ">お問い合わせ</h1>
 
         <p class="text-error mb-6 text-center">
@@ -13,42 +14,42 @@
         をご利用ください。
         </p>
 
-    <!-- よくある質問 -->
-    <div class="container mx-auto px-2 py-12 max-w-4xl">
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl font-semibold mb-6 text-center">よくある質問</h2>
+        <!-- よくある質問 -->
+        <div class="container mx-auto px-2 py-12 max-w-4xl">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold mb-6 text-center">よくある質問</h2>
 
-            <div class="border-b pb-8">
-                <h3 class="font-semibold text-gray-800 mb-2">Q. データを編集・削除できますか？</h3>
-                <p class="text-gray-700">
-                A. cheers-timerは保守性を大切にする観点からデータの編集や削除はできません。<br>
-                    仮に間違えてしまった場合、当日や翌日の「気分メモ」欄に記入するなどご自身でのご対応をお願いしております。
-                </p>
-            </div>
+                <div class="border-b pb-8">
+                    <h3 class="font-semibold text-gray-800 mb-2">Q. データを編集・削除できますか？</h3>
+                    <p class="text-gray-700">
+                    A. cheers-timerは保守性を大切にする観点からデータの編集や削除はできません。<br>
+                        仮に間違えてしまった場合、当日や翌日の「気分メモ」欄に記入するなどご自身でのご対応をお願いしております。
+                    </p>
+                </div>
 
-            <div class="py-8">
-                <h3 class="font-semibold text-gray-800 mb-2">Q. PCでも利用できますか？</h3>
-                <p class="text-gray-700">
-                A. いいえ。本アプリはLINE IDと連携して会員情報を取得している関係上、スマホLINE内ブラウザでのみご利用いただけます。
-            </div>
+                <div class="py-8">
+                    <h3 class="font-semibold text-gray-800 mb-2">Q. PCでも利用できますか？</h3>
+                    <p class="text-gray-700">
+                    A. いいえ。本アプリはLINE IDと連携して会員情報を取得している関係上、スマホLINE内ブラウザでのみご利用いただけます。
+                </div>
 
-            <div class="py-8">
-                <h3 class="font-semibold text-gray-800 mb-2">Q. 有料ですか？</h3>
-                <p class="text-gray-700">
-                A. いいえ。本アプリは無料でご利用いただけます。
+                <div class="py-8">
+                    <h3 class="font-semibold text-gray-800 mb-2">Q. 有料ですか？</h3>
+                    <p class="text-gray-700">
+                    A. いいえ。本アプリは無料でご利用いただけます。
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="mt-4 text-center">
-        <p class="text-gray-600 mb-8">
-        上記で解決しない場合は、<br>
-        <%= link_to "お問い合わせフォーム",
-        forms_custom_form_path,
-        target: "_blank",
-        rel: "noopener",
-        class: "link link-primary" %><br>
-        までご連絡ください。
-        </p>
+        <div class="mt-4 text-center">
+            <p class="text-gray-60 mb-8">
+            上記で解決しない場合は、<br>
+            <%= link_to "お問い合わせフォーム",
+            forms_custom_form_path,
+            target: "_blank",
+            rel: "noopener",
+            class: "link link-primary" %>までご連絡ください。
+            </p>
+        </div>
     </div>
 </div>
