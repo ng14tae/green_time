@@ -7,10 +7,11 @@ export function drawMoodLineChart(labels, values) {
     const canvas = document.getElementById('mood-line-chart');
     if (!canvas) return;
 
-    const realWidth = labels.length * 50;
-    canvas.style.width = realWidth + "px";  // CSS 表示幅
-    canvas.width = realWidth;               // 内部描画幅（必須）
-    canvas.height = 400;                    // 内部高さ
+    const minWidth = 200;
+    const realWidth = Math.max(labels.length * 50, minWidth);
+    canvas.style.width = realWidth + "px";
+    canvas.width = realWidth;
+    canvas.height = 400;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -32,7 +33,8 @@ export function drawMoodLineChart(labels, values) {
             }]
         },
         options: {
-            responsive: false,
+            responsive: true,           // 親要素に合わせて調整
+            maintainAspectRatio: false, // 高さを固定
             plugins: {
                 tooltip: {
                     callbacks: {
