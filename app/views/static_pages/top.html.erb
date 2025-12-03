@@ -1,30 +1,17 @@
 <% content_for :footer_bg_color, 'bg-yellow-100' %>
 <div class="hero min-h-screen bg-yellow-100">
-<div class="hero-content flex flex-col items-center justify-between text-center py-12">
+<div class="hero-content flex flex-col items-center justify-between text-center py-8">
     <div class="max-w-md">
-        <p class="text-lg leading-relaxed text-error mb-10 mt-6">
-        cheers_timerへようこそ🌼<br />
-        パートナーの観葉植物が<br />
-        あなたを応援します🌱<br />
-        「Cheers!」から<br />
-        今日も一日を始めましょう！
+        <p class="text-xl leading-relaxed text-error mb-10 mt-6">
+        簡単！活動時間記録アプリ<br>
+        cheers_timerへようこそ🌼<br>
+        パートナーの観葉植物が<br>
+        頑張るあなたを応援します🌱<br>
         </p>
 
-        <!-- タイトル -->
-        <%= link_to checkin_path, class: "inline-block transition duration-200 hover:scale-105" do %>
-            <h3 class="text-4xl pt-2 text-primary mx-auto fukidashi-02-01 tracking-wide">Cheers!</h3>
-        <% end %>
+        <div class="border-t border-gray-300 mb-4"></div>
 
-        <!-- メイン画像 -->
-        <%= image_tag "kuma-toumei.png", alt: "ポチ", id: "pochi-image",
-            class: "w-64 h-64 object-contain mx-auto mt-0 mb-0" %>
-    </div>
-
-        <!-- 使い方パート -->
-        <h1 class="text-3xl font-bold mt-12 text-center text-accent">cheers-timer</h1>
-        <p class="text-accent text-xl text-center mb-5">の使い方</p>
-
-        <p class="text-error text-center mb-8">
+        <p class="text-error text-s mb-8">
         カジュアルに感謝を伝える<br />
         あいさつ「Cheers !」<br />
         「今日も顔を見せてくれてありがとう」<br />
@@ -37,72 +24,16 @@
         今日も元気をお届けします！
         </p>
 
-        <div class="space-y-12 max-w-xl mx-auto">
+        <!-- タイトル -->
+        <p class="text-xs mb-2">↓はじめにここクリック
+        </p>
+        <%= link_to how_to_use_path, class: "inline-block transition duration-200 hover:scale-105" do %>
+            <h3 class="text-4xl pt-2 text-primary mx-auto fukidashi-02-01 tracking-wide">Cheers!</h3>
+        <% end %>
 
-        <!-- チェックイン -->
-        <section class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl text-center font-semibold mb-4 text-success">🌼 チェックイン 🌼</h2>
-            <p class="text-gray-700 mb-4">
-            活動開始時間を記録します。
-            </p>
-            <ul class="list-disc list-inside text-gray-700 space-y-2">
-            <li>メニューから「チェックイン」を選択</li>
-            <li>「チェックイン」ボタンを押せば活動開始時刻が記録されます</li>
-            </ul>
-        </section>
-
-        <!-- チェックアウト -->
-        <section class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl text-center font-semibold mb-4 text-success">🌼 チェックアウト 🌼</h2>
-            <p class="text-gray-700 mb-4">
-            活動終了時にチェックアウトを行います。
-            </p>
-            <ul class="list-disc list-inside text-gray-700 space-y-2">
-            <li>チェックイン画面もしくはメニューから「チェックアウト」ボタンをクリック</li>
-            <li>「チェックアウト」ボタンを押せば活動終了時刻が記録されます</li>
-            <li>活動時間が自動で計算されます</li>
-            </ul>
-        </section>
-
-        <!-- 気分記録 -->
-        <section class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl text-center font-semibold mb-4 text-success">🌼 気分記録 🌼</h2>
-            <p class="text-error mb-4">
-            チェックイン後、その日の気分を記録できます。
-            </p>
-            <ul class="list-disc list-inside text-gray-700 space-y-2">
-            <li>良い・普通・悪いの3段階で評価</li>
-            <li>気分のメモも保存可能</li>
-            <li>気分の変化も確認できます</li>
-            </ul>
-        </section>
-
-        <!-- データ確認 -->
-        <section class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl text-center font-semibold mb-4 text-success">🌼 データの確認 🌼</h2>
-            <p class="text-gray-700 mb-4">
-            記録したデータの振り返れます。
-            </p>
-            <ul class="list-disc list-inside text-gray-700 space-y-2">
-            <li>マイページから過去の記録を一覧表示</li>
-            <li>気分の変化をグラフで確認</li>
-            <li>月別・週別での統計情報を表示</li>
-            </ul>
-        </section>
-
-        <!-- 緑ちゃんの名前 -->
-        <section class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl font-semibold mb-4 text-success">🌼 名前をつける 🌼</h2>
-            <p class="text-gray-700 mb-4">
-            一緒に過ごすパートナー（観葉植物）に名前をつけられます。
-            </p>
-            <ul class="list-disc list-inside text-gray-700 space-y-2">
-            <li>右上メニューの「🌱ページ」で名前変更ページを表示</li>
-            <li>パートナーの名前をつける</li>
-            <li>初期設定はSunny</li>
-            </ul>
-        </section>
-
+        <!-- メイン画像 -->
+        <%= image_tag "kuma-toumei.png", alt: "ポチ", id: "pochi-image",
+            class: "w-64 h-64 object-contain mx-auto mt-0 mb-0" %>
         </div>
     </div>
 </div>
