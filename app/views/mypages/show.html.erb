@@ -23,12 +23,21 @@
 
         <!-- フッター -->
         <div class="text-center mt-2 sm:mt-3 py-6 sm:py-8 mb-10">
-        <% if @current_record.present? %>
+
+        <% case @today_status[:status] %>
+        <% when :ongoing %>
+            <% record = @today_status[:record] %>
             <p class="text-error text-sm">まだまだ頑張ろう〜！💪</p>
-        <% else %>
+
+        <% when :completed %>
+            <% record = @today_status[:record] %>
             <p class="text-error text-sm">💪 お疲れさまでした！えらい！</p>
+
+        <% else %>
+            <p class="text-error text-sm">今日もあなたが笑顔で過ごせますように。</p>
         <% end %>
         </div>
+
     </div>
 </div>
 
