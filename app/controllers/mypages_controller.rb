@@ -12,6 +12,9 @@ class MypagesController < ApplicationController
 
     # 今日の記録
     @today_status = detect_today_status
+    # ビューで従来の `@today_record` を参照している箇所があるため、
+    # 継続中(ongoing) の場合のみ `@today_record` をセットする
+    @today_record = @today_status[:record] if @today_status[:status] == :ongoing
 
     # 最近の気分記録
     @recent_moods = if current_user.respond_to?(:moods)
