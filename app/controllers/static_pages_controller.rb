@@ -17,4 +17,8 @@ class StaticPagesController < ApplicationController
   def privacy
     # プライバシーポリシーページ
   end
+
+  def remove
+    # ID連携解除ページ
+  end
 end

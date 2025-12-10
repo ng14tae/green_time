@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get "terms", to: "static_pages#terms"
   get "contact", to: "static_pages#contact"
   get "privacy", to: "static_pages#privacy"
+  get "remove", to: "static_pages#remove"
 
   # google form用
   get "forms/custom_form", to: "forms#custom_form"
