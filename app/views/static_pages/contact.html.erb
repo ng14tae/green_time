@@ -27,16 +27,24 @@
                     </p>
                 </div>
 
-                <div class="py-8">
+                <div class="border-b py-8">
                     <h3 class="font-semibold text-gray-800 mb-2">Q. PCでも利用できますか？</h3>
                     <p class="text-gray-700">
                     A. いいえ。本アプリはLINE IDと連携して会員情報を取得している関係上、スマホLINE内ブラウザでのみご利用いただけます。
                 </div>
 
-                <div class="py-8">
+                <div class="border-b py-8">
                     <h3 class="font-semibold text-gray-800 mb-2">Q. 有料ですか？</h3>
                     <p class="text-gray-700">
                     A. いいえ。本アプリは無料でご利用いただけます。
+                </div>
+
+                <div class="border-b py-8">
+                    <h3 class="font-semibold text-gray-800 mb-2">Q. LINE ID連携は解除できますか？</h3>
+                    <p class="text-gray-700">
+                    A.はい。可能です。
+                    <%= link_to "こちら", remove_path,
+                        class: "text-primary underline hover:text-secondary" %>をご参照くださいませ。
                 </div>
             </div>
         </div>
