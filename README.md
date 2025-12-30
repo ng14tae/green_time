@@ -1,5 +1,6 @@
-# 簡単！活動時間記録アプリ「cheers-timer」
-<img src="2025-11-21-12-53-41.png" width="500">
+簡単！活動時間記録アプリ「cheers-timer」
+<br><br>
+<img width="500" alt="リッチメニューtimer" src="https://github.com/user-attachments/assets/3c325c2c-83c1-4221-9062-7d05b46d6b32" />
 
 <br><br>
 
